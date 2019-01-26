@@ -5,14 +5,24 @@ const
   fs = require('fs-extra'),
   webpack = require('webpack')
 
-let plugins = [
-  new webpack.SourceMapDevToolPlugin({
-    filename: '[file].map'
-  }),
-]
-
-const env = process.env.NODE_ENV
-console.info('WEBPACK_ENV: ', env)
+const
+  HtmlWebpackPlugin = require('html-webpack-plugin'),
+  MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+  { VueLoaderPlugin } = require('vue-loader'),
+  plugins = [
+    new HtmlWebpackPlugin({
+      title: 'Horrible Nyaa MAL',
+      template: './src/renderer/index.html',
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
+    new VueLoaderPlugin(),
+  ]
 
 module.exports = [{
   name: 'renderer',
@@ -47,6 +57,18 @@ module.exports = [{
         test: /\.vue$/,
         loader: 'vue-loader',
       },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
+          'css-loader'
+        ]
+      }
     ]
   },
   plugins,

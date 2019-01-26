@@ -7,11 +7,21 @@ const
   { app, BrowserWindow, ipcMain, Tray, Menu, globalShortcut } = require('electron')
 let
   w, // BrowserWindow
-  tray,
-  API = require('../renderer/api')
+  tray
+// API = require('../renderer/api')
+
+function showHideWindow() {
+  if (w.isVisible())
+    w.hide()
+  else {
+    w.show()
+    w.focus()
+  }
+}
 
 
 app.commandLine.appendSwitch('ignore-gpu-blacklist')
+
 
 // nani sore? 
 // app.dock.hide()
@@ -20,14 +30,16 @@ app.on('activate', () => w === null && createWindow())
 app.on('window-all-closed', () => process.platform !== 'darwin' && app.quit())
 
 app.once('ready', () => {
-  app.makeSingleInstance(() => { })
+  // app.makeSingleInstance(() => { })
+  globalShortcut.register('CommandOrControl+Shift+Y', () => {
+    showHideWindow()
+  })
 
   /**
    * debug abit
    */
   console.info('__dirname: ', __dirname)
-  console.info('path: ', path.join('resources/icons/tray', 'electron-icon.png'))
-  console.info('appData: ', app.getPath('appData'))
+  // console.info('appData: ', app.getPath('appData'))
 
   setupTray()
   createWindow()
@@ -39,7 +51,7 @@ function createWindow() {
     center: false,
     autoHideMenuBar: true,
     scrollBounce: true,
-    icon: path.resolve(__dirname, 'resources/icons/png/256x256.png'),
+    icon: path.resolve(__dirname, '../../resources/icons/png/256x256.png'),
     webPreferences: {
       backgroundThrottling: false,
     },
@@ -52,7 +64,7 @@ function createWindow() {
   w = new BrowserWindow(wOptions)
 
   w.loadURL(url.format({
-    pathname: path.join(__dirname, 'build/index.html'),
+    pathname: path.resolve(__dirname, '../../build/renderer/index.html'),
     protocol: 'file:',
     slashes: true,
   }))
@@ -66,8 +78,8 @@ function createWindow() {
     w.focus()
   })
 
-  function saveWindowPosition() {
-    console.info('saveWindowPosition STUB, w.getBounds(): ', w.getBounds())
+  function saveWindowPosition(e) {
+    // console.info('saveWindowPosition STUB, w.getBounds(): ', w.getBounds())
   }
 
   if (process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase().startsWith('dev'))
@@ -78,29 +90,20 @@ function setupTray() {
   /**
    * Setup Tray icon and TrayMenu
    */
-  tray = new Tray(path.join(__dirname, 'resources/icons/tray', 'electron-icon.png'))
+  tray = new Tray(path.resolve(__dirname, '../../resources/icons/tray', 'electron-icon.png'))
 
   // TODO: possibly register all events in one space-separated string
-  tray.on('click', toggleWindow)
-  tray.on('right-click', toggleWindow)
-  tray.on('double-click', toggleWindow)
+  tray.on('click', showHideWindow)
+  tray.on('right-click', showHideWindow)
+  tray.on('double-click', showHideWindow)
   tray.on('mouse-move', mouseMove => console.info('mouseMove: ', mouseMove))
-
-  function toggleWindow() {
-    if (w.isVisible())
-      w.hide()
-    else {
-      w.show()
-      w.focus()
-    }
-  }
 
   tray.setToolTip('Nyaa!:3')
   tray.setContextMenu(Menu.buildFromTemplate([
     {
       label: 'Show/Hide',
       type: 'normal',
-      click: toggleWindow
+      click: showHideWindow
     },
     { type: 'separator' },
     { label: 'Update in background', type: 'checkbox', checked: true },

@@ -1,0 +1,71 @@
+{
+  "name": "horrible-nyaa-mal",
+  "version": "2.0.0",
+  "license": "Apache-2.0",
+  "description": "Horrible Nyaa MAL",
+  "author": "Mega <Aza.Noriega@gmail.com>",
+  "homepage": "https://bitbucket.org/Megga/horrible-nyaa-mal#readme",
+  "main": "src/main/index.js",
+  "scripts": {
+    "app": "electron .",
+    "build": "./node_modules/.bin/webpack",
+    "watch": "./node_modules/.bin/webpack -w",
+    "package:linux": "electron-packager ./ HorribleNyaaMAL --platform=linux --arch=x64 --overwrite --extra-resource='resources' --out='build'"
+  },
+  "build": {
+    "appId": "org.AzaNoriega.HorribleNyaaMAL",
+    "productName": "Horrible Nyaa MAL",
+    "files": [
+      "main.js",
+      "api.js",
+      "src/**/*"
+    ],
+    "directories": {
+      "output": "build"
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "icon": "resources/icons/png/icon.png",
+      "category": "Science"
+    },
+    "win": {
+      "icon": "resources/icons/win/icon.ico",
+      "target": "portable"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/Megga/horrible-nyaa-mal.git"
+  },
+  "keywords": [
+    "nyaa",
+    "nyaa.si",
+    "torrent",
+    "ongoing",
+    "myanimelist",
+    "mal",
+    "horriblesubs"
+  ],
+  "bugs": {
+    "url": "https://bitbucket.org/Megga/horrible-nyaa-mal/issues"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.1"
+  },
+  "devDependencies": {
+    "css-loader": "*",
+    "electron": "^4.x.x",
+    "electron-packager": "^13.0.1",
+    "file-loader": "*",
+    "style-loader": "*",
+    "url-loader": "*",
+    "vue": "^2.5.22",
+    "vue-loader": "*",
+    "vue-router": "^3.0.2",
+    "vue-style-loader": "*",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  }
+}

@@ -8,6 +8,7 @@
   "main": "src/main/index.js",
   "scripts": {
     "app": "electron .",
+    "dev": "NODE_ENV=development electron .",
     "build": "./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
     "package:linux": "electron-packager ./ HorribleNyaaMAL --platform=linux --arch=x64 --overwrite --extra-resource='resources' --out='build'"
@@ -59,6 +60,7 @@
   "devDependencies": {
     "css-loader": "*",
     "electron": "^4.x.x",
+    "electron-devtools-installer": "^2.2.4",
     "electron-packager": "^13.0.1",
     "file-loader": "*",
     "html-webpack-plugin": "^4.0.0-beta.5",

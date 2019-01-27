@@ -1,17 +1,23 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
+import router from './router'
+import store from './store'
+import App from './components/App.vue'
+
+
+// install plugins
+import AntDesignFramework from './plugins/ant-design-vue.plugin.js'
+import css from './styles/index.css'
+
+
+
+import electron from 'electron'
+Vue.prototype.$electron = electron
 
 Vue.config.productionTip = false
 
-Vue.use(Vuex)
-Vue.use(Antd)
-
-import App from './App.vue'
-
 new Vue({
-  el: '#app',
+  router,
+  store,
   components: { App },
-  template: '<App/>',
-})
+  render: (h) => h(App),
+}).$mount('#app')

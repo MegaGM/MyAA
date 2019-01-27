@@ -105,7 +105,8 @@ function setupTray() {
   /**
    * Setup Tray icon and TrayMenu
    */
-  tray = new Tray(path.resolve(__dirname, '../../resources/icons/tray', 'electron-icon.png'))
+  // tray = new Tray(path.resolve(__dirname, '../../resources/icons/tray', 'electron-icon.png'))
+  tray = new Tray(path.resolve(__dirname, '../../resources/icons/tray/lock-1.png'))
 
   // TODO: possibly register all events in one space-separated string
   tray.on('click', showHideWindow)
@@ -135,11 +136,11 @@ function devSetup() {
     /**
      * Extensions
      */
-    const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
-    installExtension(VUEJS_DEVTOOLS)
-    BrowserWindow.removeDevToolsExtension('Lubuntu Scrollbars')
-    const installedExtensions = BrowserWindow.getDevToolsExtensions()
-    console.info('installedExtensions: ', installedExtensions)
+    // const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
+    // installExtension(VUEJS_DEVTOOLS)
+    // BrowserWindow.removeDevToolsExtension('Lubuntu Scrollbars')
+    // const installedExtensions = BrowserWindow.getDevToolsExtensions()
+    // console.info('installedExtensions: ', installedExtensions)
   }
 
   w.webContents.openDevTools()

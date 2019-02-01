@@ -12,6 +12,8 @@ if (!global.config || typeof global.config.getLogger !== 'function') {
 } else
   log = config.getLogger('modules/cycle')
 
+Promise.delay = Promise.delay || (ms => new Promise(resolve => setTimeout(resolve, ms)))
+
 if (!global.H)
   global.H = { now: () => new Date().getTime() }
 
@@ -19,7 +21,6 @@ if (!global.H)
  * we're okay now, let's start actual work
  */
 const
-  Promise = require('bluebird'),
   math = require('mathjs'),
   cron = require('cron')
 

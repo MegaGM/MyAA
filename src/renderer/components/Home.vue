@@ -49,7 +49,6 @@
 
 
 <script>
-import mockdata from '../mockdata.json'
 import { ipcRenderer } from 'electron'
 
 
@@ -99,20 +98,6 @@ export default {
       console.info('ignoreEpisode closest: ', closest)
       ipcRenderer.send('ignoreEpisode')
     },
-    sortMalEntries() {
-      const withNewEpisodesOnly_descByLex = this.MalEntries
-        .filter(MalEntry => MalEntry.newEpisodes.length)
-        .sort((a, b) => a.title.localeCompare(b.title))
-
-      const withoutNewEpisodesOnly_descByLex = this.MalEntries
-        .filter(MalEntry => !MalEntry.newEpisodes.length)
-        .sort((a, b) => a.title.localeCompare(b.title))
-
-      this.MalEntries = [
-        ...withNewEpisodesOnly_descByLex,
-        ...withoutNewEpisodesOnly_descByLex,
-      ]
-    },
     forceMalEntryToBeUpdated(title) {
       ipcRenderer.send('forceMalEntryToBeUpdated', title)
     },
@@ -154,7 +139,7 @@ export default {
       console.info('downloadedEpisodes: ', downloadedEpisodes)
       this.downloadedEpisodes = downloadedEpisodes
     })
-    this.requestDownloadedEpisodes()
+    // this.requestDownloadedEpisodes()
 
     ipcRenderer.on('MalEntries', (event, MalEntries) => {
       console.info('MalEntries: ', MalEntries)
@@ -164,7 +149,7 @@ export default {
        */
       this.injectNewEpisodesToMalEntries()
     })
-    this.requestMalEntries()
+    // this.requestMalEntries()
 
     ipcRenderer.on('update', (event, update) => {
       this.applyUpdate(update)
@@ -176,7 +161,7 @@ export default {
 
       this.injectNewEpisodesToMalEntries()
     })
-    this.requestUpdates()
+    // this.requestUpdates()
   },
 }
 </script> 

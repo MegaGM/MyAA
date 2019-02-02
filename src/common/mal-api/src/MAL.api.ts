@@ -31,6 +31,7 @@ type updateProgressOptions = {
   newEpisodeNumber: number
   MalEntry: MalEntry
 }
+
 export async function updateProgress(options: updateProgressOptions): Promise<MalEntry> {
   const { newEpisodeNumber, MalEntry } = options
   return getBrowser()

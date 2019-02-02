@@ -37,6 +37,7 @@ module.exports = [
     target: 'electron-renderer',
     node: {
       fs: true,
+      // ws: 'empty',
       __dirname: true,
       __filename: true,
     },

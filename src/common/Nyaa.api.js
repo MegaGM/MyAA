@@ -100,6 +100,7 @@ class NyaaAPI {
     const pingURL = async mirrorURL => {
       try {
         const res = await axios.get(`https://${mirrorURL}/download/${OverlordIIIEp10}.torrent`, { timeout: 2500 })
+        console.info('getValidURL', res.status, 'for', mirrorURL)
         if (!this.validURL)
           this.validURL = mirrorURL
       } catch (err) {

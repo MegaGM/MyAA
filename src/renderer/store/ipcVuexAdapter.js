@@ -7,9 +7,10 @@ export default function init() {
     /**
      * Receive state changes from client
      */
-    ipcRenderer.on(eventName, (event, mutation) => {
-      console.info('mutation', mutation.type)
-      store.commit(mutation)
+    ipcRenderer.on(eventName, (event, { type, payload }) => {
+      // if (mutation.type === 'MalEntries')
+      //   console.info('mutation', mutation)
+      store.commit(type, payload)
     })
 
     /**

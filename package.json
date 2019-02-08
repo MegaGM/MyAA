@@ -1,8 +1,8 @@
 {
-  "name": "horrible-nyaa-mal",
+  "name": "myaa",
   "version": "2.2.0",
   "license": "Apache-2.0",
-  "description": "Horrible Nyaa MAL",
+  "description": "My Anime Assistant for MAL and Nyaa.si",
   "author": "Mega <Aza.Noriega@gmail.com>",
   "homepage": "https://bitbucket.org/Megga/horrible-nyaa-mal#readme",
   "main": "src/main/index.js",
@@ -14,8 +14,8 @@
     "package:linux": "electron-packager ./ HorribleNyaaMAL --platform=linux --arch=x64 --overwrite --extra-resource='resources' --out='build'"
   },
   "build": {
-    "appId": "org.AzaNoriega.HorribleNyaaMAL",
-    "productName": "Horrible Nyaa MAL",
+    "appId": "org.AzaNoriega.MyAA",
+    "productName": "My Anime Assistant",
     "files": [
       "main.js",
       "api.js",

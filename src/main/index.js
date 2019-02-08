@@ -1,13 +1,14 @@
 'use strict'
 global.BUILD_TARGET = 'electron-main'
 global.UPDATE_IN_BACKGROUND = true
+global.REMOVE_FILES_WHEN_DONE = false
 
 const
   { app, globalShortcut } = require('electron'),
   { setupDevelopmentEnv } = require('./development.js'),
   { createWindow, showHideWindow, ensureSingleInstance } = require('./windowManagement.js'),
   { createTray } = require('./tray.js'),
-  { createStore } = require('./store'),
+  { getOrCreateStore } = require('./store'),
   { setupAPI } = require('./mainAPI.js'),
   { setupFileWatcher } = require('./fileWatcher.js'),
   qCycle = require('../common/qCycle.portable.js'),
@@ -38,18 +39,12 @@ function main() {
     // TODO: change order tray/window
 
     w = await createWindow()
-    tray = createTray({ w })
-    store = createStore({ w })
-
-    setupAPI()
     setupDevelopmentEnv({ w })
-    setupFileWatcher({ store })
+    tray = createTray({ w })
+    store = getOrCreateStore({ w })
 
-    function test() {
-      let info = store.getters.LRU_MalEntry
-      console.info('info: ', info)
-    }
-    test()
+    setupAPI({ store })
+    setupFileWatcher({ store })
 
     cycle.setJob(job)
     cycle.start()
@@ -67,11 +62,13 @@ async function job() {
   const LRU_MalEntry = store.getters.LRU_MalEntry
   await store.dispatch('fetchNyaaEpisodesForMalEntry', LRU_MalEntry)
 
-  const r = store.getters.getNyaaEpisodeFileStatus({
-    title: 'Tensei Shitara Slime Datta Ken',
-    episodeNumber: 17,
-  })
-  console.info('r: ', r)
+
+  // const r = store.getters.getNyaaEpisodeFileStatus({
+  //   title: 'Tensei Shitara Slime Datta Ken',
+  //   episodeNumber: 17,
+  // })
+  // console.info('r: ', r)
+
   // console.info('store.state.files.ongoings: ', store.state.files.ongoings)
   // console.info('store.state.files.done: ', store.state.files.done)
 }

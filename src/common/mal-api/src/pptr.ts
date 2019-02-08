@@ -1,14 +1,26 @@
 'use strict'
 
+let browser: Browser
 import axios from 'axios'
 import puppeteer, { Browser } from 'puppeteer'
 
-export async function getBrowser(): Promise<Browser> {
-  let browser = null
+declare module 'puppeteer/index' {
+  // expose a private variable
+  interface Browser {
+    _connection: {
+      _closed: boolean
+    }
+  }
+}
+
+
+export async function getConnectionToChrome(): Promise<Browser> {
+  if (browser && !browser._connection._closed)
+    return browser
 
   const endpoint = await findWSEndpoint()
   if (endpoint) {
-    browser = await puppeteer.connect({
+    browser = <Browser>await puppeteer.connect({
       browserWSEndpoint: endpoint,
       defaultViewport: {
         width: 1440,
@@ -16,7 +28,7 @@ export async function getBrowser(): Promise<Browser> {
       },
     })
   } else {
-    browser = await puppeteer.launch({
+    browser = <Browser>await puppeteer.launch({
       headless: false,
       devtools: false,
       defaultViewport: {
@@ -27,6 +39,9 @@ export async function getBrowser(): Promise<Browser> {
     })
   }
 
+  browser.on('disconnected', () => {
+    console.info('browser.on(disconnected) browser._connection._closed', browser._connection._closed)
+  })
   return browser
 }
 

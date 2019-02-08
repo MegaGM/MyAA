@@ -8,6 +8,7 @@ const state = {
   files: {
     ongoings: {},
     done: {},
+    toRemove: [],
   },
 }
 

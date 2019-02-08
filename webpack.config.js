@@ -12,7 +12,7 @@ const
   { VueLoaderPlugin } = require('vue-loader'),
   plugins = [
     new HtmlWebpackPlugin({
-      title: 'Horrible Nyaa MAL',
+      title: 'My Anime Assistant',
       template: './src/renderer/index.html',
     }),
     new webpack.SourceMapDevToolPlugin({

@@ -1,9 +1,9 @@
 'use strict'
 
 import fs from 'fs-extra'
-import { getBrowser } from './pptr'
-import { Browser, Page } from 'puppeteer'
-import { createSecureContext } from 'tls';
+import { getConnectionToChrome } from './pptr'
+import { Browser, Page, ElementHandle, ExecutionContext } from 'puppeteer'
+// import { createSecureContext } from 'tls';
 
 
 let isAuthenticated = false
@@ -14,7 +14,7 @@ const CREDENTIALS = {
 }
 
 export async function getCW() {
-  return getBrowser()
+  return getConnectionToChrome()
     .then(selectPage) // return about:blank page
     // .then(setCookies)
     .then(navigateToMAL)
@@ -24,30 +24,50 @@ export async function getCW() {
       // console.info('ongoings: ', ongoings)
       return ongoings
     })
+    .catch(async err => {
+      console.error('catched in MAL.getCW: ', err)
+      // return mocked ongoings array, not to break qCycled job
+      return []
+    })
 }
 
 
 type updateProgressOptions = {
+  MAL_ID?: number
+  MalEntry?: MalEntry
   newEpisodeNumber: number
-  MalEntry: MalEntry
 }
 
-export async function updateProgress(options: updateProgressOptions): Promise<MalEntry> {
-  const { newEpisodeNumber, MalEntry } = options
-  return getBrowser()
+export async function updateProgress({
+  MAL_ID,
+  MalEntry,
+  newEpisodeNumber,
+}: updateProgressOptions): Promise<boolean> {
+  if (!MAL_ID) {
+    if (MalEntry)
+      MAL_ID = MalEntry.MAL_ID
+    else
+      throw new RangeError('Invalid updateProgressOptions in MAL.updateProgress')
+  }
+
+  return await getConnectionToChrome()
     .then(selectPage)
     .then(navigateToMAL)
     .then(async page => {
-      const MAL_ID = MalEntry.href.replace(/https:\/\/myanimelist.net\/anime\/(\d+)\/.*/, '$1')
-
-      await page.click(`#epText${MAL_ID}`)
+      await page.$eval(`#epText${MAL_ID}`, click)
       await page.waitFor(500)
-      await page.click(`#epID${MAL_ID}`)
+      await page.$eval(`#epID${MAL_ID}`, click)
       await page.keyboard.type(newEpisodeNumber + '')
       await page.keyboard.press('Enter')
       await page.waitFor(1000)
-
-      return MalEntry
+    })
+    .then(() => {
+      console.info('MAL.updateProgress', { MAL_ID, newEpisodeNumber })
+      return true
+    })
+    .catch(err => {
+      console.error('MAL.updateProgress catched: ', err)
+      return false
     })
 }
 
@@ -59,22 +79,12 @@ export async function updateProgress(options: updateProgressOptions): Promise<Ma
 /**
  * components
  */
-function click(el: any) {
-  return el && el.click()
-}
-
-async function setCookies(page: Page) {
-  try {
-    const cookies = fs.readJsonSync('../cookies')
-    await page.setCookie(...cookies)
-  } catch (err) {
-    console.warn('No cookies!')
-  }
-
-  return page
+function click(el: Element) {
+  return el && (el as HTMLElement).click()
 }
 
 async function getFirstPage(browser: Browser) {
+  console.info('o: ', browser._connection._closed)
   return (await browser.pages())[0]
 }
 
@@ -93,6 +103,17 @@ async function selectPage(browser: Browser): Promise<Page> {
     selectedPage = await browser.newPage()
 
   return selectedPage
+}
+
+async function setCookies(page: Page) {
+  try {
+    const cookies = fs.readJsonSync('../cookies')
+    await page.setCookie(...cookies)
+  } catch (err) {
+    console.warn('[MAL API] No cookies to set! We\'ll bake new cookies after authentication.')
+  }
+
+  return page
 }
 
 async function navigateToMAL(page: Page) {
@@ -144,7 +165,17 @@ async function authenticateIfNeeded(page: Page) {
   return page
 }
 
+
+// declare global {
+//   interface Window {
+//     decorateOngoing(ongoing: any): MalEntry
+//   }
+// }
+
 async function scrapeOngoings(page: Page): Promise<MalEntry[]> {
+  // if (!(await page.evaluate(() => 'decorateOngoing' in window)))
+  //   page.exposeFunction('decorateOngoing', decorateOngoing)
+
   return page.$$eval('a.animetitle', (animetitles) => {
     return animetitles.map((at: HTMLAnchorElement | any) => {
       const
@@ -155,7 +186,18 @@ async function scrapeOngoings(page: Page): Promise<MalEntry[]> {
         progressRaw = tr.querySelector('td:nth-child(5)').innerText,
         fetchTime = new Date().getTime()
 
+
+      return decorateOngoing({
+        href,
+        title,
+        scoreRaw,
+        progressRaw,
+        fetchTime,
+      })
+
       function decorateOngoing(o: any): MalEntry {
+        o.MAL_ID = +o.href.replace(/https:\/\/myanimelist.net\/anime\/(\d+)\/.*/, '$1')
+
         o.title = o.title
           .replace(/ \(TV\)/, '')
           .replace(/[~!:]/g, '')
@@ -176,27 +218,19 @@ async function scrapeOngoings(page: Page): Promise<MalEntry[]> {
 
         return o
       }
-
-      return decorateOngoing({
-        href,
-        title,
-        scoreRaw,
-        progressRaw,
-        fetchTime,
-        newEpisodes: [],
-      })
     })
   })
 }
 
+
 interface MalEntry {
   title: string
   href: string
+  MAL_ID: number
   fetchTime: number
   progress: {
     current: number
     overall: number
   }
   score: number
-  newEpisodes?: []
 }

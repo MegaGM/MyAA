@@ -26,11 +26,11 @@ function ensureSingleInstance({ w }) {
     })
 }
 
-function showHideWindow({ w }) {
+function showHideWindow({ w } = { w: null }) {
   if (w.isVisible()) {
     w.hide()
     // TODO: play with it on Windows
-    w.setSkipTaskbar()
+    // w.setSkipTaskbar()
   } else {
     w.show()
     w.focus()

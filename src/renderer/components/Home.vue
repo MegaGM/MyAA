@@ -1,34 +1,20 @@
 <template>
   <div>
-    <h2>MyAnimeList: Currently Watching</h2>
+    <h2>MyAA: My Anime Assistant.</h2>
     <a-table
       :pagination="pagination"
       :columns="columns"
-      :dataSource="MalEntries"
+      :dataSource="MalEntries__byComplexAlgorithm"
       size="small"
       :showHeader="false"
     >
-      <span slot="titleAndTags" slot-scope="title, MalEntry" class="line-height2">
-        <a @click="openLink(MalEntry.href)">{{MalEntry.title}}</a>
-
-        <a-tag
-          v-for="NyaaEpisode in MalEntry.newEpisodes"
-          :color="NyaaEpisode.downloaded ? 'blue' : 'red'"
-          :key="NyaaEpisode.torrentID"
-          closable
-          @close="ignoreEpisode"
-        >
-          <span @click="downloadAndUpdate(NyaaEpisode)">&nbsp;{{NyaaEpisode.episodeNumber}}&nbsp;</span>
-        </a-tag>
-      </span>
-      
       <span slot="progress" slot-scope="progress, MalEntry">
         <a-button-group size="small">
           <a-button
             type="default"
             icon="arrow-up"
             size="small"
-            @click="updateMalEntryProgress(MalEntry.progress.current + 1, MalEntry)"
+            @click="updateMalEntryProgress(progress.current + 1, MalEntry)"
           />
           <a-button type="dashed">
             {{progress.current}}
@@ -39,9 +25,21 @@
             type="default"
             icon="arrow-down"
             size="small"
-            @click="updateMalEntryProgress(MalEntry.progress.current - 1, MalEntry)"
+            @click="updateMalEntryProgress(progress.current - 1, MalEntry)"
           />
         </a-button-group>
+      </span>
+      
+      <span slot="titleAndTags" slot-scope="title, MalEntry" class="line-height2">
+        <a @click="openLink(MalEntry.href)">{{MalEntry.title}}</a>
+
+        <a-tag
+          v-for="NyaaEpisode in NyaaEpisodes__byMalEntry(MalEntry)"
+          :class="getNyaaEpisodeFileStatus(NyaaEpisode)"
+          :key="NyaaEpisode.torrentID"
+        >
+          <span @click="downloadAndUpdate(NyaaEpisode)">&nbsp;{{NyaaEpisode.episodeNumber}}&nbsp;</span>
+        </a-tag>
       </span>
     </a-table>
   </div>
@@ -49,13 +47,33 @@
 
 
 <script>
+import Vue from 'vue'
+
 import { ipcRenderer } from 'electron'
+import Vuex, { mapGetters, mapActions, mapMutations } from 'vuex'
+import { getOrCreateStore } from '../store'
+const store = getOrCreateStore()
+
+function mapIfAny(type) {
+  if (!['state', 'getters', 'mutations', 'actions'].includes(type))
+    throw new RangeError('[Vuex:mapIfAny()] Invalid mapper type')
+
+  const mapperKey = 'map' + type[0].toUpperCase() + type.slice(1)
+  if (!['mapState', 'mapGetters', 'mapMutations', 'mapActions'].includes(mapperKey))
+    throw new RangeError('[Vuex:mapIfAny()] Invalid mapperKey')
+
+  const keys = Object.keys(store[type])
+  if (!keys || !keys.length)
+    return []
+
+  return Vuex[mapperKey](keys)
+}
 
 
 export default {
   data() {
     return {
-      pagination: { pageSize: 13 },
+      pagination: { pageSize: 15 },
       columns: [
         {
           key: 'progress',
@@ -72,96 +90,31 @@ export default {
           scopedSlots: { customRender: 'titleAndTags' },
         },
       ],
-      MalEntries: [],
-      newEpisodes: {},
     }
   },
   computed: {
+    ...mapIfAny('getters')
+    // ...mapGetters(Object.keys(store.getters))
   },
   methods: {
-    updateMalEntryProgress(newEpisodeNumber, MalEntry) {
-      ipcRenderer.send('updateMalEntryProgress', { newEpisodeNumber, MalEntry })
-    },
+    // ...mapActionsIfAny(),
     openLink(link) {
       this.$electron.shell.openExternal(link)
     },
     downloadAndUpdate({ title, href }) {
       this.openLink(href)
-
-      setTimeout(() => {
-        this.forceMalEntryToBeUpdated(title)
-      }, 10 * 1000)
     },
-    ignoreEpisode(e) {
-      e.preventDefault()
-      let closest = e.target.closest('.ant-tag')
-      console.info('ignoreEpisode closest: ', closest)
-      ipcRenderer.send('ignoreEpisode')
+    coldLoad() {
+      ipcRenderer.send('COLD:MalEntries')
+      ipcRenderer.send('COLD:NyaaEpisodes')
+      ipcRenderer.send('COLD:files')
     },
-    forceMalEntryToBeUpdated(title) {
-      ipcRenderer.send('forceMalEntryToBeUpdated', title)
-    },
-    requestDownloadedEpisodes() {
-      ipcRenderer.send('getDownloadedEpisodes')
-    },
-    requestMalEntries() {
-      ipcRenderer.send('getMalEntries')
-    },
-    requestUpdates() {
-      ipcRenderer.send('getUpdates')
-    },
-    injectNewEpisodesToMalEntries() {
-      for (const [title, newEpisodes] of Object.entries(this.newEpisodes))
-        this.applyUpdate({ title, newEpisodes })
-    },
-    applyUpdate(update) {
-      // console.info('applyUpdate: ', update.newEpisodes.length, update.title)
-      for (const newEpisode of update.newEpisodes)
-        console.info('applyUpdate FOR: ', newEpisode.downloaded, newEpisode.title, newEpisode.episodeNumber)
-
-      if (update.newEpisodes.length === 0)
-        return
-
-      this.newEpisodes[update.title] = update.newEpisodes
-
-      // MalEntries has 0 length at cold load
-      for (const MalEntry of this.MalEntries) {
-        if (MalEntry.title === update.title) {
-          this.$set(MalEntry, 'newEpisodes', update.newEpisodes)
-          this.sortMalEntries()
-          break
-        }
-      }
+    updateMalEntryProgress(newEpisodeNumber, MalEntry) {
+      ipcRenderer.send('MAL.updateProgress', { newEpisodeNumber, MalEntry })
     },
   },
   async mounted() {
-    ipcRenderer.on('downloadedEpisodes', (event, downloadedEpisodes) => {
-      console.info('downloadedEpisodes: ', downloadedEpisodes)
-      this.downloadedEpisodes = downloadedEpisodes
-    })
-    // this.requestDownloadedEpisodes()
-
-    ipcRenderer.on('MalEntries', (event, MalEntries) => {
-      console.info('MalEntries: ', MalEntries)
-      this.MalEntries = MalEntries
-      /**
-       * because MalEntries do not contain MalEntry.newEpisodes anymore
-       */
-      this.injectNewEpisodesToMalEntries()
-    })
-    // this.requestMalEntries()
-
-    ipcRenderer.on('update', (event, update) => {
-      this.applyUpdate(update)
-    })
-
-    ipcRenderer.on('updates', (event, updates) => {
-      for (const update of updates)
-        this.applyUpdate(update)
-
-      this.injectNewEpisodesToMalEntries()
-    })
-    // this.requestUpdates()
+    this.coldLoad()
   },
 }
 </script> 
@@ -172,5 +125,23 @@ h2 {
 
 .line-height2 {
   line-height: 2;
+}
+
+.ant-tag.fresh {
+  color: #f5222d;
+  background: #fff1f0;
+  border-color: #ffa39e;
+}
+
+.ant-tag.downloaded {
+  color: #1890ff;
+  background: #e6f7ff;
+  border-color: #91d5ff;
+}
+
+.ant-tag.done {
+  color: #52c41a;
+  background: #f6ffed;
+  border-color: #b7eb8f;
 }
 </style>

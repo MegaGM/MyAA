@@ -3,24 +3,36 @@
 const getters = {
   getNyaaEpisodeFileStatus(state) {
     return NyaaEpisode => {
-      // TODO: check if there are some files on SSD/HDD
+
       const lookup = files =>
         files
           .filter(f => f.title.toLowerCase() === NyaaEpisode.title.toLowerCase())
           .map(f => f.episodeNumber)
           .includes(NyaaEpisode.episodeNumber)
 
-      let status = null
+      const status = {
+        fresh: false,
+        downloaded: false,
+        done: false,
+      }
+
       if (lookup(Object.values(state.files.ongoings)))
-        status = 'ongoing'
+        status.downloaded = true
       else if (lookup(Object.values(state.files.done)))
-        status = 'done'
+        status.done = true
+      else
+        status.fresh = true
+
       return status
     }
   },
-  freshNyaaEpisodesForMalEntry(state) {
+  NyaaEpisodes__byMalEntry(state) {
     return MalEntry => {
-      const newNyaaEpisodes = state.NyaaEpisodes[MalEntry.title]
+      const episodes = state.NyaaEpisodes[MalEntry.title]
+      if (!episodes || !episodes.length)
+        return []
+
+      const newNyaaEpisodes = episodes
         .filter(NyaaEpisode => {
           return NyaaEpisode.episodeNumber > MalEntry.progress.current
         })
@@ -29,10 +41,13 @@ const getters = {
     }
   },
   LRU_MalEntry(state) {
-    if (!Object.keys(state.MalEntries).length || !Object.keys(state.fetchTime).length)
-      return null
+    const
+      noMalEntries = !Object.keys(state.MalEntries).length,
+      noFetchTimestamps = !Object.keys(state.fetchTime).length
+    if (noMalEntries || noFetchTimestamps)
+      throw new RangeError('[LRU_MalEntry] (noMalEntries || noFetchTimestamps)')
 
-    const sortedFetchTimestamps = Object
+    const fetchTimestamps__ascByFetchTime = Object
       .keys(state.fetchTime)
       .map(title => ({
         title,
@@ -41,25 +56,53 @@ const getters = {
       .sort(({ fetchTime: t1 }, { fetchTime: t2 }) => t1 - t2)
 
     const
-      [{ title }] = sortedFetchTimestamps,
+      [{ title }] = fetchTimestamps__ascByFetchTime,
       MalEntry = state.MalEntries[title]
 
     return MalEntry
   },
   MalEntries__byComplexAlgorithm(state, getters) {
-    const withNewEpisodesOnly__descByLex = Object
-      .values(state.MalEntries)
-      .filter(MalEntry => state.NyaaEpisodes[MalEntry.title].length)
-      .sort((a, b) => a.title.localeCompare(b.title))
 
-    const withoutNewEpisodesOnly__descByLex = Object
-      .values(state.MalEntries)
-      .filter(MalEntry => !state.NyaaEpisodes[MalEntry.title].length)
-      .sort((a, b) => a.title.localeCompare(b.title))
+    const createFilter = (favor) => {
+      return (MalEntry) => {
+        const episodes = state.NyaaEpisodes[MalEntry.title]
+
+        if (favor === 'withNewEpisodes') {
+          if (episodes && episodes.length)
+            return true
+        }
+        else if (favor === 'withoutNewEpisodes') {
+          if (!episodes || !episodes.length)
+            return true
+        } else {
+          throw new RangeError('Invalid favor in createFilter: ', favor)
+        }
+      }
+    }
+
+    const createComparator = (favor) => {
+      return (a, b) => {
+        if (favor === 'ascByTitle') {
+          return a.title.localeCompare(b.title)
+        }
+        else if (favor === 'descByTitle') {
+          return b.title.localeCompare(a.title)
+        } else {
+          throw new RangeError('Invalid favor in createComparator: ', favor)
+        }
+      }
+    }
+
+    const MalEntries = Object.values(state.MalEntries)
 
     return [
-      ...withNewEpisodesOnly__descByLex,
-      ...withoutNewEpisodesOnly__descByLex,
+      ...MalEntries
+        .filter(createFilter('withNewEpisodes'))
+        .sort(createComparator('ascByTitle')),
+
+      ...MalEntries
+        .filter(createFilter('withoutNewEpisodes'))
+        .sort(createComparator('ascByTitle')),
     ]
   },
 }

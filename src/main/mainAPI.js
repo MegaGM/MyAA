@@ -1,44 +1,33 @@
 const { ipcMain } = require('electron')
+const MAL = require('../common/mal-api/build/MAL.api.js')
 
 module.exports = {
   setupAPI,
 }
 
-async function setupAPI() {
-  ipcMain.on('updateMalEntryProgress', async (event, options) => {
-    const MalEntry = await MAL.updateProgress(options)
-    const MalEntriesArr = await refetchMalEntries()
-    store.forceMalEntryToBeUpdated(MalEntry.title)
-    event.sender.send('MalEntries', MalEntriesArr)
-  })
+async function setupAPI({ store }) {
+  ipcMain.on('MAL.updateProgress', (event, options) => MAL.updateProgress(options))
 
-  ipcMain.on('forceMalEntryToBeUpdated', async (event, title) => {
-    store.forceMalEntryToBeUpdated(title)
-  })
+  ipcMain.on('COLD:MalEntries', (event, options) => store.dispatch('fetchMalEntries'))
 
-  ipcMain.on('getMalEntries', async (event, payload) => {
-    const MalEntriesArr = await refetchMalEntries()
-    /**
-     * sending MalEntriesArr, unsorted Array of MalEntries,
-     * instead of grabbing the Object from store,
-     * because on the client we need an Array of MalEntries
-     * and because the array will be sorted there anyway
-     */
-    event.sender.send('MalEntries', MalEntriesArr)
-  })
-
-  ipcMain.on('getUpdates', async (event, payload) => {
-    const withNewEpisodes = Object.entries(store.newEpisodes)
-      .filter(([title, newEpisodes]) => newEpisodes.length)
-
-    const updates = []
-    for (const [title, newEpisodes] of withNewEpisodes) {
-      updates.push({
-        title,
-        newEpisodes,
+  ipcMain.on('COLD:NyaaEpisodes', (event, options) => {
+    for (const [title, NyaaEpisodes] of Object.entries(store.state.NyaaEpisodes)) {
+      // imitate Vuex mutation
+      event.sender.send(store.state.eventName, {
+        type: 'NyaaEpisodes',
+        payload: {
+          title,
+          NyaaEpisodes
+        }
       })
     }
+  })
 
-    event.sender.send('updates', updates)
+  ipcMain.on('COLD:files', async (event, options) => {
+    for (const file of Object.values(store.state.files.ongoings))
+      event.sender.send(store.state.eventName, { type: 'files.add', payload: file })
+
+    for (const file of Object.values(store.state.files.done))
+      event.sender.send(store.state.eventName, { type: 'files.add', payload: file })
   })
 }

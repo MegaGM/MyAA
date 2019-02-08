@@ -15,9 +15,9 @@ function createTray({ w }) {
   let tray = new Tray(path.resolve(__dirname, '../../resources/icons/tray/lock-1.png'))
 
   // TODO: possibly register all events in one space-separated string
-  tray.on('click', () => showHideWindow(w))
-  tray.on('right-click', () => showHideWindow(w))
-  tray.on('double-click', () => showHideWindow(w))
+  tray.on('click', () => showHideWindow({ w }))
+  tray.on('right-click', () => showHideWindow({ w }))
+  tray.on('double-click', () => showHideWindow({ w }))
   tray.on('mouse-move', mouseMove => console.info('mouseMove: ', mouseMove))
 
   tray.setToolTip('Nyaa!:3')
@@ -25,15 +25,22 @@ function createTray({ w }) {
     {
       label: 'Show/Hide',
       type: 'normal',
-      click: () => showHideWindow(w)
+      click: () => showHideWindow({ w })
     },
     { type: 'separator' },
+    {
+      label: 'Remove files when done',
+      type: 'checkbox',
+      checked: global.REMOVE_FILES_WHEN_DONE,
+      click: () => global.REMOVE_FILES_WHEN_DONE = !global.REMOVE_FILES_WHEN_DONE,
+    },
     {
       label: 'Update in background',
       type: 'checkbox',
       checked: global.UPDATE_IN_BACKGROUND,
       click: () => global.UPDATE_IN_BACKGROUND = !global.UPDATE_IN_BACKGROUND,
     },
+    { type: 'separator' },
     {
       label: 'Quit',
       role: 'quit'

@@ -104,7 +104,8 @@ class NyaaAPI {
         if (!this.validURL)
           this.validURL = mirrorURL
       } catch (err) {
-        console.error('getValidURL', err.response.status, 'for', mirrorURL)
+        if (err.response && err.response.status)
+          console.error('getValidURL', err.response.status, 'for', mirrorURL)
       }
     }
 
@@ -124,7 +125,7 @@ class NyaaAPI {
     title = title
       .replace(/\(TV\)/, '')
 
-    return encodeURIComponent(`HorribleSubs ${title} 1080`)
+    return encodeURIComponent(`HorribleSubs ${title} 480`)
   }
 
   async fetchEpisodes(title) {

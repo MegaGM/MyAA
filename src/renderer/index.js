@@ -2,7 +2,7 @@ global.BUILD_TARGET = 'electron-renderer'
 
 import Vue from 'vue'
 import router from './router'
-import { createStore } from './store'
+import { getOrCreateStore } from './store'
 import App from './components/App.vue'
 
 
@@ -19,7 +19,7 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  store: createStore(),
+  store: getOrCreateStore(),
   components: { App },
   render: (h) => h(App),
 }).$mount('#app')

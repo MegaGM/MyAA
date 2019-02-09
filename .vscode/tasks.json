@@ -10,6 +10,11 @@
       "problemMatcher": [
         "$tsc-watch"
       ],
+      "presentation": {
+        "group": "build",
+        "panel": "shared",
+        "showReuseMessage": false,
+      },
       "group": {
         "kind": "build",
         "isDefault": true

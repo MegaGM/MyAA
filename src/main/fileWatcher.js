@@ -23,6 +23,14 @@ module.exports = {
 // })
 
 function setupFileWatcher({ store } = {}) {
+  // store.subscribe(({ type, payload: file }, state) => {
+  //   if (!type.startsWith('files.'))
+  //     return
+
+  //   if (type === 'files.add' && file.dir === 'done')
+  // store.commit('enqueue:markEpisodeWatched', file)
+  // })
+
   watcher
     // on init, 'add' will be dispatched for each existing file
     .on('add', filepath => {
@@ -46,7 +54,7 @@ function setupFileWatcher({ store } = {}) {
           return
 
         if (type === 'files.add' && file.dir === 'done')
-          store.dispatch('markEpisodeWatched', file)
+          store.commit('enqueue:markEpisodeWatched', file)
       })
     })
 }

@@ -12,7 +12,7 @@ const
   { setupAPI } = require('./mainAPI.js'),
   { setupFileWatcher } = require('./fileWatcher.js'),
   qCycle = require('../common/qCycle.portable.js'),
-  cycle = new qCycle({ stepTime: 2, debug: false })
+  cycle = new qCycle({ stepTime: 4, debug: false })
 
 let
   w, //: Promise<BrowserWindow>
@@ -62,13 +62,11 @@ async function job() {
   const LRU_MalEntry = store.getters.LRU_MalEntry
   await store.dispatch('fetchNyaaEpisodesForMalEntry', LRU_MalEntry)
 
+  const toMarkWatched = store.state.files.toMarkWatched
+  if (toMarkWatched.length)
+    await store.dispatch('markEpisodeWatched', toMarkWatched[0])
 
-  // const r = store.getters.getNyaaEpisodeFileStatus({
-  //   title: 'Tensei Shitara Slime Datta Ken',
-  //   episodeNumber: 17,
-  // })
-  // console.info('r: ', r)
-
-  // console.info('store.state.files.ongoings: ', store.state.files.ongoings)
-  // console.info('store.state.files.done: ', store.state.files.done)
+  const toRemove = store.state.files.toRemove
+  if (toRemove.length)
+    await store.dispatch('removeFile', toRemove[0])
 }

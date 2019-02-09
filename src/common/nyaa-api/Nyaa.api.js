@@ -4,7 +4,9 @@ const
   Promise = require('bluebird'),
   { ipcRenderer } = require('electron'),
   axios = require('axios'),
-  fastXmlParser = require('fast-xml-parser')
+  fastXmlParser = require('fast-xml-parser'),
+  { Episode } = require('./Episode.js'),
+  { diffMap } = require('./diffMap.js')
 
 const NyaaMirrors = [
   // 'nyaa.si',
@@ -16,55 +18,6 @@ const NyaaMirrors = [
 ]
 
 
-// interface MalEntry {
-//   progress: string | any
-//   title: string
-//   score: string
-//   href: string
-// }
-
-class Episode {
-  constructor(o, opts) {
-    this.rawTitle = o.title
-    this.href = o.link.replace(/nyaa\.si/, opts.validURL)
-    this.torrentID = o.link.replace(/https:\/\/[^\/]+\/download\/(\d+)\.torrent/, '$1')
-    this.time = (new Date(o.pubDate)).getTime()
-    this.seeders = o['nyaa:seeders']
-    this.size = o['nyaa:size']
-    this.NyaaQuery = opts.NyaaQuery
-    this.new = opts.new
-    this.downloaded = opts.downloaded
-    // this.timesince = timeSince(this.time)
-    this.parseTitle()
-  }
-
-  parseTitle() {
-    //  [HorribleSubs] Black Clover - 67 [1080p].mkv
-    this.rawTitle.replace(
-      /\[HorribleSubs] (.+) - (\d+) \[(\d+)p]/,
-      (match, $1, $2, $3) => {
-        this.title = $1
-        this.episodeNumber = +$2
-        this.quality = $3
-      })
-  }
-}
-
-// export default class Anime {
-//   constructor(o, opts) {
-//     this.title = o.title
-//     // this.link = o.link
-//     this.time = (new Date(o.pubDate)).getTime()
-//     this.seeds = o['nyaa:seeders']
-//     this.size = o['nyaa:size']
-//     this.torrentID = o.link.replace(/https:\/\/[^\/]+\/download\/(\d+)\.torrent/, '$1')
-//     this.NyaaQuery = opts.NyaaQuery
-//     this.new = opts.new
-//     this.downloaded = opts.downloaded
-//     // this.timesince = timeSince(this.time)
-//   }
-// }
-
 
 class NyaaAPI {
   constructor() {
@@ -72,6 +25,7 @@ class NyaaAPI {
     this.validURL = null
     this.Episode = Episode
     this.NyaaMirrors = NyaaMirrors
+    this.diffMap = diffMap
   }
 
   async fetchQuery(q) {
@@ -122,10 +76,37 @@ class NyaaAPI {
   }
 
   composeNyaaQuery(title) {
-    title = title
-      .replace(/\(TV\)/, '')
+    let NyaaQuery = ''
+    const
+      subsDefault = 'HorribleSubs',
+      qualityDefault = '1080',
+      diff = this.diffMap.find(diff => diff.titleMAL === title)
 
-    return encodeURIComponent(`HorribleSubs ${title} 480`)
+    if (diff)
+      NyaaQuery = `${diff.subs || subsDefault} ${diff.titleNyaa} ${diff.quality || qualityDefault}`
+    else {
+      // NOTE: not sure if it's for good
+      // to reduce occurencies when we have to extend the diffMap
+      title = title.replace(/\(TV\)/, '')
+
+      NyaaQuery = `${subsDefault} ${title} ${qualityDefault}`
+    }
+
+    return encodeURIComponent(NyaaQuery)
+
+    let episodless = {
+      'Kaguya-sama wa Kokurasetai Tensai-tachi no Renai Zunousen': 0,
+      'Code Geass Hangyaku no Lelouch III - Oudou': 0,
+      'Uchuu Senkan Yamato 2202 Ai no Senshi-tachi': 0,
+      'Gotoubun no Hanayome': 0,
+      'Full Metal Panic Movie 3 Into The Blue': 0,
+      'Full Metal Panic Movie 2 One Night Stand': 0,
+      'Full Metal Panic Movie 1 Boy Meets Girl': 0,
+      'Fairy Tail Final Series': 0,
+      'Date A Live Ⅲ': 0,
+      'Kawaki wo Ameku': 0,
+      'Devilman Crybaby': 0
+    }
   }
 
   async fetchEpisodes(title) {
@@ -141,15 +122,15 @@ class NyaaAPI {
     return fetchedAnime
   }
 
-  async fetchAllCW(ongoings) {
-    let fetchedAnime = []
-    for (const ongoing of ongongs) {
-      const anime = NyaaAPI.fetchEpisodes(ongoing.title)
-      fetchAnime.push(anime)
-    }
+  // async fetchAllCW(ongoings) {
+  //   let fetchedAnime = []
+  //   for (const ongoing of ongongs) {
+  //     const anime = NyaaAPI.fetchEpisodes(ongoing.title)
+  //     fetchAnime.push(anime)
+  //   }
 
-    return fetchAnime
-  }
+  //   return fetchAnime
+  // }
 }
 
 const API = new NyaaAPI()

@@ -20,9 +20,10 @@ export async function getCW() {
     .then(navigateToMAL)
     .then(authenticateIfNeeded)
     .then(scrapeOngoings)
-    .then(ongoings => {
-      // console.info('ongoings: ', ongoings)
-      return ongoings
+    .then(MalEntries => {
+      // console.info('MalEntries: ', MalEntries)
+      return MalEntries.filter(MalEntry => MalEntry.title === 'Mob Psycho 100 II')
+      // return MalEntries
     })
     .catch(async err => {
       console.error('catched in MAL.getCW: ', err)
@@ -55,9 +56,11 @@ export async function updateProgress({
     .then(navigateToMAL)
     .then(async page => {
       await page.$eval(`#epText${MAL_ID}`, click)
-      await page.waitFor(500)
+      await page.waitFor(700)
       await page.$eval(`#epID${MAL_ID}`, click)
+      await page.waitFor(200)
       await page.keyboard.type(newEpisodeNumber + '')
+      await page.waitFor(200)
       await page.keyboard.press('Enter')
       await page.waitFor(1000)
     })

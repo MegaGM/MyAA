@@ -134,14 +134,14 @@ h2 {
 }
 
 .ant-tag.downloaded {
-  color: #1890ff;
-  background: #e6f7ff;
-  border-color: #91d5ff;
-}
-
-.ant-tag.done {
   color: #52c41a;
   background: #f6ffed;
   border-color: #b7eb8f;
+}
+
+.ant-tag.done {
+  color: #1890ff;
+  background: #e6f7ff;
+  border-color: #91d5ff;
 }
 </style>

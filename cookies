@@ -1,0 +1,90 @@
+[
+  {
+    "name": "is_logged_in",
+    "value": "1",
+    "domain": "myanimelist.net",
+    "path": "/",
+    "expires": 1865103165.78616,
+    "size": 13,
+    "httpOnly": true,
+    "secure": false,
+    "session": false
+  },
+  {
+    "name": "MALSESSIONID",
+    "value": "p38e43hgd1k7oalu8if2pej1v1",
+    "domain": "myanimelist.net",
+    "path": "/",
+    "expires": 1865103165.786135,
+    "size": 38,
+    "httpOnly": true,
+    "secure": true,
+    "session": false
+  },
+  {
+    "name": "m_gdpr_mdl",
+    "value": "1",
+    "domain": "myanimelist.net",
+    "path": "/",
+    "expires": 1865103164,
+    "size": 11,
+    "httpOnly": false,
+    "secure": false,
+    "session": false
+  },
+  {
+    "name": "_gat",
+    "value": "1",
+    "domain": ".myanimelist.net",
+    "path": "/",
+    "expires": 1549743224,
+    "size": 5,
+    "httpOnly": false,
+    "secure": false,
+    "session": false
+  },
+  {
+    "name": "__gads",
+    "value": "ID=f3d03ef4a074961c:T=1549743148:S=ALNI_Mbx8YHk99cy3GFZwBgZBM6RwbBRBw",
+    "domain": ".myanimelist.net",
+    "path": "/",
+    "expires": 1612815148,
+    "size": 75,
+    "httpOnly": false,
+    "secure": false,
+    "session": false
+  },
+  {
+    "name": "_gid",
+    "value": "GA1.2.761751013.1549743165",
+    "domain": ".myanimelist.net",
+    "path": "/",
+    "expires": 1549829565,
+    "size": 30,
+    "httpOnly": false,
+    "secure": false,
+    "session": false
+  },
+  {
+    "name": "_ga",
+    "value": "GA1.2.1045049591.1549743165",
+    "domain": ".myanimelist.net",
+    "path": "/",
+    "expires": 1612815165,
+    "size": 30,
+    "httpOnly": false,
+    "secure": false,
+    "session": false
+  },
+  {
+    "name": "MALHLOGSESSID",
+    "value": "f7a9bd8962ea8b28b2dd5b988b257dcb",
+    "domain": "myanimelist.net",
+    "path": "/",
+    "expires": 1707423163.747379,
+    "size": 45,
+    "httpOnly": false,
+    "secure": false,
+    "session": false
+  }
+]

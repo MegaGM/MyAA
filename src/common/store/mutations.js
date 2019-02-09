@@ -16,8 +16,8 @@ const mutations = {
   'enqueue:files.toRemove': (state, file) => state.files['toRemove'].push(file),
   'unqueue:files.toRemove': (state, file) => unQueueFile({ state, file, dir: 'toRemove' }),
 
-  'enqueue:markEpisodeWatched': (state, file) => state.files['toMarkWatched'].push(file),
-  'unqueue:markEpisodeWatched': (state, file) => unQueueFile({ state, file, dir: 'toMarkWatched' }),
+  'enqueue:markEpisodeAsWatched': (state, file) => state.files['toMarkWatched'].push(file),
+  'unqueue:markEpisodeAsWatched': (state, file) => unQueueFile({ state, file, dir: 'toMarkWatched' }),
 }
 
 function unQueueFile({ state, file, dir }) {

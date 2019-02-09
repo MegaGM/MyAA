@@ -19,34 +19,25 @@ const actions = {
 
     commit('unqueue:files.toRemove', file)
   },
-  async markEpisodeWatched({ state, commit }, file) {
-    let
-      MalEntry = null
+  async markEpisodeAsWatched({ state, commit }, file) {
     const
       newEpisodeNumber = file.episodeNumber,
-      diff = Nyaa.diffMap.find(diff => diff.titleNyaa === file.title)
-
-    if (diff)
-      MalEntry = state.MalEntries[diff.titleMAL]
-    else
-      MalEntry = state.MalEntries[file.title]
-
-    console.info('markEpisodeWatched: file.title, diff, MalEntry', file.title, diff, MalEntry)
+      diff = Nyaa.diffMap.find(diff => diff.titleNyaa === file.title),
+      MalEntry = state.MalEntries[diff && diff.titleMAL || file.title]
 
     if (!MalEntry)
-      throw new RangeError('[markEpisodeWatched] No MalEntry in MalEntries for file.title: ' + file.title)
+      throw new RangeError('[markEpisodeAsWatched] No MalEntry in MalEntries for file.title: ' + file.title)
 
-    // console.info('markEpisodeWatched: MalEntry, Object.keys(state.MalEntries) ', MalEntry, Object.keys(state.MalEntries))
     if (newEpisodeNumber > MalEntry.progress.current) {
-      var success = await MAL.updateProgress({
+      const success = await MAL.updateProgress({
         newEpisodeNumber,
         MalEntry,
       })
       if (!success)
-        console.error('[markEpisodeWatched] MAL.updateProgress() success is falsy')
+        console.error('[markEpisodeAsWatched] MAL.updateProgress() success is falsy')
     }
 
-    commit('unqueue:markEpisodeWatched', file)
+    commit('unqueue:markEpisodeAsWatched', file)
 
     if (global.REMOVE_FILES_WHEN_DONE)
       commit('enqueue:files.toRemove', file)
@@ -66,7 +57,7 @@ const actions = {
 
     if (!episodesCount) {
       episodless[title] = episodesCount
-      console.info('episodless: ', episodless)
+      console.info('[fetchNyaaEpisodesForMalEntry] episodless: ', episodless)
     }
 
 

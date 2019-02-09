@@ -31,7 +31,7 @@ class NyaaAPI {
   async fetchQuery(q) {
     const
       url = await this.getValidURL(),
-      uri = `https://${url}/?f=0&c=1_2&page=rss&q=${q}`
+      uri = `https://${url}/?f=0&c=1_2&page=rss&q=${encodeURI(q)}`
 
     try {
       const res = await axios.get(uri)
@@ -41,7 +41,7 @@ class NyaaAPI {
 
       return items
     } catch (err) {
-      console.error('catched in Nyaa.fetchQuery', err)
+      console.error(`[Nyaa] catched in fetchQuery('${q}')`, err)
     }
   }
 
@@ -75,38 +75,19 @@ class NyaaAPI {
     return `https://${url}/download/${torrentID}.torrent`
   }
 
-  composeNyaaQuery(title) {
-    let NyaaQuery = ''
+  composeNyaaQuery(titleMAL) {
     const
-      subsDefault = 'HorribleSubs',
+      subTeamDefault = 'HorribleSubs',
       qualityDefault = '1080',
-      diff = this.diffMap.find(diff => diff.titleMAL === title)
+      diff = this.diffMap.find(diff => diff.titleMAL === titleMAL)
+    // console.info('composeNyaQuery diff: ', diff)
+    const
+      subTeam = diff && diff.subTeam || subTeamDefault,
+      title = diff && diff.titleNyaa || diff && diff.titleMAL || titleMAL.replace(/\(TV\)/, ''),
+      quality = diff && diff.quality || qualityDefault
 
-    if (diff)
-      NyaaQuery = `${diff.subs || subsDefault} ${diff.titleNyaa} ${diff.quality || qualityDefault}`
-    else {
-      // NOTE: not sure if it's for good
-      // to reduce occurencies when we have to extend the diffMap
-      title = title.replace(/\(TV\)/, '')
-
-      NyaaQuery = `${subsDefault} ${title} ${qualityDefault}`
-    }
-
-    return encodeURIComponent(NyaaQuery)
-
-    let episodless = {
-      'Kaguya-sama wa Kokurasetai Tensai-tachi no Renai Zunousen': 0,
-      'Code Geass Hangyaku no Lelouch III - Oudou': 0,
-      'Uchuu Senkan Yamato 2202 Ai no Senshi-tachi': 0,
-      'Gotoubun no Hanayome': 0,
-      'Full Metal Panic Movie 3 Into The Blue': 0,
-      'Full Metal Panic Movie 2 One Night Stand': 0,
-      'Full Metal Panic Movie 1 Boy Meets Girl': 0,
-      'Fairy Tail Final Series': 0,
-      'Date A Live Ⅲ': 0,
-      'Kawaki wo Ameku': 0,
-      'Devilman Crybaby': 0
-    }
+    const NyaaQuery = `${subTeam} ${title} ${quality}`
+    return NyaaQuery
   }
 
   async fetchEpisodes(title) {
@@ -117,7 +98,7 @@ class NyaaAPI {
       fetchedAnime = fetchedItems
         .filter(Boolean)
         .map(item => new Episode(item, { NyaaQuery, validURL }))
-        .filter(NyaaEpisode => NyaaEpisode.title)
+        .filter(NyaaEpisode => NyaaEpisode.parsed)
 
     return fetchedAnime
   }

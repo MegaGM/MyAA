@@ -1,4 +1,5 @@
 'use strict'
+const { diffMap } = require('./diffMap.js')
 
 class Episode {
   constructor(o, opts) {
@@ -12,18 +13,42 @@ class Episode {
     this.new = opts.new
     this.downloaded = opts.downloaded
     // this.timesince = timeSince(this.time)
-    this.parseTitle()
+
+    const parsedTitle = Episode.parseTitle(this.rawTitle)
+    if (parsedTitle) {
+      this.parsed = true
+
+      for (const [key, prop] of Object.entries(parsedTitle))
+        this[key] = prop
+    }
+    else
+      this.parsed = false
   }
 
-  parseTitle() {
-    //  [HorribleSubs] Black Clover - 67 [1080p].mkv
-    this.rawTitle.replace(
-      /\[HorribleSubs] (.+) - (\d+) \[(\d+)p]/,
-      (match, $1, $2, $3) => {
-        this.title = $1
-        this.episodeNumber = +$2
-        this.quality = $3
-      })
+
+  /**
+   * @example:
+   * [HorribleSubs] Tensei Shitara Slime Datta Ken - 17 [780p].mkv
+   * [project-gxs] Uchuu Senkan Yamato 2202 - 22 [10bit 1080p] [6718054B].mkv
+   * [Erai-raws] Kaguya-sama wa Kokurasetai - Tensai-tachi no Renai Zunousen - 05 [1080p][Multiple Subtitle].mkv
+   */
+  static parseTitle(rawTitle) {
+    const
+      subTeams = diffMap.map(d => d.subTeam).filter(Boolean),
+      uniqueSubTeams = [...new Set(subTeams)],
+      regex = new RegExp(`\\[(${uniqueSubTeams.join('|')})] (.+) - (\\d+) \\[(?:[^\\]]+)?(1080p|720p|480p)]`, 'i')
+
+    let parsedTitle = null
+    rawTitle.replace(regex, (match, $1, $2, $3, $4) => {
+      parsedTitle = {
+        subTeam: $1,
+        title: $2,
+        episodeNumber: +$3,
+        quality: $4,
+      }
+    })
+
+    return parsedTitle
   }
 }
 

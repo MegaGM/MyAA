@@ -1,6 +1,7 @@
 'use strict'
 
 const
+  Nyaa = require('../common/nyaa-api/Nyaa.api.js'),
   chokidar = require('chokidar'),
   watcherDirs = [
     '/new/trrnt/anime/ongoings',
@@ -28,7 +29,7 @@ function setupFileWatcher({ store } = {}) {
   //     return
 
   //   if (type === 'files.add' && file.dir === 'done')
-  // store.commit('enqueue:markEpisodeWatched', file)
+  // store.commit('enqueue:markEpisodeAsWatched', file)
   // })
 
   watcher
@@ -54,49 +55,52 @@ function setupFileWatcher({ store } = {}) {
           return
 
         if (type === 'files.add' && file.dir === 'done')
-          store.commit('enqueue:markEpisodeWatched', file)
+          store.commit('enqueue:markEpisodeAsWatched', file)
       })
     })
 }
 
 
-function parseFilepath(filepath) { // /home/mome/dome/bom.mkv
-  let
-    parsedFile = null,
-    dir,
-    subdir
+/**
+ * filename examples:
+ * /new/trrnt/anime/ongoings/[HorribleSubs] Tensei Shitara Slime Datta Ken - 17 [1080p].mkv
+ * /new/trrnt/anime/done/KaguyaCustomSubdir/[Erai-raws] Kaguya-sama wa Kokurasetai - Tensai-tachi no Renai Zunousen - 05 [1080p].mkv
+ */
+function parseFilepath(filepath) {
   const
     filename = filepath.substring(filepath.lastIndexOf('/') + 1),
     dirAbsolute = filepath.substring(0, filepath.lastIndexOf('/'))
 
-  const
-    indexOfOnogings = dirAbsolute.lastIndexOf('/ongoings'),
-    indexOfDone = dirAbsolute.lastIndexOf('/done')
+  let dir, subdir
+  {
+    const
+      indexOfOnogings = dirAbsolute.lastIndexOf('/ongoings'),
+      indexOfDone = dirAbsolute.lastIndexOf('/done')
 
-  if (indexOfOnogings > 0) {
-    dir = 'ongoings'
-    subdir = dirAbsolute.substring(indexOfOnogings + ('/ongoings'.length + 1))
-  }
-  else if (indexOfDone > 0) {
-    dir = 'done'
-    subdir = dirAbsolute.substring(indexOfDone + ('/done'.length + 1))
+    if (indexOfOnogings > 0) {
+      dir = 'ongoings'
+      subdir = dirAbsolute.substring(indexOfOnogings + ('/ongoings'.length + 1))
+    }
+    else if (indexOfDone > 0) {
+      dir = 'done'
+      subdir = dirAbsolute.substring(indexOfDone + ('/done'.length + 1))
+    }
   }
 
-  filename.replace(
-    // [HorribleSubs] Tensei Shitara Slime Datta Ken - 17 [1080p].mkv
-    /\[HorribleSubs] (.+) - (\d+) \[(\d+)p]/,
-    (match, $1, $2, $3) => {
-      parsedFile = {
-        filepath,
-        dirAbsolute,
-        dir,
-        subdir,
-        filename,
-        title: $1,
-        episodeNumber: +$2,
-        quality: $3,
-      }
-    })
+
+  const parsedTitle = Nyaa.Episode.parseTitle(filename)
+  if (!parsedTitle)
+    return null // indicate that we were unable to recognize the file as a NyaaEpisode
+
+  const parsedFile = Object.assign({
+    filepath,
+    dirAbsolute,
+    dir,
+    subdir,
+    filename,
+  },
+    parsedTitle
+  )
 
   return parsedFile
 }

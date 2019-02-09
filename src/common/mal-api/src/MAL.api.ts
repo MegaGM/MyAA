@@ -21,12 +21,20 @@ export async function getCW() {
     .then(authenticateIfNeeded)
     .then(scrapeOngoings)
     .then(MalEntries => {
+      return MalEntries
+
       // console.info('MalEntries: ', MalEntries)
-      return MalEntries.filter(MalEntry => MalEntry.title === 'Mob Psycho 100 II')
-      // return MalEntries
+      return MalEntries.filter(MalEntry => {
+        if (MalEntry.title.startsWith('Code'))
+          return true
+        // if (MalEntry.title.startsWith('Kaguya'))
+        //   return true
+        // if (MalEntry.title === 'Mob Psycho 100 II')
+        //   return true
+      })
     })
     .catch(async err => {
-      console.error('catched in MAL.getCW: ', err)
+      console.error('[MAL] catched in getCW(): ', err)
       // return mocked ongoings array, not to break qCycled job
       return []
     })

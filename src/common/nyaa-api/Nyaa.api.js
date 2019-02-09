@@ -6,6 +6,7 @@ const
   axios = require('axios'),
   fastXmlParser = require('fast-xml-parser'),
   { Episode } = require('./Episode.js'),
+  { File } = require('./File.js'),
   { diffMap } = require('./diffMap.js')
 
 const NyaaMirrors = [
@@ -24,6 +25,7 @@ class NyaaAPI {
     this.meow = '#:3'
     this.validURL = null
     this.Episode = Episode
+    this.File = File
     this.NyaaMirrors = NyaaMirrors
     this.diffMap = diffMap
   }

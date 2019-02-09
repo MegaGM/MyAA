@@ -64,7 +64,7 @@ async function job() {
 
   const toMarkWatched = store.state.files.toMarkWatched
   if (toMarkWatched.length)
-    await store.dispatch('markEpisodeAsWatched', toMarkWatched[0])
+    await store.dispatch('markNyaaEpisodeAsWatched', toMarkWatched[0])
 
   const toRemove = store.state.files.toRemove
   if (toRemove.length)

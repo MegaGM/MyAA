@@ -10,20 +10,28 @@ module.exports = {
   createWindow,
 }
 
-function ensureSingleInstance({ w }) {
+function ensureSingleInstance({ w } = { w: null }) {
   /**
    * Focus the window instead of launching second app
    */
+  function onSecondInstance(event, commandLine, workingDirectory) {
+    // doesn't work, w is always undefined
+    if (!w)
+      return console.info('[second-instance] !w')
+    else
+      console.info('[second-instance] w is there')
+
+    if (w.isMinimized())
+      w.restore()
+    w.show()
+    w.focus()
+  }
+
   const firstInstance = app.requestSingleInstanceLock()
-  if (!firstInstance)
-    app.quit()
+  if (firstInstance)
+    app.on('second-instance', onSecondInstance)
   else
-    app.on('second-instance', (event, commandLine, workingDirectory) => {
-      if (w.isMinimized())
-        w.restore()
-      w.show()
-      w.focus()
-    })
+    app.quit()
 }
 
 function showHideWindow({ w } = { w: null }) {

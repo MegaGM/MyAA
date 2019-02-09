@@ -18,5 +18,7 @@ function setupDevelopmentEnv({ w }) {
     // console.info('installedExtensions: ', installedExtensions)
   }
 
-  w.webContents.openDevTools()
+  setTimeout(() => {
+    w.webContents.openDevTools()
+  }, 420)
 }

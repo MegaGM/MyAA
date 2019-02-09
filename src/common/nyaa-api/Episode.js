@@ -15,20 +15,18 @@ class Episode {
     // this.timesince = timeSince(this.time)
 
     const parsedTitle = Episode.parseTitle(this.rawTitle)
-    if (parsedTitle) {
-      this.parsed = true
+    if (!parsedTitle)
+      return this.parsed = false
 
-      for (const [key, prop] of Object.entries(parsedTitle))
-        this[key] = prop
-    }
-    else
-      this.parsed = false
+    this.parsed = true
+    for (const key in parsedTitle)
+      this[key] = parsedTitle[key]
   }
 
 
   /**
    * @example:
-   * [HorribleSubs] Tensei Shitara Slime Datta Ken - 17 [780p].mkv
+   * [HorribleSubs] Tensei Shitara Slime Datta Ken - 17 [720p].mkv
    * [project-gxs] Uchuu Senkan Yamato 2202 - 22 [10bit 1080p] [6718054B].mkv
    * [Erai-raws] Kaguya-sama wa Kokurasetai - Tensai-tachi no Renai Zunousen - 05 [1080p][Multiple Subtitle].mkv
    */

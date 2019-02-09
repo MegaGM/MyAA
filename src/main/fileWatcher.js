@@ -14,7 +14,6 @@ const
 
 module.exports = {
   setupFileWatcher,
-  parseFilepath,
 }
 
 // setupFileWatcher({
@@ -29,13 +28,13 @@ function setupFileWatcher({ store } = {}) {
   //     return
 
   //   if (type === 'files.add' && file.dir === 'done')
-  // store.commit('enqueue:markEpisodeAsWatched', file)
+  // store.commit('enqueue:markNyaaEpisodeAsWatched', file)
   // })
 
   watcher
     // on init, 'add' will be dispatched for each existing file
     .on('add', filepath => {
-      const file = parseFilepath(filepath)
+      const file = Nyaa.File.parseFilepath(filepath)
       if (file)
         store.commit('files.add', file)
     })
@@ -43,7 +42,7 @@ function setupFileWatcher({ store } = {}) {
       watcher
         .on('change', filepath => 'noop')
         .on('unlink', filepath => {
-          const file = parseFilepath(filepath)
+          const file = Nyaa.File.parseFilepath(filepath)
           if (file)
             store.commit('files.unlink', file)
         })
@@ -55,52 +54,8 @@ function setupFileWatcher({ store } = {}) {
           return
 
         if (type === 'files.add' && file.dir === 'done')
-          store.commit('enqueue:markEpisodeAsWatched', file)
+          store.commit('enqueue:markNyaaEpisodeAsWatched', file)
       })
     })
 }
 
-
-/**
- * filename examples:
- * /new/trrnt/anime/ongoings/[HorribleSubs] Tensei Shitara Slime Datta Ken - 17 [1080p].mkv
- * /new/trrnt/anime/done/KaguyaCustomSubdir/[Erai-raws] Kaguya-sama wa Kokurasetai - Tensai-tachi no Renai Zunousen - 05 [1080p].mkv
- */
-function parseFilepath(filepath) {
-  const
-    filename = filepath.substring(filepath.lastIndexOf('/') + 1),
-    dirAbsolute = filepath.substring(0, filepath.lastIndexOf('/'))
-
-  let dir, subdir
-  {
-    const
-      indexOfOnogings = dirAbsolute.lastIndexOf('/ongoings'),
-      indexOfDone = dirAbsolute.lastIndexOf('/done')
-
-    if (indexOfOnogings > 0) {
-      dir = 'ongoings'
-      subdir = dirAbsolute.substring(indexOfOnogings + ('/ongoings'.length + 1))
-    }
-    else if (indexOfDone > 0) {
-      dir = 'done'
-      subdir = dirAbsolute.substring(indexOfDone + ('/done'.length + 1))
-    }
-  }
-
-
-  const parsedTitle = Nyaa.Episode.parseTitle(filename)
-  if (!parsedTitle)
-    return null // indicate that we were unable to recognize the file as a NyaaEpisode
-
-  const parsedFile = Object.assign({
-    filepath,
-    dirAbsolute,
-    dir,
-    subdir,
-    filename,
-  },
-    parsedTitle
-  )
-
-  return parsedFile
-}

@@ -24,8 +24,12 @@ const actions = {
       diff = Nyaa.diffMap.find(diff => diff.titleNyaa === NyaaFile.title),
       MalEntry = state.MalEntries[diff && diff.titleMAL || NyaaFile.title]
 
-    if (!MalEntry)
-      throw new RangeError('[markAsDone] No MalEntry in MalEntries for NyaaFile.title: ' + NyaaFile.title)
+    if (!MalEntry) {
+      console.error('[markAsDone] No MalEntry in MalEntries for NyaaFile.title: ')
+      console.error('NyaaFile.title', NyaaFile.title)
+      console.error('diff.titleMAL', diff && diff.titleMAL)
+      return commit('unqueue:markAsDone', NyaaFile)
+    }
 
     if (newEpisodeNumber > MalEntry.progress.current) {
       const success = await MAL.updateProgress({
@@ -69,6 +73,11 @@ const actions = {
       MAL = require('../mal-api/build/MAL.api.js'),
       MalEntries = {},
       MalEntriesArr = await MAL.getCW()
+
+    // might happen when page in chrome has been navigated
+    // simply don't update the state.MalEntries in this case
+    if (!MalEntriesArr.length)
+      return
 
     for (const MalEntry of MalEntriesArr)
       MalEntries[MalEntry.title] = MalEntry

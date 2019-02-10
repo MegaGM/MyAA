@@ -65,7 +65,8 @@ async function job() {
 
   // the most outdated one
   const LRU_MalEntry = store.getters.LRU_MalEntry
-  await store.dispatch('fetchNyaaEpisodesForMalEntry', LRU_MalEntry)
+  if (LRU_MalEntry)
+    await store.dispatch('fetchNyaaEpisodesForMalEntry', LRU_MalEntry)
 
   const toMarkAsDone = store.state.files.toMarkAsDone
   if (toMarkAsDone.length)

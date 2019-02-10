@@ -20,8 +20,8 @@ const MALtoNyaaTitleDiffMap = [
   },
   {
     titleMAL: 'Gotoubun no Hanayome',
-    titleNyaa: 'Gotoubun no Hanayome',
-    subTeam: 'Erai-raws',
+    titleNyaa: 'Go-toubun no Hanayome',
+    subTeam: 'HorribleSubs',
   },
   {
     titleMAL: 'Date A Live Ⅲ',
@@ -37,6 +37,15 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Uchuu Senkan Yamato 2202 Ai no Senshi-tachi',
     titleNyaa: 'Uchuu Senkan Yamato 2202',
     subTeam: 'project-gxs',
+  },
+  {
+    titleMAL: 'Doukyonin wa Hiza, Tokidoki, Atama no Ue.',
+    titleNyaa: 'Doukyonin wa Hiza, Tokidoki, Atama no Ue',
+    subTeam: 'HorribleSubs',
+  },
+  {
+    titleMAL: 'Sword Art Online Alicization',
+    titleNyaa: 'Sword Art Online - Alicization',
   },
   // {
   //   titleMAL: 'Code Geass Hangyaku no Lelouch III - Oudou',

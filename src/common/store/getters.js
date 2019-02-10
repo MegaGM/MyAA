@@ -44,8 +44,10 @@ const getters = {
     const
       noMalEntries = !Object.keys(state.MalEntries).length,
       noFetchTimestamps = !Object.keys(state.fetchTime).length
-    if (noMalEntries || noFetchTimestamps)
-      throw new RangeError('[LRU_MalEntry] (noMalEntries || noFetchTimestamps)')
+    if (noMalEntries || noFetchTimestamps) {
+      console.error('[LRU_MalEntry] (noMalEntries || noFetchTimestamps)')
+      return null
+    }
 
     const fetchTimestamps__ascByFetchTime = Object
       .keys(state.fetchTime)

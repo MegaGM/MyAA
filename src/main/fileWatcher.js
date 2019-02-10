@@ -28,33 +28,34 @@ function setupFileWatcher({ store } = {}) {
   //     return
 
   //   if (type === 'files.add' && file.dir === 'done')
-  // store.commit('enqueue:markNyaaEpisodeAsWatched', file)
+  // store.commit('enqueue:markAsDone', file)
   // })
 
   watcher
     // on init, 'add' will be dispatched for each existing file
     .on('add', filepath => {
-      const file = Nyaa.File.parseFilepath(filepath)
-      if (file)
-        store.commit('files.add', file)
+      // const file = Nyaa.File.parseFilepath(filepath)
+      const NyaaFile = new Nyaa.File(filepath)
+      if (NyaaFile.parsed)
+        store.commit('files.add', NyaaFile)
     })
     .on('ready', () => {
       watcher
         .on('change', filepath => 'noop')
         .on('unlink', filepath => {
-          const file = Nyaa.File.parseFilepath(filepath)
-          if (file)
-            store.commit('files.unlink', file)
+          const NyaaFile = new Nyaa.File(filepath)
+          if (NyaaFile.parsed)
+            store.commit('files.unlink', NyaaFile)
         })
         .on('addDir', dir => watcher.add(dir))
         .on('unlinkDir', dir => watcher.unwatch(dir))
 
-      store.subscribe(({ type, payload: file }, state) => {
+      store.subscribe(({ type, payload: NyaaFile }, state) => {
         if (!type.startsWith('files.'))
           return
 
-        if (type === 'files.add' && file.dir === 'done')
-          store.commit('enqueue:markNyaaEpisodeAsWatched', file)
+        if (type === 'files.add' && NyaaFile.dir === 'done')
+          store.commit('enqueue:markAsDone', NyaaFile)
       })
     })
 }

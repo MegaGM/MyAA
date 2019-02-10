@@ -16,19 +16,20 @@ const mutations = {
   'enqueue:files.toRemove': (state, file) => state.files['toRemove'].push(file),
   'unqueue:files.toRemove': (state, file) => unQueueFile({ state, file, dir: 'toRemove' }),
 
-  'enqueue:markNyaaEpisodeAsWatched': (state, file) => state.files['toMarkWatched'].push(file),
-  'unqueue:markNyaaEpisodeAsWatched': (state, file) => unQueueFile({ state, file, dir: 'toMarkWatched' }),
+  'enqueue:markAsDone': (state, file) => state.files['toMarkAsDone'].push(file),
+  'unqueue:markAsDone': (state, file) => unQueueFile({ state, file, dir: 'toMarkAsDone' }),
 }
 
 function unQueueFile({ state, file, dir }) {
-  if (!['toRemove', 'toMarkWatched'].includes(dir))
+  if (!['toRemove', 'toMarkAsDone'].includes(dir))
     throw new RangeError('Invalid dir in unQueueFile helper in store.mutations')
 
   const fileIndex = state.files[dir].findIndex((f, i) => {
     if (file.title === f.title && file.episodeNumber === f.episodeNumber)
       return true
   })
-  state.files[dir].splice(fileIndex, 1)
+  if (fileIndex > -1)
+    state.files[dir].splice(fileIndex, 1)
 }
 
 module.exports = mutations

@@ -9,7 +9,7 @@ const state = {
     ongoings: {},
     done: {},
     toRemove: [],
-    toMarkWatched: [],
+    toMarkAsDone: [],
   },
 }
 

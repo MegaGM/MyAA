@@ -9,24 +9,23 @@ const
   episodless = {}
 
 const actions = {
-  async removeFile({ state, commit }, file) {
-    try {
-      const res = await fs.remove(file.filepath)
-      console.info('removeFile res: ', res)
-    } catch (err) {
-      console.error('[store.actions] removeFile() catched: ', err)
-    }
+  async removeFile({ state, commit }, NyaaFile) {
+    fs.remove(NyaaFile.filepath, err => {
+      if (err)
+        console.error('[store.actions] removeFile() catched: ', err)
+      console.info('[removeFile] removed: ', NyaaFile.filename)
 
-    commit('unqueue:files.toRemove', file)
+      commit('unqueue:files.toRemove', NyaaFile)
+    })
   },
-  async markNyaaEpisodeAsWatched({ state, commit }, file) {
+  async markAsDone({ state, commit }, NyaaFile) {
     const
-      newEpisodeNumber = file.episodeNumber,
-      diff = Nyaa.diffMap.find(diff => diff.titleNyaa === file.title),
-      MalEntry = state.MalEntries[diff && diff.titleMAL || file.title]
+      newEpisodeNumber = NyaaFile.episodeNumber,
+      diff = Nyaa.diffMap.find(diff => diff.titleNyaa === NyaaFile.title),
+      MalEntry = state.MalEntries[diff && diff.titleMAL || NyaaFile.title]
 
     if (!MalEntry)
-      throw new RangeError('[markNyaaEpisodeAsWatched] No MalEntry in MalEntries for file.title: ' + file.title)
+      throw new RangeError('[markAsDone] No MalEntry in MalEntries for NyaaFile.title: ' + NyaaFile.title)
 
     if (newEpisodeNumber > MalEntry.progress.current) {
       const success = await MAL.updateProgress({
@@ -34,13 +33,13 @@ const actions = {
         MalEntry,
       })
       if (!success)
-        console.error('[markNyaaEpisodeAsWatched] MAL.updateProgress() success is falsy')
+        console.error('[markAsDone] MAL.updateProgress() success is falsy')
     }
 
-    commit('unqueue:markNyaaEpisodeAsWatched', file)
+    commit('unqueue:markAsDone', NyaaFile)
 
     if (global.REMOVE_FILES_WHEN_DONE)
-      commit('enqueue:files.toRemove', file)
+      commit('enqueue:files.toRemove', NyaaFile)
   },
   async fetchNyaaEpisodesForMalEntry({ state, commit }, { title } = {}) {
     if (!title || !title.length)

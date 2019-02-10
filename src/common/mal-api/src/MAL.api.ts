@@ -3,6 +3,7 @@
 import fs from 'fs-extra'
 import { getConnectionToChrome } from './pptr'
 import { Browser, Page, ElementHandle, ExecutionContext } from 'puppeteer'
+import { type } from 'os';
 // import { createSecureContext } from 'tls';
 
 
@@ -34,7 +35,7 @@ export async function getCW() {
       })
     })
     .catch(async err => {
-      console.error('[MAL] catched in getCW(): ', err)
+      console.error('[MAL] catched in getCW(): ', err.message)
       // return mocked ongoings array, not to break qCycled job
       return []
     })
@@ -63,14 +64,35 @@ export async function updateProgress({
     .then(selectPage)
     .then(navigateToMAL)
     .then(async page => {
-      await page.$eval(`#epText${MAL_ID}`, click)
-      await page.waitFor(700)
-      await page.$eval(`#epID${MAL_ID}`, click)
-      await page.waitFor(200)
-      await page.keyboard.type(newEpisodeNumber + '')
-      await page.waitFor(200)
-      await page.keyboard.press('Enter')
-      await page.waitFor(1000)
+      await page.evaluate(updateEpisodeNumber, {
+        MAL_ID,
+        newEpisodeNumber
+      })
+      return page
+
+
+      function updateEpisodeNumber({ MAL_ID, newEpisodeNumber }: {
+        MAL_ID: number,
+        newEpisodeNumber: number
+      }): void {
+        const input = <HTMLInputElement>document.getElementById('epID' + (MAL_ID + ''))
+        if (!input)
+          throw new Error('[MAL.updateProgress] Invalid input')
+        input.value = newEpisodeNumber + ''
+
+        const form = <HTMLFormElement>input.closest('form')
+        let onsubmit = form.getAttribute('onsubmit')
+        if (onsubmit) {
+          // onsubmit="return changeep_loadurl('38301', '0', '1', 1, 0, 38301);"
+          onsubmit = onsubmit.replace('return ', '')
+          eval(onsubmit);
+          (window as any).determineEpVisibility(MAL_ID + '')
+        }
+        else {
+          console.error('no onsubmit')
+        }
+      }
+
     })
     .then(() => {
       console.info('MAL.updateProgress', { MAL_ID, newEpisodeNumber })

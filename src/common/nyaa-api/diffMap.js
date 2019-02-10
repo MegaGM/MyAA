@@ -15,8 +15,8 @@ const MALtoNyaaTitleDiffMap = [
   },
   {
     titleMAL: 'Kaguya-sama wa Kokurasetai Tensai-tachi no Renai Zunousen',
-    titleNyaa: 'Kaguya-sama wa Kokurasetai - Tensai-tachi no Renai Zunousen',
-    subTeam: 'Erai-raws',
+    titleNyaa: 'Kaguya-sama wa Kokurasetai',
+    subTeam: 'HorribleSubs',
   },
   {
     titleMAL: 'Gotoubun no Hanayome',

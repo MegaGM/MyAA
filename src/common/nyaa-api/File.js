@@ -1,7 +1,7 @@
 'use strict'
 const { Episode } = require('./Episode.js')
 
-class File extends Episode {
+class File {
   constructor(filepath, opts) {
     const file = File.parseFilepath(filepath)
     if (!file)

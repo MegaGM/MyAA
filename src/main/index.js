@@ -1,7 +1,7 @@
 'use strict'
 global.BUILD_TARGET = 'electron-main'
 global.UPDATE_IN_BACKGROUND = true
-global.REMOVE_FILES_WHEN_DONE = false
+global.REMOVE_FILES_WHEN_DONE = true
 
 const
   { app, globalShortcut } = require('electron'),
@@ -48,6 +48,11 @@ function main() {
 
     cycle.setJob(job)
     cycle.start()
+
+    // const Nyaa = require('../common/nyaa-api/Nyaa.api.js')
+    // const filepath = '/new/trrnt/anime/done/[HorribleSubs] Kouya no Kotobuki Hikoutai - 03 [1080p].mkv'
+    // const NyaaFile = new Nyaa.File(filepath)
+    // store.commit('enqueue:markAsDone', NyaaFile)
   })
 }
 
@@ -62,9 +67,9 @@ async function job() {
   const LRU_MalEntry = store.getters.LRU_MalEntry
   await store.dispatch('fetchNyaaEpisodesForMalEntry', LRU_MalEntry)
 
-  const toMarkWatched = store.state.files.toMarkWatched
-  if (toMarkWatched.length)
-    await store.dispatch('markNyaaEpisodeAsWatched', toMarkWatched[0])
+  const toMarkAsDone = store.state.files.toMarkAsDone
+  if (toMarkAsDone.length)
+    await store.dispatch('markAsDone', toMarkAsDone[0])
 
   const toRemove = store.state.files.toRemove
   if (toRemove.length)

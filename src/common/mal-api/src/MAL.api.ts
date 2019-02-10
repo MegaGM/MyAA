@@ -26,7 +26,7 @@ export async function getCW() {
 
       // console.info('MalEntries: ', MalEntries)
       return MalEntries.filter(MalEntry => {
-        if (MalEntry.title.startsWith('Code'))
+        if (MalEntry.title.startsWith('Kouya'))
           return true
         // if (MalEntry.title.startsWith('Kaguya'))
         //   return true

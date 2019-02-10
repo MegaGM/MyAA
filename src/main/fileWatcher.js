@@ -23,18 +23,19 @@ module.exports = {
 // })
 
 function setupFileWatcher({ store } = {}) {
-  // store.subscribe(({ type, payload: file }, state) => {
-  //   if (!type.startsWith('files.'))
-  //     return
+  store.subscribe(({ type, payload: NyaaFile }, state) => {
+    if (!type.startsWith('files.'))
+      return
 
-  //   if (type === 'files.add' && file.dir === 'done')
-  // store.commit('enqueue:markAsDone', file)
-  // })
+    if (type === 'files.add' && NyaaFile.dir === 'done')
+      store.commit('enqueue:markAsDone', NyaaFile)
+  })
 
   watcher
     // on init, 'add' will be dispatched for each existing file
     .on('add', filepath => {
-      // const file = Nyaa.File.parseFilepath(filepath)
+      // if (!NyaaFile.title.startsWith('Kouya'))
+      //   return
       const NyaaFile = new Nyaa.File(filepath)
       if (NyaaFile.parsed)
         store.commit('files.add', NyaaFile)
@@ -49,14 +50,6 @@ function setupFileWatcher({ store } = {}) {
         })
         .on('addDir', dir => watcher.add(dir))
         .on('unlinkDir', dir => watcher.unwatch(dir))
-
-      store.subscribe(({ type, payload: NyaaFile }, state) => {
-        if (!type.startsWith('files.'))
-          return
-
-        if (type === 'files.add' && NyaaFile.dir === 'done')
-          store.commit('enqueue:markAsDone', NyaaFile)
-      })
     })
 }
 

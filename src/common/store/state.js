@@ -10,6 +10,7 @@ const state = {
     done: {},
     toRemove: [],
     toMarkAsDone: [],
+    toDownload: [],
   },
 }
 

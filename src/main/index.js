@@ -2,6 +2,7 @@
 global.BUILD_TARGET = 'electron-main'
 global.UPDATE_IN_BACKGROUND = true
 global.REMOVE_FILES_WHEN_DONE = true
+global.NYAA_QUALITY = '480'
 
 const
   { app, globalShortcut } = require('electron'),
@@ -63,10 +64,14 @@ async function job() {
 
   await store.dispatch('fetchMalEntries')
 
-  // the most outdated one
-  const MalEntry__LRU = store.getters.MalEntry__LRU
-  if (MalEntry__LRU)
-    await store.dispatch('fetchNyaaEpisodesForMalEntry', MalEntry__LRU)
+  /**
+   * Check if there are some quests
+   */
+  const toDownload = store.state.files.toDownload
+  if (toDownload.length) {
+    await store.dispatch('downloadNyaaEpisode', toDownload[0])
+    return // since it includes https GET to Nyaa.si
+  }
 
   const toMarkAsDone = store.state.files.toMarkAsDone
   if (toMarkAsDone.length)
@@ -75,4 +80,12 @@ async function job() {
   const toRemove = store.state.files.toRemove
   if (toRemove.length)
     await store.dispatch('removeFile', toRemove[0])
+
+
+  /**
+   * After all quests, update a single MalEntry
+   */
+  const MalEntry__LRU = store.getters.MalEntry__LRU
+  if (MalEntry__LRU)
+    await store.dispatch('fetchNyaaEpisodesForMalEntry', MalEntry__LRU)
 }

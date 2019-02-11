@@ -6,8 +6,12 @@ module.exports = {
 }
 
 async function setupAPI({ store }) {
+  ipcMain.on('enqueue:downloadNyaaEpisode', (event, NyaaEpisode) => {
+    store.commit('enqueue:downloadNyaaEpisode', NyaaEpisode)
+  })
+
   ipcMain.on('MAL.updateProgress', (event, options) => MAL.updateProgress(options))
-  ipcMain.on('markAsDone', (event, NyaaEpisode) => {
+  ipcMain.on('enqueue:markAsDone', (event, NyaaEpisode) => {
     store.commit('enqueue:markAsDone', NyaaEpisode)
   })
 

@@ -80,7 +80,8 @@ class NyaaAPI {
   composeNyaaQuery(titleMAL) {
     const
       subTeamDefault = 'HorribleSubs',
-      qualityDefault = '1080',
+      qualityDefault = global.NYAA_QUALITY || '1080',
+      // qualityDefault = '1080',
       diff = this.diffMap.find(diff => diff.titleMAL === titleMAL)
     // console.info('composeNyaQuery diff: ', diff)
     const

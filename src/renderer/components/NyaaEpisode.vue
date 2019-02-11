@@ -5,7 +5,7 @@
         class="cell episode-number"
         @click="openNyaaEpisode(NyaaEpisode)"
       >{{NyaaEpisode.episodeNumber}}</div>
-      <div class="cell download" @click="downloadTorrent(NyaaEpisode)">D</div>
+      <div class="cell download" @click="downloadNyaaEpisode(NyaaEpisode)">D</div>
       <div class="cell open" @click="openNyaaFile(NyaaEpisode)">O</div>
       <div class="cell finish" @click="markAsDone(NyaaEpisode)">F</div>
     </div>
@@ -25,11 +25,11 @@ export default {
     ...store.mapAll('getters')
   },
   methods: {
-    markAsDone(NyaaEpisode) {
-      ipcRenderer.send('markAsDone', NyaaEpisode)
+    downloadNyaaEpisode(NyaaEpisode) {
+      ipcRenderer.send('enqueue:downloadNyaaEpisode', NyaaEpisode)
     },
-    downloadTorrent(NyaaEpisode) {
-      this.$root.openLink(NyaaEpisode.href)
+    markAsDone(NyaaEpisode) {
+      ipcRenderer.send('enqueue:markAsDone', NyaaEpisode)
     },
     openNyaaEpisode(NyaaEpisode) {
       const link = NyaaEpisode.href

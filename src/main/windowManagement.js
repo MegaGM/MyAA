@@ -47,6 +47,9 @@ function showHideWindow({ w } = { w: null }) {
 
 function createWindow({ w } = { w: null }) {
   const wOptions = {
+    webPreferences: {
+      nodeIntegration: false,
+    },
     show: false,
     center: false,
     autoHideMenuBar: true,

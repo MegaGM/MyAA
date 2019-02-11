@@ -8,9 +8,9 @@ const mutations = {
 
   'files.add': (state, file) => state.files[file.dir][file.filepath] = file,
   'files.unlink': (state, file) => {
-    const dirFiles = Object.assign({}, state.files[file.dir])
-    delete dirFiles[file.filepath]
-    state.files[file.dir] = dirFiles
+    const newFiles = Object.assign({}, state.files[file.dir])
+    delete newFiles[file.filepath]
+    state.files[file.dir] = newFiles
   },
 
   'enqueue:files.toRemove': (state, file) => state.files['toRemove'].push(file),
@@ -18,10 +18,13 @@ const mutations = {
 
   'enqueue:markAsDone': (state, file) => state.files['toMarkAsDone'].push(file),
   'unqueue:markAsDone': (state, file) => unQueueFile({ state, file, dir: 'toMarkAsDone' }),
+
+  'enqueue:downloadNyaaEpisode': (state, file) => state.files['toDownload'].push(file),
+  'unqueue:downloadNyaaEpisode': (state, file) => unQueueFile({ state, file, dir: 'toDownload' }),
 }
 
 function unQueueFile({ state, file, dir }) {
-  if (!['toRemove', 'toMarkAsDone'].includes(dir))
+  if (!['toDownload', 'toRemove', 'toMarkAsDone'].includes(dir))
     throw new RangeError('Invalid dir in unQueueFile helper in store.mutations')
 
   const fileIndex = state.files[dir].findIndex((f, i) => {

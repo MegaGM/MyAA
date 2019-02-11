@@ -9,6 +9,11 @@ const MALtoNyaaTitleDiffMap = [
   //   quality: '1080',
   // },
   {
+    titleMAL: 'Tensei shitara Slime Datta Ken',
+    titleNyaa: 'Tensei Shitara Slime Datta Ken',
+    subTeam: 'HorribleSubs',
+  },
+  {
     titleMAL: 'Mob Psycho 100 II',
     titleNyaa: 'Mob Psycho 100 S2',
     subTeam: 'HorribleSubs',

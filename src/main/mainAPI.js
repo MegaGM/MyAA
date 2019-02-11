@@ -7,6 +7,9 @@ module.exports = {
 
 async function setupAPI({ store }) {
   ipcMain.on('MAL.updateProgress', (event, options) => MAL.updateProgress(options))
+  ipcMain.on('markAsDone', (event, NyaaEpisode) => {
+    store.commit('enqueue:markAsDone', NyaaEpisode)
+  })
 
   ipcMain.on('COLD:MalEntries', (event, options) => store.dispatch('fetchMalEntries'))
 

@@ -10,15 +10,35 @@ const
 
 const actions = {
   async removeFile({ state, commit }, NyaaFile) {
-    fs.remove(NyaaFile.filepath, err => {
-      if (err)
-        console.error('[store.actions] removeFile() catched: ', err)
-      console.info('[removeFile] removed: ', NyaaFile.filename)
+    if (!NyaaFile.filepath) { // then it's NyaaEpisode
+      const
+        lookup = files =>
+          files
+            .filter(f => f.title.toLowerCase() === NyaaFile.title.toLowerCase())
+            .filter(f => f.episodeNumber === NyaaFile.episodeNumber)
+      const
+        inOngoings = lookup(Object.values(state.files.ongoings)),
+        inDone = lookup(Object.values(state.files.done))
 
-      commit('unqueue:files.toRemove', NyaaFile)
-    })
+      let filepath = null
+      if (inOngoings.length)
+        filepath = inOngoings[0].filepath
+      else if (inDone.length)
+        filepath = inDone[0].filepath
+
+      NyaaFile.filepath = filepath
+    }
+
+    if (NyaaFile.filepath)
+      fs.remove(NyaaFile.filepath, err => {
+        if (err)
+          console.error('[store.actions] removeFile() catched: ', err)
+        console.info('[removeFile] removed: ', NyaaFile.filename)
+
+        commit('unqueue:files.toRemove', NyaaFile)
+      })
   },
-  async markAsDone({ state, commit }, NyaaFile) {
+  async markAsDone({ state, commit }, NyaaFile /* possibly NyaaEpisode */) {
     const
       newEpisodeNumber = NyaaFile.episodeNumber,
       diff = Nyaa.diffMap.find(diff => diff.titleNyaa === NyaaFile.title),

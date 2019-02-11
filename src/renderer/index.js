@@ -21,5 +21,10 @@ new Vue({
   router,
   store: getOrCreateStore(),
   components: { App },
+  methods: {
+    openLink(link) {
+      this.$electron.shell.openExternal(link)
+    },
+  },
   render: (h) => h(App),
 }).$mount('#app')

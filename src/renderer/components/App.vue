@@ -26,8 +26,7 @@ body {
 }
 
 .content {
-  padding: 0 15px;
-  background-color: #fff !important;
+  padding: 30px 15px 0 15px;
 }
 
 .footer {

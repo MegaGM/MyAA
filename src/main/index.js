@@ -2,7 +2,7 @@
 global.BUILD_TARGET = 'electron-main'
 global.UPDATE_IN_BACKGROUND = true
 global.REMOVE_FILES_WHEN_DONE = true
-global.NYAA_QUALITY = '480'
+global.NYAA_QUALITY = '1080'
 
 const
   { app, globalShortcut } = require('electron'),

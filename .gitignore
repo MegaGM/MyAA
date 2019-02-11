@@ -1,5 +1,5 @@
+torrents/*.torrent
 build
-dist
 # Logs
 logs
 *.log

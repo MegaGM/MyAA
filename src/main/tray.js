@@ -29,6 +29,29 @@ function createTray({ w }) {
     },
     { type: 'separator' },
     {
+      label: 'Quality',
+      submenu: [
+        {
+          label: 'Quality 1080',
+          type: 'radio',
+          checked: global.NYAA_QUALITY === '1080',
+          click: () => global.NYAA_QUALITY = '1080',
+        },
+        {
+          label: 'Quality 720',
+          type: 'radio',
+          checked: global.NYAA_QUALITY === '720',
+          click: () => global.NYAA_QUALITY = '720',
+        },
+        {
+          label: 'Quality 480',
+          type: 'radio',
+          checked: global.NYAA_QUALITY === '480',
+          click: () => global.NYAA_QUALITY = '480',
+        },
+      ],
+    },
+    {
       label: 'Remove files when done',
       type: 'checkbox',
       checked: global.REMOVE_FILES_WHEN_DONE,

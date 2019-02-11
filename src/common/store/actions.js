@@ -75,14 +75,16 @@ const actions = {
       episodesCount = NyaaEpisodes.length,
       sinceLastUpdate = now - state.fetchTime[title]
 
-    console.info(`-${sinceLastUpdate} ${episodesCount} ${title}`)
-
-
-    if (!episodesCount) {
+    let message = ''
+    if (episodesCount) {
+      const episodeNumbers = NyaaEpisodes.map(NyaaEpisode => NyaaEpisode.episodeNumber)
+      const maxEpisodeNumber = Math.max(...episodeNumbers)
+      message = `-${sinceLastUpdate}\t${maxEpisodeNumber}\t${title}`
+    } else {
+      message = `-${sinceLastUpdate}\tW/O\t${title}`
       episodless[title] = episodesCount
-      console.info('[fetchNyaaEpisodesForMalEntry] episodless: ', episodless)
     }
-
+    console.info(message)
 
     commit('NyaaEpisodes', { title, NyaaEpisodes })
     commit('fetchTime', { title, timestamp: now })

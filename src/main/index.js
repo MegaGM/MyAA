@@ -64,9 +64,9 @@ async function job() {
   await store.dispatch('fetchMalEntries')
 
   // the most outdated one
-  const LRU_MalEntry = store.getters.LRU_MalEntry
-  if (LRU_MalEntry)
-    await store.dispatch('fetchNyaaEpisodesForMalEntry', LRU_MalEntry)
+  const MalEntry__LRU = store.getters.MalEntry__LRU
+  if (MalEntry__LRU)
+    await store.dispatch('fetchNyaaEpisodesForMalEntry', MalEntry__LRU)
 
   const toMarkAsDone = store.state.files.toMarkAsDone
   if (toMarkAsDone.length)

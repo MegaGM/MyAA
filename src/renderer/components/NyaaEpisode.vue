@@ -1,9 +1,5 @@
 <template>
-  <a-tag
-    class="padding-fix margin-fix"
-    :class="getNyaaEpisodeFileStatus(NyaaEpisode)"
-    :key="NyaaEpisode.torrentID"
-  >
+  <a-tag class="padding-fix margin-fix" :class="getFileStatusByNyaaEpisode(NyaaEpisode)">
     <div class="display-flex">
       <div
         class="cell episode-number"

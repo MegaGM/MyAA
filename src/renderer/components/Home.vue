@@ -1,9 +1,14 @@
 <template>
   <div>
-    <a-list size="small" bordered :dataSource="MalEntries__byComplexAlgorithm" class="white-bg">
-      <div slot="header">MyAA CW: {{MalEntries__byComplexAlgorithm.length}}</div>
+    <a-list size="small" bordered :dataSource="MalEntries__ascByTitle" class="white-bg">
+      <div slot="header">MyAA CW: {{MalEntries__ascByTitle.length}}</div>
 
-      <a-list-item slot="renderItem" slot-scope="MalEntry, index" class="padding-fix">
+      <a-list-item
+        slot="renderItem"
+        slot-scope="MalEntry, index"
+        class="padding-fix"
+        :key="MalEntry.MAL_ID"
+      >
         <div class="magic-cell progress">
           <a-button-group size="small">
             <a-button
@@ -30,8 +35,7 @@
           <a @click="$root.openLink(MalEntry.href)">{{MalEntry.title}}</a>
 
           <NyaaEpisode
-            v-for="NyaaEpisode in NyaaEpisodes__byMalEntry(MalEntry)"
-            :class="getNyaaEpisodeFileStatus(NyaaEpisode)"
+            v-for="NyaaEpisode in getNyaaEpisodesByMalEntry(MalEntry)"
             :key="NyaaEpisode.torrentID"
             :NyaaEpisode="NyaaEpisode"
           ></NyaaEpisode>
@@ -79,7 +83,7 @@ export default {
 
 <style>
 .magic-cell.progress {
-  flex-basis: 152px;
+  flex-basis: 160px;
   flex-shrink: 0;
   padding-right: 22px;
   text-align: right;

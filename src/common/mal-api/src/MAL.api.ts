@@ -2,9 +2,7 @@
 
 import fs from 'fs-extra'
 import { getConnectionToChrome } from './pptr'
-import { Browser, Page, ElementHandle, ExecutionContext } from 'puppeteer'
-import { type } from 'os';
-// import { createSecureContext } from 'tls';
+import { Browser, Page } from 'puppeteer'
 
 
 let isAuthenticated = false
@@ -24,15 +22,10 @@ export async function getCW() {
     .then(MalEntries => {
       return MalEntries
 
-      // console.info('MalEntries: ', MalEntries)
-      return MalEntries.filter(MalEntry => {
-        if (MalEntry.title.startsWith('Kouya'))
-          return true
-        // if (MalEntry.title.startsWith('Kaguya'))
-        //   return true
-        // if (MalEntry.title === 'Mob Psycho 100 II')
-        //   return true
-      })
+      // return MalEntries.filter(MalEntry => {
+      //   if (MalEntry.title === 'Mob Psycho 100 II')
+      //     return true
+      // })
     })
     .catch(async err => {
       console.error('[MAL] catched in getCW(): ', err.message)

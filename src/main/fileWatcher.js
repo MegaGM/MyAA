@@ -34,13 +34,12 @@ function setupFileWatcher({ store } = {}) {
   watcher
     // on init, 'add' will be dispatched for each existing file
     .on('add', filepath => {
-      // if (!NyaaFile.title.startsWith('Kouya'))
-      //   return
       const NyaaFile = new Nyaa.File(filepath)
-      if (!NyaaFile.parsed)
-        console.info('NyaaFile: ', NyaaFile)
+
       if (NyaaFile.parsed)
         store.commit('files.add', NyaaFile)
+      else
+        console.warn(`[fileWatcher] Unable to parse as NyaaFile: \n${filepath}\n`)
     })
     .on('ready', () => {
       watcher

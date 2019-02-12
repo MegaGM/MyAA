@@ -96,7 +96,9 @@ async function fetchNyaaEpisodesForMalEntry({ state, commit }, { title } = {}) {
     message = `-${sinceLastUpdate}\tW/O\t${title}`
     episodless[title] = episodesCount
   }
-  console.info(message)
+  const env = process.env.NODE_ENV
+  if (env && env.startsWith('dev'))
+    console.info(message)
 
   commit('NyaaEpisodes', { title, NyaaEpisodes })
   commit('fetchTime', { title, timestamp: now })

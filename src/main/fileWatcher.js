@@ -37,6 +37,8 @@ function setupFileWatcher({ store } = {}) {
       // if (!NyaaFile.title.startsWith('Kouya'))
       //   return
       const NyaaFile = new Nyaa.File(filepath)
+      if (!NyaaFile.parsed)
+        console.info('NyaaFile: ', NyaaFile)
       if (NyaaFile.parsed)
         store.commit('files.add', NyaaFile)
     })

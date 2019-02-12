@@ -1,8 +1,5 @@
 'use strict'
 global.BUILD_TARGET = 'electron-main'
-global.UPDATE_IN_BACKGROUND = true
-global.REMOVE_FILES_WHEN_DONE = true
-global.NYAA_QUALITY = '1080'
 
 const
   { app, globalShortcut } = require('electron'),
@@ -12,6 +9,7 @@ const
   { getOrCreateStore } = require('./store'),
   { setupAPI } = require('./mainAPI.js'),
   { setupFileWatcher } = require('./fileWatcher.js'),
+  Nyaa = require('../common/nyaa-api/Nyaa.api.js'),
   qCycle = require('../common/qCycle.portable.js'),
   cycle = new qCycle({ stepTime: 2, debug: false })
 
@@ -37,13 +35,13 @@ function main() {
       showHideWindow({ w })
     })
 
-    // TODO: change order tray/window
-
     w = await createWindow()
-    setupDevelopmentEnv({ w })
-    tray = createTray({ w })
-    store = getOrCreateStore({ w })
 
+    // Order is important!
+    setupDevelopmentEnv({ w })
+    store = getOrCreateStore({ w })
+    tray = createTray({ w, store })
+    Nyaa.injectStore(store)
     setupAPI({ store })
     setupFileWatcher({ store })
 
@@ -59,7 +57,7 @@ function main() {
 
 
 async function job() {
-  if (!global.UPDATE_IN_BACKGROUND)
+  if (!store || !store.state.UPDATE_IN_BACKGROUND)
     return
 
   await store.dispatch('fetchMalEntries')

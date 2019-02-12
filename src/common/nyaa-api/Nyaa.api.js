@@ -30,6 +30,10 @@ class NyaaAPI {
     this.diffMap = diffMap
   }
 
+  injectStore(store) {
+    this.store = store
+  }
+
   async fetchQuery(q) {
     const
       url = await this.getValidURL(),
@@ -81,7 +85,7 @@ class NyaaAPI {
   composeNyaaQuery(titleMAL) {
     const
       subTeamDefault = 'HorribleSubs',
-      qualityDefault = global.NYAA_QUALITY || '1080',
+      qualityDefault = this.store.state.NYAA_QUALITY || '1080',
       // qualityDefault = '1080',
       diff = this.diffMap.find(diff => diff.titleMAL === titleMAL)
     // console.info('composeNyaQuery diff: ', diff)

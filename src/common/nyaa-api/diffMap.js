@@ -9,6 +9,12 @@ const MALtoNyaaTitleDiffMap = [
   //   quality: '1080',
   // },
   {
+    titleMAL: 'Kakegurui××',
+    titleNyaa: 'Kakegurui XX',
+    subTeam: 'Nauti',
+    quality: ' ',
+  },
+  {
     titleMAL: 'Tensei shitara Slime Datta Ken',
     titleNyaa: 'Tensei Shitara Slime Datta Ken',
     subTeam: 'HorribleSubs',

@@ -7,7 +7,7 @@ module.exports = {
   createTray,
 }
 
-function createTray({ w }) {
+function createTray({ w, store }) {
   /**
    * Setup Tray icon and TrayMenu
    */
@@ -34,34 +34,34 @@ function createTray({ w }) {
         {
           label: 'Quality 1080',
           type: 'radio',
-          checked: global.NYAA_QUALITY === '1080',
-          click: () => global.NYAA_QUALITY = '1080',
+          checked: store.state.NYAA_QUALITY === '1080',
+          click: () => store.commit('NYAA_QUALITY', '1080'),
         },
         {
           label: 'Quality 720',
           type: 'radio',
-          checked: global.NYAA_QUALITY === '720',
-          click: () => global.NYAA_QUALITY = '720',
+          checked: store.state.NYAA_QUALITY === '720',
+          click: () => store.commit('NYAA_QUALITY', '720'),
         },
         {
           label: 'Quality 480',
           type: 'radio',
-          checked: global.NYAA_QUALITY === '480',
-          click: () => global.NYAA_QUALITY = '480',
+          checked: store.state.NYAA_QUALITY === '480',
+          click: () => store.commit('NYAA_QUALITY', '480'),
         },
       ],
     },
     {
       label: 'Remove files when done',
       type: 'checkbox',
-      checked: global.REMOVE_FILES_WHEN_DONE,
-      click: () => global.REMOVE_FILES_WHEN_DONE = !global.REMOVE_FILES_WHEN_DONE,
+      checked: store.state.REMOVE_FILES_WHEN_DONE,
+      click: () => store.commit('REMOVE_FILES_WHEN_DONE', !store.state.REMOVE_FILES_WHEN_DONE),
     },
     {
       label: 'Update in background',
       type: 'checkbox',
-      checked: global.UPDATE_IN_BACKGROUND,
-      click: () => global.UPDATE_IN_BACKGROUND = !global.UPDATE_IN_BACKGROUND,
+      checked: store.state.UPDATE_IN_BACKGROUND,
+      click: () => store.commit('UPDATE_IN_BACKGROUND', !store.state.UPDATE_IN_BACKGROUND),
     },
     { type: 'separator' },
     {

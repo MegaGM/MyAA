@@ -72,7 +72,7 @@ async function markAsDone({ state, commit }, NyaaFile /* possibly NyaaEpisode */
 
   commit('unqueue:markAsDone', NyaaFile)
 
-  if (global.REMOVE_FILES_WHEN_DONE)
+  if (state.REMOVE_FILES_WHEN_DONE)
     commit('enqueue:files.toRemove', NyaaFile)
 }
 

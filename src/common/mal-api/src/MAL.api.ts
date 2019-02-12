@@ -42,22 +42,20 @@ export async function getCW() {
 }
 
 
-type updateProgressOptions = {
+type upOptions = {
   MAL_ID?: number
   MalEntry?: MalEntry
   newEpisodeNumber: number
 }
 
-export async function updateProgress({
-  MAL_ID,
-  MalEntry,
-  newEpisodeNumber,
-}: updateProgressOptions): Promise<boolean> {
+export async function updateProgress(options: upOptions): Promise<boolean> {
+  let { MAL_ID, MalEntry, newEpisodeNumber } = options
+
   if (!MAL_ID) {
     if (MalEntry)
       MAL_ID = MalEntry.MAL_ID
     else
-      throw new RangeError('Invalid updateProgressOptions in MAL.updateProgress')
+      throw new RangeError('Invalid upOptions in MAL.updateProgress')
   }
 
   return await getConnectionToChrome()

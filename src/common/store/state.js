@@ -5,6 +5,11 @@ const state = {
   MalEntries: {},
   NyaaEpisodes: {},
   fetchTime: {},
+
+  NYAA_QUALITY: '1080',
+  UPDATE_IN_BACKGROUND: true,
+  REMOVE_FILES_WHEN_DONE: true,
+
   files: {
     ongoings: {},
     done: {},

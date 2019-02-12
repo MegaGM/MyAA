@@ -43,7 +43,8 @@ class NyaaAPI {
 
       return items
     } catch (err) {
-      console.error(`[Nyaa] catched in fetchQuery('${q}')`, err)
+      console.error(`[Nyaa] catched in fetchQuery('${q}')`, err.code, err.message)
+      return []
     }
   }
 

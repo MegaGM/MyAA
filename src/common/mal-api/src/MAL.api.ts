@@ -96,10 +96,6 @@ export async function updateProgress(options: upOptions): Promise<boolean> {
 }
 
 
-// auth.generateCookies(page: Page)
-// auth.serializeCookies(page: Page)
-// auth.deserializeCookies(page: Page)
-// auth.injectCookies(page: Page)
 /**
  * components
  */

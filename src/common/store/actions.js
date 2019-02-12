@@ -52,9 +52,7 @@ async function removeFile({ state, commit }, NyaaFile) {
 async function markAsDone({ state, commit }, NyaaFile /* possibly NyaaEpisode */) {
   const
     newEpisodeNumber = NyaaFile.episodeNumber,
-    diff = Nyaa.diffMap.find(diff =>
-      diff.titleNyaa.toLowerCase() === NyaaFile.title.toLowerCase()
-    ),
+    diff = Nyaa.diffMap.find(diff => diff.titleNyaa === NyaaFile.title),
     MalEntry = state.MalEntries[diff && diff.titleMAL || NyaaFile.title]
 
   if (!MalEntry) {

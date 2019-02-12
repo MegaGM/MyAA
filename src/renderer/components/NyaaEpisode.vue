@@ -53,9 +53,10 @@ export default {
         filepath = inOngoings[0].filepath
       else if (inDone.length)
         filepath = inDone[0].filepath
+      else
+        return
 
       filepath = 'file://' + filepath
-
       this.$root.openLink(filepath)
     },
   },

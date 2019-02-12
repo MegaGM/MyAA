@@ -8,7 +8,8 @@ const
   getters = require('../../common/store/getters.js'),
   actions = require('../../common/store/actions.js'),
   mutations = require('../../common/store/mutations.js'),
-  ipcVuexAdapter = require('./ipcVuexAdapter.js')
+  ipcVuexAdapter = require('./ipcVuexAdapter.js'),
+  persistentOptions = require('./persistentOptions.plugin.js')
 
 module.exports = { getOrCreateStore, createStore }
 
@@ -25,7 +26,10 @@ function createStore({ w }) {
     getters,
     actions,
     mutations,
-    plugins: [ipcVuexAdapter({ w })],
+    plugins: [
+      ipcVuexAdapter({ w }),
+      persistentOptions,
+    ],
   })
 
   return store

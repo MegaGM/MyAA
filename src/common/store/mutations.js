@@ -7,9 +7,9 @@ const mutations = {
   NyaaEpisodes: (state, { title, NyaaEpisodes }) => state.NyaaEpisodes[title] = NyaaEpisodes,
   fetchTime: (state, { title, timestamp }) => state.fetchTime[title] = timestamp,
 
-  'NYAA_QUALITY': (state, str) => setOption('NYAA_QUALITY', str),
-  'UPDATE_IN_BACKGROUND': (state, bool) => setOption('UPDATE_IN_BACKGROUND', bool),
-  'REMOVE_FILES_WHEN_DONE': (state, bool) => setOption('REMOVE_FILES_WHEN_DONE', bool),
+  'NYAA_QUALITY': setOption('NYAA_QUALITY'),
+  'UPDATE_IN_BACKGROUND': setOption('UPDATE_IN_BACKGROUND'),
+  'REMOVE_FILES_WHEN_DONE': setOption('REMOVE_FILES_WHEN_DONE'),
 
   'files.add': (state, file) => state.files[file.dir][file.filepath] = file,
   'files.unlink': (state, file) => {
@@ -32,21 +32,12 @@ const mutations = {
 function setOption(optionKey) {
   return (state, optionVal) => {
     state[optionKey] = optionVal
+
+    // in order to update client-side immediatelly
+    if (optionKey === 'NYAA_QUALITY')
+      for (const key in state.NyaaEpisodes)
+        state.NyaaEpisodes[key] = []
   }
-}
-
-function saveDefaultOptions({ state }) {
-  const defaultOptions = {}
-
-  for (const option of [
-    'NYAA_QUALITY',
-    'UPDATE_IN_BACKGROUND',
-    'REMOVE_FILES_WHEN_DONE',
-  ]) {
-    defaultOptions[option] = state[option]
-  }
-
-  fs.outputFileSync('./options.json', JSON.stringify(defaultOptions))
 }
 
 function unQueueFile({ state, file, dir }) {

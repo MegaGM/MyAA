@@ -115,7 +115,6 @@ function click(el: Element) {
 }
 
 async function getFirstPage(browser: Browser) {
-  console.info('o: ', browser._connection._closed)
   return (await browser.pages())[0]
 }
 

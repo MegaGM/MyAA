@@ -20,6 +20,7 @@ import { getOrCreateStore } from '../store'
 const store = getOrCreateStore()
 
 export default {
+  name: 'NyaaEpisode',
   props: ['NyaaEpisode'],
   computed: {
     ...store.mapAll('getters')

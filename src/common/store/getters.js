@@ -2,7 +2,9 @@
 
 module.exports = {
   getFileStatusByNyaaEpisode,
+  getFreshNyaaEpisodesByMalEntry,
   getNyaaEpisodesByMalEntry,
+  getLastNyaaEpisodeUploadTimeByMalEntry,
   MalEntry__LRU,
   MalEntries__ascByTitle,
 }
@@ -33,18 +35,37 @@ function getFileStatusByNyaaEpisode(state) {
   }
 }
 
-function getNyaaEpisodesByMalEntry(state) {
+function getFreshNyaaEpisodesByMalEntry(state, getters) {
+  return MalEntry => {
+    const
+      episodes = getters.getNyaaEpisodesByMalEntry(MalEntry),
+      freshNyaaEpisodes = episodes.filter(NyaaEpisode =>
+        NyaaEpisode.episodeNumber > MalEntry.progress.current
+      )
+
+    return freshNyaaEpisodes
+  }
+}
+
+function getNyaaEpisodesByMalEntry(state, getters) {
   return MalEntry => {
     const episodes = state.NyaaEpisodes[MalEntry.title]
     if (!episodes || !episodes.length)
       return []
 
-    const newNyaaEpisodes = episodes
-      .filter(NyaaEpisode => {
-        return NyaaEpisode.episodeNumber > MalEntry.progress.current
-      })
+    return episodes
+  }
+}
 
-    return newNyaaEpisodes
+function getLastNyaaEpisodeUploadTimeByMalEntry(state, getters) {
+  return MalEntry => {
+    const episodes = getters.getNyaaEpisodesByMalEntry(MalEntry)
+    if (!episodes || !episodes.length)
+      return 0
+
+    const lastEpisode = episodes.sort((a, b) => b.time - a.time)[0]
+    return lastEpisode.time
+
   }
 }
 

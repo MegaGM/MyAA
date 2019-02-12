@@ -34,8 +34,10 @@
         <div class="magic-cell title-and-tags">
           <a @click="$root.openLink(MalEntry.href)">{{MalEntry.title}}</a>
 
+          <Timeago :timestamp="getLastNyaaEpisodeUploadTimeByMalEntry(MalEntry)"></Timeago>
+
           <NyaaEpisode
-            v-for="NyaaEpisode in getNyaaEpisodesByMalEntry(MalEntry)"
+            v-for="NyaaEpisode in getFreshNyaaEpisodesByMalEntry(MalEntry)"
             :key="NyaaEpisode.torrentID"
             :NyaaEpisode="NyaaEpisode"
           ></NyaaEpisode>
@@ -55,9 +57,11 @@ import { getOrCreateStore } from '../store'
 const store = getOrCreateStore()
 
 import NyaaEpisode from './NyaaEpisode'
+import Timeago from './Timeago'
+
 
 export default {
-  components: { NyaaEpisode },
+  components: { NyaaEpisode, Timeago },
   computed: {
     ...store.mapAll('getters')
   },

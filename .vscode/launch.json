@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Debug Electron",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-      // "console": "integratedTerminal",
+      "console": "integratedTerminal",
       "cwd": "${workspaceFolder}",
       "args": [
         "."

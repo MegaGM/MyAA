@@ -3,14 +3,14 @@ global.BUILD_TARGET = 'electron-main'
 
 const
   { app, globalShortcut } = require('electron'),
-  { setupDevelopmentEnv } = require('./development.js'),
   { createWindow, showHideWindow, ensureSingleInstance } = require('./windowManagement.js'),
-  { createTray } = require('./tray.js'),
+  { setupTray } = require('./setupTray.js'),
+  { setupDevelopmentEnv } = require('./setupDevelopmentEnv.js'),
+  { setupFileWatcher } = require('./setupFileWatcher.js'),
+  { setupAPI } = require('./setupAPI.js'),
   { getOrCreateStore } = require('./store'),
-  { setupAPI } = require('./mainAPI.js'),
-  { setupFileWatcher } = require('./fileWatcher.js'),
-  Nyaa = require('../common/nyaa-api/Nyaa.api.js'),
-  qCycle = require('../common/qCycle.portable.js'),
+  Nyaa = require('./nyaa-api/Nyaa.api.js'),
+  qCycle = require('./qCycle.portable.js'),
   cycle = new qCycle({ stepTime: 2, debug: false })
 
 let
@@ -40,7 +40,7 @@ function main() {
     // Order is important!
     setupDevelopmentEnv({ w })
     store = getOrCreateStore({ w })
-    tray = createTray({ w, store })
+    tray = setupTray({ w, store })
     Nyaa.injectStore(store)
     setupAPI({ store })
     setupFileWatcher({ store })

@@ -4,10 +4,10 @@ const
   { Tray, Menu } = require('electron')
 
 module.exports = {
-  createTray,
+  setupTray,
 }
 
-function createTray({ w, store }) {
+function setupTray({ w, store }) {
   /**
    * Setup Tray icon and TrayMenu
    */

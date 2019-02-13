@@ -2,8 +2,8 @@
 
 const
   fs = require('fs-extra'),
-  Nyaa = require('../nyaa-api/Nyaa.api.js'),
-  MAL = require('../mal-api/build/MAL.api.js'),
+  Nyaa = require('../../nyaa-api/Nyaa.api.js'),
+  MAL = require('../../mal-api/build/MAL.api.js'),
   { downloadNyaaEpisode } = require('./torrentManagement.js'),
   episodless = {}
 
@@ -108,7 +108,6 @@ async function fetchNyaaEpisodesForMalEntry({ state, commit }, { title } = {}) {
 async function fetchMalEntries({ state, commit }) {
   const
     now = new Date().getTime(),
-    MAL = require('../mal-api/build/MAL.api.js'),
     MalEntries = {},
     MalEntriesArr = await MAL.getCW()
 

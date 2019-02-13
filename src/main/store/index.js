@@ -6,7 +6,7 @@ let store = null
 const
   state = require('../../common/store/state.js'),
   getters = require('../../common/store/getters.js'),
-  actions = require('../../common/store/actions.js'),
+  actions = require('./actions'),
   mutations = require('../../common/store/mutations.js'),
   ipcVuexAdapter = require('./ipcVuexAdapter.js'),
   persistentOptions = require('./persistentOptions.plugin.js')

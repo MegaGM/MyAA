@@ -1,7 +1,7 @@
 'use strict'
 
 const
-  Nyaa = require('../common/nyaa-api/Nyaa.api.js'),
+  Nyaa = require('./nyaa-api/Nyaa.api.js'),
   chokidar = require('chokidar'),
   watcherDirs = [
     '/new/trrnt/anime/ongoings',

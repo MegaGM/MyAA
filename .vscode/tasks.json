@@ -5,7 +5,7 @@
   "tasks": [
     {
       "type": "typescript",
-      "tsconfig": "src/common/mal-api/tsconfig.json",
+      "tsconfig": "src/main/mal-api/tsconfig.json",
       "option": "watch",
       "problemMatcher": [
         "$tsc-watch"

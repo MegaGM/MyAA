@@ -2,12 +2,13 @@
 global.BUILD_TARGET = 'electron-main'
 
 const
-  { app, globalShortcut } = require('electron'),
+  { app } = require('electron'),
   { createWindow, showHideWindow, ensureSingleInstance } = require('./windowManagement.js'),
   { setupTray } = require('./setupTray.js'),
   { setupDevelopmentEnv } = require('./setupDevelopmentEnv.js'),
   { setupFileWatcher } = require('./setupFileWatcher.js'),
   { setupAPI } = require('./setupAPI.js'),
+  { setupHotkeys } = require('./setupHotkeys.js'),
   { getOrCreateStore } = require('./store'),
   Nyaa = require('./nyaa-api/Nyaa.api.js'),
   qCycle = require('./qCycle.portable.js'),
@@ -31,21 +32,18 @@ function main() {
   app.on('activate', () => (w === null) && (w = createWindow()))
   app.on('window-all-closed', () => (process.platform !== 'darwin') && app.quit())
   app.once('ready', async () => {
-    globalShortcut.register('CommandOrControl+Shift+Y', () => {
-      showHideWindow({ w })
-    })
-
     w = await createWindow()
 
     // Order is important!
     setupDevelopmentEnv({ w })
     store = getOrCreateStore({ w })
     tray = setupTray({ w, store })
+    setupHotkeys({ w, store })
     Nyaa.injectStore(store)
     setupAPI({ store })
     setupFileWatcher({ store })
 
-    cycle.setJob(job)
+    cycle.setJob(job.bind(void 0, store))
     cycle.start()
 
     // const Nyaa = require('../common/nyaa-api/Nyaa.api.js')
@@ -56,7 +54,7 @@ function main() {
 }
 
 
-async function job() {
+async function job(store) {
   if (!store || !store.state.UPDATE_IN_BACKGROUND)
     return
 

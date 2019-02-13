@@ -67,7 +67,7 @@ import { ipcRenderer } from 'electron'
 
 import Vue from 'vue'
 import Vuex, { mapGetters, mapActions, mapMutations } from 'vuex'
-import { getOrCreateStore } from '../store'
+import { getOrCreateStore } from 'renderer/store'
 const store = getOrCreateStore()
 
 import NyaaEpisode from './NyaaEpisode'

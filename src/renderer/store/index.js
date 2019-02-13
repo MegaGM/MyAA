@@ -3,10 +3,10 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 let store = null
-import state from '../../common/store/state.js'
-import getters from '../../common/store/getters.js'
-import mutations from '../../common/store/mutations.js'
-import mapAll from '../../common/store/mapAll.plugin.js'
+import state from 'common/store/state.js'
+import getters from 'common/store/getters.js'
+import mutations from 'common/store/mutations.js'
+import mapAll from 'common/store/mapAll.plugin.js'
 import ipcVuexAdapter from './ipcVuexAdapter.js'
 
 

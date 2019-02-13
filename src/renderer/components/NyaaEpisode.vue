@@ -16,7 +16,7 @@
 <script>
 import { ipcRenderer } from 'electron'
 
-import { getOrCreateStore } from '../store'
+import { getOrCreateStore } from 'renderer/store'
 const store = getOrCreateStore()
 
 export default {

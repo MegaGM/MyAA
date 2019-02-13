@@ -3,7 +3,7 @@ console.info('dirname in webpack: ', __dirname)
 
 const
   path = require('path'),
-  fs = require('fs-extra'),
+  // fs = require('fs-extra'),
   webpack = require('webpack')
 
 const
@@ -52,7 +52,9 @@ module.exports = [
       extensions: ['.ts', '.js', '.vue', '.json'],
       alias: {
         'vue$': 'vue/dist/vue.esm.js',
-        '@': path.resolve(__dirname),
+        'main': path.resolve(__dirname, 'src/main'),
+        'common': path.resolve(__dirname, 'src/common'),
+        'renderer': path.resolve(__dirname, 'src/renderer'),
       }
     },
     module: {

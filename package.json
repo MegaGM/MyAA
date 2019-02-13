@@ -7,8 +7,8 @@
   "homepage": "https://bitbucket.org/Megga/horrible-nyaa-mal#readme",
   "main": "src/main/index.js",
   "scripts": {
-    "app": "electron .",
-    "dev": "NODE_ENV=development electron .",
+    "app": "./node_modules/electron/dist/electron .",
+    "dev": "NODE_ENV=development ./node_modules/electron/dist/electron .",
     "build": "./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
     "package:linux": "electron-packager ./ HorribleNyaaMAL --platform=linux --arch=x64 --overwrite --extra-resource='resources' --out='build'"

@@ -8,13 +8,38 @@
 export default {
   name: 'Timeago',
   props: ['timestamp'],
+  data() {
+    return {
+      time: 0,
+      intervalSwitch: true,
+      intervalMs: 60 * 1000,
+    }
+  },
   computed: {
     timeago() {
-      if (this.timestamp)
-        return this.parseTimestamp(this.timestamp)
+      if (this.time)
+        return this.parseTimestamp(this.time)
       else
         return null
-    }
+    },
+  },
+  mounted() {
+    this.time = +this.timestamp
+    /**
+     * SuperMonkey(tm) fix
+     * its here to make the computed.timeago to recompute once in this.intervalMs
+     */
+    setInterval((function () {
+      if (!this.time)
+        return
+
+      this.intervalSwitch = !this.intervalSwitch
+
+      if (this.intervalSwitch)
+        this.time += 1
+      else
+        this.time -= 1
+    }).bind(this), this.intervalMs)
   },
   methods: {
     parseTimestamp(timestamp) {

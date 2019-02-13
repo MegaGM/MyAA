@@ -108,7 +108,7 @@ export default {
 }
 
 .magic-cell.timeago {
-  flex-basis: 80px;
+  flex-basis: 90px;
   flex-shrink: 0;
   padding-right: 10px;
   text-align: right;

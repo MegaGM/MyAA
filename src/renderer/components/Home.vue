@@ -15,7 +15,7 @@
 
       <a-list-item
         slot="renderItem"
-        slot-scope="MalEntry, index"
+        slot-scope="MalEntry"
         class="padding-fix"
         :key="MalEntry.MAL_ID"
       >

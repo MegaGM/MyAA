@@ -12,7 +12,7 @@ export default {
     return {
       time: 0,
       intervalSwitch: true,
-      intervalMs: 60 * 1000,
+      intervalMs: 30 * 1000,
     }
   },
   computed: {
@@ -21,6 +21,11 @@ export default {
         return this.parseTimestamp(this.time)
       else
         return null
+    },
+  },
+  watch: {
+    timestamp() {
+      this.time = +this.timestamp
     },
   },
   mounted() {

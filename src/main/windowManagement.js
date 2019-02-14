@@ -14,7 +14,7 @@ function ensureSingleInstance({ w } = { w: null }) {
   /**
    * Focus the window instead of launching second app
    */
-  function onSecondInstance(event, commandLine, workingDirectory) {
+  function onSecondInstance() {
     // doesn't work, w is always undefined
     if (!w)
       return console.info('[second-instance] !w')
@@ -45,6 +45,7 @@ function showHideWindow({ w } = { w: null }) {
   }
 }
 
+
 function createWindow({ w } = { w: null }) {
   const wOptions = {
     webPreferences: {
@@ -54,7 +55,7 @@ function createWindow({ w } = { w: null }) {
     center: false,
     autoHideMenuBar: true,
     scrollBounce: true,
-    icon: path.resolve(__dirname, '../../resources/icons/tray/lock-1.png'),
+    icon: global.icon,
     webPreferences: {
       backgroundThrottling: false,
     },
@@ -71,6 +72,12 @@ function createWindow({ w } = { w: null }) {
     protocol: 'file:',
     slashes: true,
   }))
+
+  // w.on('minimize',  setIcon)
+  // w.on('restore',  setIcon)
+  function setIcon() {
+    w.setIcon(global.icon)
+  }
 
   w.on('move', saveWindowPosition)
   w.on('resize', saveWindowPosition)

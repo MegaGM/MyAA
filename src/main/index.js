@@ -1,5 +1,7 @@
 'use strict'
 global.BUILD_TARGET = 'electron-main'
+const path = require('path')
+global.icon = path.resolve(__dirname, '../../resources/icons/tray/lock-1.png')
 
 const
   { app } = require('electron'),
@@ -27,12 +29,12 @@ let
 main()
 function main() {
   app.commandLine.appendSwitch('ignore-gpu-blacklist')
-  ensureSingleInstance({ w })
 
   app.on('activate', () => (w === null) && (w = createWindow()))
   app.on('window-all-closed', () => (process.platform !== 'darwin') && app.quit())
   app.once('ready', async () => {
     w = await createWindow()
+    ensureSingleInstance({ w })
 
     // Order is important!
     setupDevelopmentEnv({ w })

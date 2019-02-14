@@ -95,12 +95,6 @@ export default {
   padding: 0 6px;
   border-right: 1px dashed;
 }
-.cell.episode-number {
-}
-.cell.download {
-}
-.cell.open {
-}
 .cell.finish {
   border-right: none;
 }

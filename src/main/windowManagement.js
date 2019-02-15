@@ -73,8 +73,8 @@ function createWindow({ w } = { w: null }) {
     slashes: true,
   }))
 
-  // w.on('minimize',  setIcon)
-  // w.on('restore',  setIcon)
+  w.on('minimize',  setIcon)
+  w.on('restore',  setIcon)
   function setIcon() {
     w.setIcon(global.icon)
   }

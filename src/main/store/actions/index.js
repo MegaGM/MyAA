@@ -66,8 +66,8 @@ async function markAsDone({ state, commit }, NyaaFile /* possibly NyaaEpisode */
       newEpisodeNumber,
       MalEntry,
     })
-    if (!success)
-      console.error('[markAsDone] MAL.updateProgress() success is falsy')
+    if (!success) // 2 secs later we will retry
+      return console.error('[markAsDone] MAL.updateProgress() success is falsy')
   }
 
   commit('unqueue:markAsDone', NyaaFile)

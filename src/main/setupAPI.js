@@ -10,12 +10,31 @@ async function setupAPI({ store }) {
     store.commit('enqueue:downloadNyaaEpisode', NyaaEpisode)
   })
 
-  ipcMain.on('MAL.updateProgress', (event, options) => MAL.updateProgress(options))
+  ipcMain.on('enqueue:finishNyaaEpisode', (event, NyaaEpisode) => {
+    store.commit('enqueue:markAsDone', NyaaEpisode)
+
+    const probablyFinishedNyaaFiles = store.state.files.ongoings
+      .filter(f => f.title.toLowerCase() === NyaaFile.title.toLowerCase())
+      .filter(f => f.episodeNumber < NyaaFile.episodeNumber)
+
+    if (store.state.REMOVE_FILES_WHEN_DONE)
+      probablyFinishedNyaaFiles.map(NyaaFile => {
+        commit('enqueue:files.toRemove', NyaaFile)
+      })
+  })
+
   ipcMain.on('enqueue:markAsDone', (event, NyaaEpisode) => {
     store.commit('enqueue:markAsDone', NyaaEpisode)
   })
 
-  ipcMain.on('COLD:MalEntries', (event, options) => store.dispatch('fetchMalEntries'))
+  ipcMain.on('MAL.updateProgress', (event, options) => {
+    MAL.updateProgress(options)
+  })
+
+
+  ipcMain.on('COLD:MalEntries', (event, options) => {
+    store.dispatch('fetchMalEntries')
+  })
 
   ipcMain.on('COLD:NyaaEpisodes', (event, options) => {
     for (const [title, NyaaEpisodes] of Object.entries(store.state.NyaaEpisodes)) {

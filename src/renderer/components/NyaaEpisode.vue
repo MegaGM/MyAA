@@ -1,13 +1,12 @@
 <template>
   <a-tag class="padding-fix margin-fix" :class="getFileStatusByNyaaEpisode(NyaaEpisode)">
     <div class="display-flex">
-      <div
-        class="cell episode-number"
-        @click="openNyaaEpisode(NyaaEpisode)"
-      >{{NyaaEpisode.episodeNumber}}</div>
+      <div class="cell episode-number" @click="openNyaaEpisode(NyaaEpisode)">
+        <b>{{paddedEpisodeNumber}}</b>
+      </div>
       <div class="cell download" @click="downloadNyaaEpisode(NyaaEpisode)">D</div>
       <div class="cell open" @click="openNyaaFile(NyaaEpisode)">O</div>
-      <div class="cell finish" @click="markAsDone(NyaaEpisode)">F</div>
+      <div class="cell finish" @click="finishNyaaEpisode(NyaaEpisode)">F</div>
     </div>
   </a-tag>
 </template>
@@ -23,14 +22,18 @@ export default {
   name: 'NyaaEpisode',
   props: ['NyaaEpisode'],
   computed: {
-    ...store.mapAll('getters')
+    ...store.mapAll('getters'),
+    paddedEpisodeNumber() {
+      const n = this.NyaaEpisode.episodeNumber
+      return (n + '').length === 1 ? '0' + n : n
+    },
   },
   methods: {
     downloadNyaaEpisode(NyaaEpisode) {
       ipcRenderer.send('enqueue:downloadNyaaEpisode', NyaaEpisode)
     },
-    markAsDone(NyaaEpisode) {
-      ipcRenderer.send('enqueue:markAsDone', NyaaEpisode)
+    finishNyaaEpisode(NyaaEpisode) {
+      ipcRenderer.send('enqueue:finishNyaaEpisode', NyaaEpisode)
     },
     openNyaaEpisode(NyaaEpisode) {
       const link = NyaaEpisode.href

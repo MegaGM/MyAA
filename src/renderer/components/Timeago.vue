@@ -1,5 +1,7 @@
 <template>
-  <span v-if="this.timeago">{{timeago.days}}D {{timeago.hours}}:{{timeago.minutes}}</span>
+  <span
+    v-if="this.timeago"
+  >{{timeago.sign}}{{timeago.days === 0 ? '' : timeago.days + 'D'}} {{timeago.hours}}:{{timeago.minutes}}</span>
   <span v-else>N/A</span>
 </template>
 
@@ -51,9 +53,19 @@ export default {
       const
         now = new Date().getTime(),
         diff = now - timestamp,
-        ISOFormattedDiff = new Date(diff).toISOString()
+        ISOFormattedDiff = new Date(diff).toISOString(),
+        week = 7 * 24 * 60 * 60 * 1000,
+        tillNextTime = week - diff
 
-      return this.parseISODate(ISOFormattedDiff)
+      let timeago
+      if (tillNextTime > 0)  // week has not passed yet
+        timeago = this.parseISODate(new Date(tillNextTime).toISOString())
+      else {
+        timeago = this.parseISODate(ISOFormattedDiff)
+        timeago.sign = '-'
+      }
+
+      return timeago
     },
     parseISODate(ISODate) {
       /**

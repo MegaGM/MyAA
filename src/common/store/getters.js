@@ -3,10 +3,22 @@
 module.exports = {
   getFileStatusByNyaaEpisode,
   getFreshNyaaEpisodesByMalEntry,
+  isMalEntryOutdated,
   getNyaaEpisodesByMalEntry,
   getLastNyaaEpisodeUploadTimeByMalEntry,
   MalEntry__LRU,
   MalEntries__ascByTitle,
+}
+
+function isMalEntryOutdated(state) {
+  return MalEntry => {
+    const
+      fetchTime = MalEntry.fetchTime,
+      msToGetOutdated = (Object.keys(state.MalEntries).length /* just to be sure */ - 5) * (state.CYCLE_STEP * 1000) || 5 * 60 * 1000,
+      isOutdated = fetchTime < (new Date().getTime() - msToGetOutdated)
+
+    return isOutdated
+  }
 }
 
 function getFileStatusByNyaaEpisode(state) {

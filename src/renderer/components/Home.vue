@@ -55,6 +55,11 @@
 
         <div class="magic-cell title">
           <a @click="$root.openLink(MalEntry.href)">{{MalEntry.title}}</a>
+          
+          <span
+            class="indicator-outdated"
+            v-if="isMalEntryOutdated(MalEntry)"
+          >&nbsp;?</span>
         </div>
       </a-list-item>
     </a-list>
@@ -115,7 +120,7 @@ export default {
 }
 
 .magic-cell.episodes {
-  flex-basis: 95px;
+  flex-basis: 100px;
   flex-shrink: 0;
   text-align: center;
 }
@@ -130,5 +135,9 @@ export default {
 
 #table-header {
   margin: 0 -16px;
+}
+
+.indicator-outdated {
+  text-decoration: underline;
 }
 </style>

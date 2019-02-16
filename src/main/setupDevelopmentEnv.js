@@ -18,7 +18,8 @@ function setupDevelopmentEnv({ w }) {
     // console.info('installedExtensions: ', installedExtensions)
   }
 
-  setTimeout(() => {
-    w.webContents.openDevTools()
-  }, 420)
+  // migrate to VSCode debugger
+  // setTimeout(() => {
+  //   w.webContents.openDevTools()
+  // }, 420)
 }

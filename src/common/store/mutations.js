@@ -7,6 +7,9 @@ const mutations = {
   NyaaEpisodes: (state, { title, NyaaEpisodes }) => state.NyaaEpisodes[title] = NyaaEpisodes,
   fetchTime: (state, { title, timestamp }) => state.fetchTime[title] = timestamp,
 
+  'CYCLE_STEP': setOption('CYCLE_STEP'),
+  'CYCLE_DEBUG': setOption('CYCLE_DEBUG'),
+
   'NYAA_QUALITY': setOption('NYAA_QUALITY'),
   'UPDATE_IN_BACKGROUND': setOption('UPDATE_IN_BACKGROUND'),
   'REMOVE_FILES_WHEN_DONE': setOption('REMOVE_FILES_WHEN_DONE'),

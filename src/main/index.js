@@ -13,8 +13,7 @@ const
   { setupHotkeys } = require('./setupHotkeys.js'),
   { getOrCreateStore } = require('./store'),
   Nyaa = require('./nyaa-api/Nyaa.api.js'),
-  qCycle = require('./qCycle.portable.js'),
-  cycle = new qCycle({ stepTime: 2, debug: false })
+  qCycle = require('./qCycle.portable.js')
 
 let
   w, //: Promise<BrowserWindow>
@@ -45,6 +44,10 @@ function main() {
     setupAPI({ store })
     setupFileWatcher({ store })
 
+    const cycle = new qCycle({
+      stepTime: store.state.CYCLE_STEP,
+      debug: store.state.CYCLE_DEBUG,
+    })
     cycle.setJob(job.bind(void 0, store))
     cycle.start()
 

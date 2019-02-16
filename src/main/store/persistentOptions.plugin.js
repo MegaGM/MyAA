@@ -2,8 +2,11 @@
 const fs = require('fs-extra')
 
 const
-  filepath = './options.json',
-  persistentOptions = [
+  filepath = './database.json',
+  watchOptions = [
+    'NyaaEpisodes',
+    'CYCLE_STEP',
+    'CYCLE_DEBUG',
     'NYAA_QUALITY',
     'UPDATE_IN_BACKGROUND',
     'REMOVE_FILES_WHEN_DONE',
@@ -11,25 +14,26 @@ const
 
 module.exports = function init(store) {
   try {
-    const options = fs.readJSONSync(filepath)
-    if (options)
-      for (const key in options)
-        store.state[key] = options[key]
+    const stateFS = fs.readJSONSync(filepath)
+    if (stateFS)
+      store.replaceState(stateFS)
   } catch (err) {
-    console.warn('[persistentOptions.vuex.plugin] No ./options.json', err.message)
+    console.warn(`[persistentOptions.vuex.plugin] No ${filepath}`, err.message)
   }
 
   store.subscribe(({ type, payload }, state) => {
-    const shouldUpdate = persistentOptions.includes(type)
+    const shouldUpdate = watchOptions.includes(type)
     if (!shouldUpdate)
       return
 
-    const options = {}
-    for (const key of persistentOptions)
-      options[key] = state[key]
+    const stateDump = { ...state }
 
-    options[type] = payload
+    // also apply current mutation since it's not in the state yet
+    if (type === 'NyaaEpisodes')
+      stateDump.NyaaEpisodes[payload.title] = payload.NyaaEpisodes
+    else
+      stateDump[type] = payload
 
-    fs.outputJSONSync(filepath, options)
+    fs.outputJSONSync(filepath, stateDump)
   })
 }

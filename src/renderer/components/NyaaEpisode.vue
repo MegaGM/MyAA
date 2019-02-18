@@ -78,20 +78,20 @@ export default {
 
 .ant-tag.fresh {
   color: #f5222d;
-  background: #fff1f0;
-  border-color: #ffa39e;
+  border-color: #632f32;
+  background-color: #2d2d2d;
 }
 
 .ant-tag.downloaded {
-  color: #52c41a;
-  background: #f6ffed;
-  border-color: #b7eb8f;
+  color: #59cc20;
+  border-color: #285d00;
+  background-color: #2d2d2d;
 }
 
 .ant-tag.done {
   color: #1890ff;
-  background: #e6f7ff;
-  border-color: #91d5ff;
+  border-color: #23465c;
+  background-color: #2d2d2d;
 }
 
 .cell {

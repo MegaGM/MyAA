@@ -2,8 +2,15 @@
   outline: 0;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 body, .ant-table, .ant-list {
   font-family: "Meiryo", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  /* background-color: #f0f2f5 !important; */
+  background-color: #101011;
+  /* color: #f0f2f5; */
 }
 
 .white-bg {

@@ -1,26 +1,43 @@
 <template>
   <div>
-    <a-progress v-if="(progressBar && progressBar < 100)" :percent="progressBar" status="active"/>
-    <a-list size="small" bordered :dataSource="MalEntries__ascByTitle" class="white-bg">
-      <div slot="header" class="display-flex" id="table-header">
+    <a-progress
+      v-if="(progressBar && progressBar < 100)"
+      :percent="progressBar"
+      status="active"
+      strokeLinecap="square"
+      :strokeColor="('#1bc3d8')"
+      :format="format => format + '%'"
+    />
+    <a-list
+      size="small"
+      bordered
+      :dataSource="MalEntries__ascByTitle"
+      class="myaa-theme-background-color myaa-theme-border-color"
+    >
+      <div
+        slot="header"
+        class="display-flex myaa-theme-color myaa-theme-border-color"
+        id="table-header"
+      >
         <div class="magic-cell progress">Progress</div>
         <div class="magic-cell timeago">Timeago</div>
         <div class="magic-cell episodes">Episodes</div>
         <div class="magic-cell title">Title
           <a-badge
             :count="MalEntries__ascByTitle.length"
-            :numberStyle="{backgroundColor: '#f0f2f5', color: 'rgba(0, 0, 0, 0.65)'}"
+            class="myaa-theme-background-color myaa-theme-border-color"
           ></a-badge>
+          <!-- :numberStyle="{backgroundColor: '#f0f2f5', color: 'rgba(0, 0, 0, 0.65)'}" -->
         </div>
       </div>
 
       <a-list-item
         slot="renderItem"
         slot-scope="MalEntry"
-        class="padding-fix"
         :key="MalEntry.MAL_ID"
+        class="myaa-theme-border-color"
       >
-        <div class="magic-cell progress">
+        <div class="magic-cell progress myaa-theme-color">
           <a-button-group size="small">
             <!-- <a-button
               type="default"
@@ -28,7 +45,12 @@
               size="small"
               @click="updateMalEntryProgress(MalEntry.progress.current + 1, MalEntry)"
             />-->
-            <a-button type="dashed">
+            <!-- <span>
+            {{MalEntry.progress.current}}
+            /
+            {{MalEntry.progress.overall}}
+            </span>-->
+            <a-button class="myaa-theme-color myaa-theme-background-color">
               {{MalEntry.progress.current}}
               /
               {{MalEntry.progress.overall}}
@@ -42,7 +64,7 @@
           </a-button-group>
         </div>
 
-        <div class="magic-cell timeago">
+        <div class="magic-cell timeago myaa-theme-color">
           <Timeago
             :timestamp="getLastNyaaEpisodeUploadTimeByMalEntry(MalEntry)"
             :class="{outdated: isMalEntryOutdated(MalEntry)}"
@@ -58,7 +80,7 @@
         </div>
 
         <div class="magic-cell title">
-          <a @click="$root.openLink(MalEntry.href)">{{MalEntry.title}}</a>
+          <a @click="$root.openLink(MalEntry.href)" class="myaa-theme-color">{{MalEntry.title}}</a>
         </div>
       </a-list-item>
     </a-list>
@@ -125,6 +147,14 @@ export default {
 
 
 <style>
+#table-header {
+  margin: 0 -16px;
+}
+
+.ant-list-split .ant-list-header {
+  border-bottom: 1px solid #1ac3d8;
+}
+
 .magic-cell.progress {
   flex-basis: 80px;
   flex-shrink: 0;
@@ -139,6 +169,10 @@ export default {
   text-align: right;
 }
 
+.magic-cell.timeago .outdated {
+  color: #dc0000;
+}
+
 .magic-cell.episodes {
   flex-basis: 110px;
   flex-shrink: 0;
@@ -149,15 +183,40 @@ export default {
   flex-grow: 1;
 }
 
-.ant-list-item.padding-fix {
-  padding: 2px 0 !important;
+.magic-cell.title a {
+  vertical-align: middle;
 }
 
-#table-header {
-  margin: 0 -16px;
+/* .ant-list-bordered {
+  border: 1px solid rgba(245, 34, 45, 0.12);
+} */
+
+/* .ant-list-bordered .ant-list-item {
+  border-bottom: 1px solid #000;
+} */
+.ant-list-bordered {
+  border-left: none;
+  border-right: none;
 }
 
-.magic-cell.timeago .outdated {
-  color: #dc0000;
+.ant-list-item {
+  padding: 3px 0 !important;
+}
+
+.ant-btn {
+  border-color: #144d54;
+}
+
+.ant-btn:hover,
+.ant-btn:focus {
+  background-color: inherit;
+  border-color: inherit;
+}
+
+.ant-progress-inner {
+  background-color: #282a36;
+}
+.ant-progress-text {
+  color: #1bc3d8;
 }
 </style>

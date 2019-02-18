@@ -1,5 +1,5 @@
 <template>
-  <a-layout id="app" class="layout">
+  <a-layout id="app" class="layout myaa-theme-background-color">
     <a-layout-content class="content">
       <router-view></router-view>
     </a-layout-content>
@@ -17,12 +17,9 @@ export default {
 </script>
 
 <style>
-body {
-  background-color: #f0f2f5 !important;
-}
-
 .layout {
-  padding: 0 50px;
+  /* padding: 0 50px; */
+  padding: 0;
 }
 
 .content {
@@ -31,7 +28,7 @@ body {
 
 .footer {
   text-align: center;
-  background-color: #f0f2f5 !important;
+  background-color: #282a36;
 }
 
 .copyleft {

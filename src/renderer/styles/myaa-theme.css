@@ -1,0 +1,28 @@
+.myaa-theme-background-color {
+  background-color: #282a36;
+}
+
+.myaa-theme-background-color sup {
+  background-color: #1bc3d8;
+}
+
+.myaa-theme-color {
+  color: #1bc3d8;
+}
+
+.myaa-theme-color sup {
+  color: #000;
+}
+
+.myaa-theme-color:hover, .myaa-theme-color sup:hover {
+  color: #700;
+}
+
+.myaa-theme-border-color {
+  border-color: rgba(0, 0, 0, .5) !important;
+}
+
+.myaa-theme-border-color sup {
+  border-color: rgba(0, 0, 0, .5) !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .5);
+}

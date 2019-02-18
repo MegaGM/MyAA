@@ -1,7 +1,6 @@
 'usy strict'
 
 const
-  { ipcRenderer } = require('electron'),
   axios = require('axios'),
   fastXmlParser = require('fast-xml-parser'),
   { Episode } = require('./Episode.js'),

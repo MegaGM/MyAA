@@ -1,6 +1,6 @@
 {
   "name": "myaa",
-  "version": "2.10.0",
+  "version": "2.10.1",
   "license": "Apache-2.0",
   "description": "My Anime Assistant for MAL and Nyaa.si",
   "author": "Mega <Aza.Noriega@gmail.com>",
@@ -11,7 +11,8 @@
     "dev": "NODE_ENV=development ./node_modules/electron/dist/electron .",
     "build": "./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
-    "package:linux": "electron-packager ./ HorribleNyaaMAL --platform=linux --arch=x64 --overwrite --extra-resource='resources' --out='build'"
+    "package:linux:extra:obsolete": "electron-packager ./ HorribleNyaaMAL --platform=linux --arch=x64 --overwrite --extra-resource='build' --extra-resource='resources' --out='packaged'",
+    "package:linux": "electron-packager ./ HorribleNyaaMAL --platform=linux --arch=x64 --overwrite --out='packaged'"
   },
   "build": {
     "appId": "org.AzaNoriega.MyAA",
@@ -22,7 +23,7 @@
       "src/**/*"
     ],
     "directories": {
-      "output": "build"
+      "output": "packaged"
     },
     "linux": {
       "target": [
@@ -61,6 +62,7 @@
     "fs-extra": "^7.0.1",
     "mathjs": "^5.4.2",
     "puppeteer": "^1.11.0",
+    "vue": "^2.6.6",
     "vuex": "^3.1.0"
   },
   "devDependencies": {
@@ -77,7 +79,6 @@
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
     "url-loader": "*",
-    "vue": "^2.5.22",
     "vue-loader": "*",
     "vue-router": "^3.0.2",
     "vue-style-loader": "*",

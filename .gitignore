@@ -1,3 +1,4 @@
+packaged/*
 database.json
 torrents/*.torrent
 build

@@ -13,7 +13,7 @@ module.exports = function init(store) {
   }
 
   store.subscribe(({ type, payload }, state) => {
-    const shouldUpdate = state.persistentOptions.includes(type)
+    const shouldUpdate = state.onChangeOfTheseSettingsDumpVuexStateToFS.includes(type)
     if (!shouldUpdate)
       return
 

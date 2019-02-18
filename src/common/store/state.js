@@ -2,13 +2,13 @@
 
 const state = {
   eventName: 'vuex.mutation',
-  persistentOptions: [
-    'NyaaEpisodes',
+  onChangeOfTheseSettingsDumpVuexStateToFS: [
     'CYCLE_STEP',
     'CYCLE_DEBUG',
     'NYAA_QUALITY',
     'UPDATE_IN_BACKGROUND',
     'REMOVE_FILES_WHEN_DONE',
+    'NyaaEpisodes',
   ],
 
   CYCLE_STEP: 2,

@@ -68,8 +68,8 @@ export async function updateProgress(options: upOptions): Promise<boolean> {
       }): void {
         const input = <HTMLInputElement>document.getElementById('epID' + (MAL_ID + ''))
         if (!input)
-          return console.warn(`[MAL.updateProgress] Cannot find <input> on MAL page`)
-        // throw new Error('[MAL.updateProgress] Invalid input')
+          throw new Error(`[MAL.updateProgress] Cannot find <input> on MAL page`)
+        // return console.warn(`[MAL.updateProgress] Cannot find <input> on MAL page`)
         input.value = newEpisodeNumber + ''
 
         const form = <HTMLFormElement>input.closest('form')
@@ -81,17 +81,17 @@ export async function updateProgress(options: upOptions): Promise<boolean> {
           (window as any).determineEpVisibility(MAL_ID + '')
         }
         else {
-          console.error('no onsubmit')
+          console.error('[MAL.updateProgress] no onsubmit')
         }
       }
 
     })
     .then(() => {
-      console.info('MAL.updateProgress', { MAL_ID, newEpisodeNumber })
+      console.info('[MAL.updateProgress]', { MAL_ID, newEpisodeNumber })
       return true
     })
     .catch(err => {
-      console.error('MAL.updateProgress catched: ', err)
+      console.error('[MAL.updateProgress] catched: ', err.message)
       return false
     })
 }

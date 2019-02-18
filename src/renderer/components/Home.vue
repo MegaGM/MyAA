@@ -161,39 +161,27 @@ export default {
   padding-right: 10px;
   text-align: right;
 }
-
 .magic-cell.timeago {
   flex-basis: 90px;
   flex-shrink: 0;
   padding-right: 10px;
   text-align: right;
 }
-
 .magic-cell.timeago .outdated {
   color: #ff4e4e;
 }
-
 .magic-cell.episodes {
   flex-basis: 110px;
   flex-shrink: 0;
   text-align: center;
 }
-
 .magic-cell.title {
   flex-grow: 1;
 }
-
 .magic-cell.title a {
   vertical-align: middle;
 }
 
-/* .ant-list-bordered {
-  border: 1px solid rgba(245, 34, 45, 0.12);
-} */
-
-/* .ant-list-bordered .ant-list-item {
-  border-bottom: 1px solid #000;
-} */
 .ant-list-bordered {
   /* border-left: none;
   border-right: none; */
@@ -206,7 +194,6 @@ export default {
 .ant-btn {
   border-color: #144d54;
 }
-
 .ant-btn:hover,
 .ant-btn:focus {
   color: #1bc3d8;
@@ -214,6 +201,10 @@ export default {
   background-color: inherit;
 }
 
+.ant-progress-line {
+  top: 0;
+  position: absolute;
+}
 .ant-progress-inner {
   background-color: #282a36;
 }

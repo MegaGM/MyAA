@@ -68,7 +68,8 @@ export async function updateProgress(options: upOptions): Promise<boolean> {
       }): void {
         const input = <HTMLInputElement>document.getElementById('epID' + (MAL_ID + ''))
         if (!input)
-          throw new Error('[MAL.updateProgress] Invalid input')
+          return console.warn(`[MAL.updateProgress] Cannot find <input> on MAL page`)
+        // throw new Error('[MAL.updateProgress] Invalid input')
         input.value = newEpisodeNumber + ''
 
         const form = <HTMLFormElement>input.closest('form')

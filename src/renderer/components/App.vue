@@ -29,6 +29,7 @@ export default {
 .footer {
   text-align: center;
   background-color: #282a36;
+  color: #919ca0;
 }
 
 .copyleft {

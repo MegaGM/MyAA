@@ -25,7 +25,7 @@
         <div class="magic-cell title">Title
           <a-badge
             :count="MalEntries__ascByTitle.length"
-            class="myaa-theme-background-color myaa-theme-border-color"
+            class="myaa-theme-background-color myaa-theme-border-color text-bold"
           ></a-badge>
           <!-- :numberStyle="{backgroundColor: '#f0f2f5', color: 'rgba(0, 0, 0, 0.65)'}" -->
         </div>

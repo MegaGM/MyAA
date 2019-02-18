@@ -1,16 +1,7 @@
 'use strict'
-const fs = require('fs-extra')
 
-const
-  filepath = './database.json',
-  watchOptions = [
-    'NyaaEpisodes',
-    'CYCLE_STEP',
-    'CYCLE_DEBUG',
-    'NYAA_QUALITY',
-    'UPDATE_IN_BACKGROUND',
-    'REMOVE_FILES_WHEN_DONE',
-  ]
+const fs = require('fs-extra')
+const filepath = './database.json'
 
 module.exports = function init(store) {
   try {
@@ -22,7 +13,7 @@ module.exports = function init(store) {
   }
 
   store.subscribe(({ type, payload }, state) => {
-    const shouldUpdate = watchOptions.includes(type)
+    const shouldUpdate = state.persistentOptions.includes(type)
     if (!shouldUpdate)
       return
 

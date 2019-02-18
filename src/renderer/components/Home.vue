@@ -202,11 +202,12 @@ export default {
 }
 
 .ant-progress-line {
-  top: 0;
   position: absolute;
+  top: 0;
+  padding: 0 240px 0 200px;
 }
 .ant-progress-inner {
-  background-color: #282a36;
+  background-color: rgb(0, 113, 127);
 }
 .ant-progress-text {
   color: #1bc3d8;

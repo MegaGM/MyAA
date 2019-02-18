@@ -156,7 +156,7 @@ export default {
 }
 
 .magic-cell.progress {
-  flex-basis: 80px;
+  flex-basis: 88px;
   flex-shrink: 0;
   padding-right: 10px;
   text-align: right;
@@ -170,7 +170,7 @@ export default {
 }
 
 .magic-cell.timeago .outdated {
-  color: #dc0000;
+  color: #ff4e4e;
 }
 
 .magic-cell.episodes {
@@ -195,8 +195,8 @@ export default {
   border-bottom: 1px solid #000;
 } */
 .ant-list-bordered {
-  border-left: none;
-  border-right: none;
+  /* border-left: none;
+  border-right: none; */
 }
 
 .ant-list-item {
@@ -209,8 +209,9 @@ export default {
 
 .ant-btn:hover,
 .ant-btn:focus {
+  color: #1bc3d8;
+  border-color: #144d54;
   background-color: inherit;
-  border-color: inherit;
 }
 
 .ant-progress-inner {

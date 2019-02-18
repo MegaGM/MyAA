@@ -85,7 +85,7 @@ async function fetchNyaaEpisodesForMalEntry({ state, commit }, { title } = {}) {
     now = new Date().getTime(),
     NyaaEpisodes = await Nyaa.fetchEpisodes(title),
     episodesCount = NyaaEpisodes.length,
-    sinceLastUpdate = now - state.fetchTime[title]
+    sinceLastUpdate = now - (state.fetchTime[title] || 0)
 
   let message = ''
   if (episodesCount) {
@@ -123,7 +123,7 @@ async function fetchMalEntries({ state, commit }) {
     for (const MalEntry of MalEntriesArr)
       commit('fetchTime', {
         title: MalEntry.title,
-        timestamp: now,
+        timestamp: now - state.msToGetOutdated,
       })
 
   commit('MalEntries', MalEntries)

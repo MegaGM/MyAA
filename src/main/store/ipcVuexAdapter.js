@@ -9,9 +9,9 @@ module.exports = function init({ w }) {
     /**
      * Receive state changes from client
      */
-    ipcMain.on(eventName, (event, { type, payload }) => {
-      store.commit(type, payload)
-    })
+    // ipcMain.on(eventName, (event, { type, payload }) => {
+    //   store.commit(type, payload)
+    // })
 
     /**
      * Propagate state changes to client

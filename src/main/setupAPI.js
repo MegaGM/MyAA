@@ -6,6 +6,9 @@ module.exports = {
 }
 
 async function setupAPI({ store }) {
+  /**
+   * Hot
+   */
   ipcMain.on('enqueue:downloadNyaaEpisode', (event, NyaaEpisode) => {
     store.commit('enqueue:downloadNyaaEpisode', NyaaEpisode)
   })
@@ -31,9 +34,31 @@ async function setupAPI({ store }) {
     MAL.updateProgress(options)
   })
 
+  /**
+   * Cold
+   */
+  // ipcMain.on('COLD:state', (event, options) => {
+  //   event.sender.send(store.state.eventName, {
+  //     type: 'state',
+  //     payload: store.state,
+  //   })
+  // })
 
   ipcMain.on('COLD:MalEntries', (event, options) => {
-    store.dispatch('fetchMalEntries')
+    event.sender.send(store.state.eventName, {
+      type: 'MalEntries',
+      payload: store.state.MalEntries,
+    })
+  })
+
+  ipcMain.on('COLD:fetchTime', (event, options) => {
+    for (const [title, timestamp] of Object.entries(store.state.fetchTime)) {
+      // imitate Vuex mutation
+      event.sender.send(store.state.eventName, {
+        type: 'fetchTime',
+        payload: { title, timestamp },
+      })
+    }
   })
 
   ipcMain.on('COLD:NyaaEpisodes', (event, options) => {
@@ -41,10 +66,7 @@ async function setupAPI({ store }) {
       // imitate Vuex mutation
       event.sender.send(store.state.eventName, {
         type: 'NyaaEpisodes',
-        payload: {
-          title,
-          NyaaEpisodes
-        }
+        payload: { title, NyaaEpisodes },
       })
     }
   })

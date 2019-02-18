@@ -6,6 +6,7 @@ module.exports = {
   isMalEntryOutdated,
   getNyaaEpisodesByMalEntry,
   getLastNyaaEpisodeUploadTimeByMalEntry,
+  MalEntry__Random,
   MalEntry__LRU,
   MalEntries__ascByTitle,
 }
@@ -13,9 +14,9 @@ module.exports = {
 function isMalEntryOutdated(state) {
   return MalEntry => {
     const
-      fetchTime = MalEntry.fetchTime,
-      msToGetOutdated = (Object.keys(state.MalEntries).length /* just to be sure */ - 5) * (state.CYCLE_STEP * 1000) || 5 * 60 * 1000,
-      isOutdated = fetchTime < (new Date().getTime() - msToGetOutdated)
+      fetchTime = state.fetchTime[MalEntry.title] || 0,
+      // msToGetOutdated = (Object.keys(state.MalEntries).length /* just to be sure */ * 2) * (state.CYCLE_STEP * 1000) || 5 * 60 * 1000,
+      isOutdated = fetchTime < (new Date().getTime() - state.msToGetOutdated)
 
     return isOutdated
   }
@@ -81,21 +82,27 @@ function getLastNyaaEpisodeUploadTimeByMalEntry(state, getters) {
   }
 }
 
+function MalEntry__Random(state) {
+  const
+    keys = Object.keys(state.MalEntries),
+    randomIndex = Math.floor(Math.random() * keys.length),
+    MalEntry = state.MalEntries[keys[randomIndex]]
+
+  return MalEntry
+}
+
 function MalEntry__LRU(state) {
   const
     noMalEntries = !Object.keys(state.MalEntries).length,
     noFetchTimestamps = !Object.keys(state.fetchTime).length
   if (noMalEntries || noFetchTimestamps) {
-    console.error('[MalEntry__LRU] (noMalEntries || noFetchTimestamps)')
+    console.warn('[MalEntry__LRU] (noMalEntries || noFetchTimestamps)')
     return null
   }
 
   const fetchTimestamps__ascByFetchTime = Object
-    .keys(state.fetchTime)
-    .map(title => ({
-      title,
-      fetchTime: state.fetchTime[title],
-    }))
+    .entries(state.fetchTime)
+    .map(([title, fetchTime]) => ({ title, fetchTime }))
     .sort(({ fetchTime: t1 }, { fetchTime: t2 }) => t1 - t2)
 
   const

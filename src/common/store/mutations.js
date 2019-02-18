@@ -3,6 +3,12 @@ const Vue = require('vue')
 const fs = require('fs-extra')
 
 const mutations = {
+  // 'state': (state, payload) => {
+  //   const newState = JSON.parse(JSON.stringify(payload))
+  //   for (const key of Object.keys(newState))
+  //     state[key] = newState[key]
+  // },
+
   MalEntries: (state, payload) => state.MalEntries = payload,
   NyaaEpisodes: (state, { title, NyaaEpisodes }) => state.NyaaEpisodes[title] = NyaaEpisodes,
   fetchTime: (state, { title, timestamp }) => state.fetchTime[title] = timestamp,

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a-progress v-if="(progressBar && progressBar < 100)" :percent="progressBar" status="active"/>
     <a-list size="small" bordered :dataSource="MalEntries__ascByTitle" class="white-bg">
       <div slot="header" class="display-flex" id="table-header">
         <div class="magic-cell progress">Progress</div>
@@ -42,7 +43,10 @@
         </div>
 
         <div class="magic-cell timeago">
-          <Timeago :timestamp="getLastNyaaEpisodeUploadTimeByMalEntry(MalEntry)"></Timeago>
+          <Timeago
+            :timestamp="getLastNyaaEpisodeUploadTimeByMalEntry(MalEntry)"
+            :class="{outdated: isMalEntryOutdated(MalEntry)}"
+          ></Timeago>
         </div>
 
         <div class="magic-cell episodes">
@@ -55,11 +59,6 @@
 
         <div class="magic-cell title">
           <a @click="$root.openLink(MalEntry.href)">{{MalEntry.title}}</a>
-          
-          <span
-            class="indicator-outdated"
-            v-if="isMalEntryOutdated(MalEntry)"
-          >&nbsp;?</span>
         </div>
       </a-list-item>
     </a-list>
@@ -82,22 +81,43 @@ import Timeago from './Timeago'
 export default {
   components: { NyaaEpisode, Timeago },
   computed: {
-    ...store.mapAll('getters')
+    ...store.mapAll('getters'),
+    progressBar() {
+      const
+        keys = Object.keys(store.state.MalEntries),
+        overall = keys.length,
+        outdated = keys.filter(key => {
+          const MalEntry = store.state.MalEntries[key]
+          return store.getters.isMalEntryOutdated(MalEntry)
+        }).length,
+        updated = overall - outdated
+
+      return Math.floor(((100 / overall) * updated))
+    },
   },
   methods: {
     openLink(link) {
       this.$electron.shell.openExternal(link)
     },
     coldLoad() {
+      // ipcRenderer.send('COLD:state')
+      // ipcRenderer.on('COLD:state', (event, state) => {
+      //   store.replaceState(JSON.parse(state))
+      //   console.info('store.state: ', store.state)
+      // })
+
+      // ipcRenderer.send('COLD:state')
+
       ipcRenderer.send('COLD:MalEntries')
-      ipcRenderer.send('COLD:NyaaEpisodes')
+      ipcRenderer.send('COLD:fetchTime')
       ipcRenderer.send('COLD:files')
+      ipcRenderer.send('COLD:NyaaEpisodes')
     },
     updateMalEntryProgress(newEpisodeNumber, MalEntry) {
       ipcRenderer.send('MAL.updateProgress', { newEpisodeNumber, MalEntry })
     },
   },
-  async mounted() {
+  mounted() {
     this.coldLoad()
   },
 }
@@ -120,7 +140,7 @@ export default {
 }
 
 .magic-cell.episodes {
-  flex-basis: 100px;
+  flex-basis: 110px;
   flex-shrink: 0;
   text-align: center;
 }
@@ -137,7 +157,7 @@ export default {
   margin: 0 -16px;
 }
 
-.indicator-outdated {
-  text-decoration: underline;
+.magic-cell.timeago .outdated {
+  color: #dc0000;
 }
 </style>

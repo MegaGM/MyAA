@@ -12,6 +12,7 @@ const state = {
 
   MalEntries: {},
   fetchTime: {},
+  msToGetOutdated: 100000,
 
   NyaaEpisodes: {},
   files: {

@@ -5,7 +5,7 @@ export default function init() {
     const eventName = store.state.eventName
 
     /**
-     * Receive state changes from client
+     * Receive state changes from server
      */
     ipcRenderer.on(eventName, (event, { type, payload }) => {
       store.commit(type, payload)

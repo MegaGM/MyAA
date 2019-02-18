@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Electron: Main",
       "cwd": "${workspaceRoot}",
-      "protocol": "inspector",
+      // "protocol": "inspector",
       "console": "integratedTerminal",
       // "console": "internalConsole",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",

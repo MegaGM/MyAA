@@ -8,6 +8,11 @@ const MALtoNyaaTitleDiffMap = [
   //   subTeam: 'HorribleSubs',
   //   quality: '1080',
   // },
+  
+  {
+    titleMAL: 'Rinshi Ekoda-chan',
+    titleNyaa: 'Rinshi!! Ekoda-chan',
+  },
   {
     titleMAL: 'Kakegurui××',
     titleNyaa: 'Kakegurui XX',

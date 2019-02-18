@@ -86,7 +86,9 @@ async function job(store) {
   /**
    * After all quests, update a single MalEntry
    */
-  const MalEntry__LRU = store.getters.MalEntry__LRU
-  if (MalEntry__LRU)
-    await store.dispatch('fetchNyaaEpisodesForMalEntry', MalEntry__LRU)
+  let MalEntry = store.getters.MalEntry__LRU
+  if (!MalEntry)
+    MalEntry = store.getters.MalEntry__Random
+
+  await store.dispatch('fetchNyaaEpisodesForMalEntry', MalEntry)
 }

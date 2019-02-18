@@ -10,14 +10,14 @@ import electron from 'electron'
 Vue.prototype.$electron = electron
 
 // bootstrap app
+import App from './components/App.vue'
 import router from './router'
 import { getOrCreateStore } from './store'
-
-import App from './components/App.vue'
+const store = getOrCreateStore()
 
 new Vue({
   router,
-  store: getOrCreateStore(),
+  store,
   components: { App },
   methods: {
     openLink(link) {

@@ -1,7 +1,6 @@
 'usy strict'
 
 const
-  Promise = require('bluebird'),
   { ipcRenderer } = require('electron'),
   axios = require('axios'),
   fastXmlParser = require('fast-xml-parser'),

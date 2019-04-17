@@ -1,5 +1,5 @@
 const { ipcMain } = require('electron')
-const MAL = require('./mal-api/build/MAL.api.js')
+const MAL = require('main/mal-api/MAL.api.ts')
 
 module.exports = {
   setupAPI,

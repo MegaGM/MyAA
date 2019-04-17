@@ -22,7 +22,8 @@
         <div class="magic-cell progress">Progress</div>
         <div class="magic-cell timeago">Timeago</div>
         <div class="magic-cell episodes">Episodes</div>
-        <div class="magic-cell title">Title
+        <div class="magic-cell title">
+          Title
           <a-badge
             :count="MalEntries__ascByTitle.length"
             class="myaa-theme-background-color myaa-theme-border-color text-bold"

@@ -68,13 +68,13 @@ function createWindow({ w } = { w: null }) {
   w = new BrowserWindow(wOptions)
 
   w.loadURL(url.format({
-    pathname: path.resolve(__dirname, '../../build/renderer/index.html'),
+    pathname: path.resolve(__dirname, '../../../build/renderer/index.html'),
     protocol: 'file:',
     slashes: true,
   }))
 
-  w.on('minimize',  setIcon)
-  w.on('restore',  setIcon)
+  w.on('minimize', setIcon)
+  w.on('restore', setIcon)
   function setIcon() {
     w.setIcon(global.icon)
   }

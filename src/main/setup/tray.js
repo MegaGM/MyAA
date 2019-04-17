@@ -12,7 +12,7 @@ function setupTray({ w, store }) {
    * Setup Tray icon and TrayMenu
    */
   // tray = new Tray(path.resolve(__dirname, '../../resources/icons/tray', 'electron-icon.png'))
-  let tray = new Tray(path.resolve(__dirname, '../../resources/icons/tray/lock-1.png'))
+  let tray = new Tray(path.resolve(__dirname, '../../../resources/icons/tray/lock-1.png'))
 
   // TODO: possibly register all events in one space-separated string
   tray.on('click', () => showHideWindow({ w }))

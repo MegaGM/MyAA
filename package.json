@@ -1,11 +1,11 @@
 {
   "name": "myaa",
-  "version": "2.10.3",
+  "version": "2.11.0",
   "license": "Apache-2.0",
   "description": "My Anime Assistant for MAL and Nyaa.si",
   "author": "Mega <Aza.Noriega@gmail.com>",
   "homepage": "https://bitbucket.org/Megga/horrible-nyaa-mal#readme",
-  "main": "src/main/index.js",
+  "main": "./electron-main-loader.js",
   "scripts": {
     "app": "./node_modules/electron/dist/electron .",
     "dev": "NODE_ENV=development ./node_modules/electron/dist/electron .",
@@ -61,13 +61,13 @@
     "fast-xml-parser": "^3.12.12",
     "fs-extra": "^7.0.1",
     "mathjs": "^5.4.2",
-    "puppeteer": "^1.11.0",
+    "puppeteer": "^1.14.0",
     "vue": "^2.6.6",
     "vuex": "^3.1.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
-    "@types/puppeteer": "^1.11.1",
+    "@types/puppeteer": "^1.12.3",
     "css-loader": "*",
     "electron": "^4.x.x",
     "electron-devtools-installer": "^2.2.4",

@@ -2,8 +2,8 @@
 
 const
   fs = require('fs-extra'),
-  Nyaa = require('../../nyaa-api/Nyaa.api.js'),
-  MAL = require('../../mal-api/build/MAL.api.js'),
+  Nyaa = require('main/nyaa-api/Nyaa.api.js'),
+  MAL = require('main/mal-api/MAL.api.ts'),
   { downloadNyaaEpisode } = require('./torrentManagement.js'),
   episodless = {}
 
@@ -57,7 +57,6 @@ async function markAsDone({ state, commit }, NyaaFile /* possibly NyaaEpisode */
 
   if (!MalEntry) {
     console.error('[markAsDone] No MalEntry in MalEntries for NyaaFile.title: ', NyaaFile.title)
-    console.error('diff', diff)
     return commit('unqueue:markAsDone', NyaaFile)
   }
 

@@ -1,8 +1,7 @@
 'use strict'
 
 import fs from 'fs-extra'
-import { Browser, Page, Cookie, SerializableOrJSHandle } from 'puppeteer'
-import { parentPort } from 'worker_threads';
+import { Page, Cookie, SerializableOrJSHandle } from 'puppeteer'
 const { configureChromeHead, getChromeTab, bakeCookies } =
   require
     ('../../common/nativeRequireBypassWebpack.js')

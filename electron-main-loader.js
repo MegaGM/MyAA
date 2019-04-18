@@ -6,4 +6,4 @@
 global.puppeteer = require('puppeteer')
 global.vue = require('vue')
 
-require('./build/main/index.js')
+require('./build/main/electron-main.js')

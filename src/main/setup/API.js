@@ -1,6 +1,10 @@
 const { ipcMain } = require('electron')
 const MAL = require('main/mal-api/MAL.api.ts')
 
+import http, { IncomingMessage, ServerResponse } from 'http'
+import { attach, SCServerSocket } from 'socketcluster-server'
+let httpServer, scServer
+
 module.exports = {
   setupAPI,
 }

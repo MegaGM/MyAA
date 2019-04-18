@@ -1,9 +1,7 @@
 'use strict'
-console.info('dirname in webpack: ', __dirname)
 
 const
   path = require('path'),
-  // fs = require('fs-extra'),
   webpack = require('webpack')
 
 const
@@ -27,7 +25,7 @@ const
 
 module.exports = [
   {
-    name: 'renderer',
+    name: 'electron-renderer',
     mode: 'development',
     stats: {
       children: false,
@@ -89,7 +87,7 @@ module.exports = [
     plugins,
   },
   {
-    name: 'main',
+    name: 'electron-main',
     mode: 'development',
     target: 'electron-main',
     stats: {
@@ -103,12 +101,12 @@ module.exports = [
       __filename: true,
     },
     entry: {
-      index: './src/main/index.js',
+      index: './src/main/electron-main.js',
     },
     output: {
       path: path.resolve(__dirname, 'build/main'),
       // path: path.resolve(__dirname, './src/common/mal-scraper/build'),
-      filename: '[name].js'
+      filename: 'electron-main.js'
     },
     resolve: {
       extensions: ['.ts', '.js', '.json', '.html', '.css', '.gif', '.png', '.jpg'],
@@ -124,6 +122,51 @@ module.exports = [
     externals: ['ws', 'fsevents', 'puppeteer', 'vue'],
     module: {
       // noParse: /ws|puppeteer|fsevents/,
+      noParse: /nativeRequireBypassWebpack\.js/,
+      rules: [
+        { test: /\.ts$/, loader: 'ts-loader' },
+        { test: /\.html$/, loader: 'html-loader' },
+        { test: /\.css$/, loader: 'css-loader' },
+        { test: /\.gif|\.png|\.jpg$/, loader: 'file-loader' },
+      ]
+    },
+    plugins: [
+      new webpack.IgnorePlugin(/chrome\-head/),
+    ],
+  },
+  {
+    name: 'node-main',
+    mode: 'development',
+    target: 'async-node',
+    devtool: 'inline-source-map',
+    stats: {
+      modules: false,
+      entrypoints: false,
+    },
+    node: {
+      __dirname: true,
+      __filename: true,
+    },
+    entry: {
+      index: './src/main/node-main.js',
+    },
+    output: {
+      path: path.resolve(__dirname, 'build/main'),
+      filename: 'node-main.js'
+    },
+    resolve: {
+      extensions: ['.ts', '.js', '.json', '.html', '.css', '.gif', '.png', '.jpg'],
+      alias: {
+        // 'vue$': 'vue/dist/vue.esm.js',
+        'main': path.resolve(__dirname, 'src/main'),
+        'common': path.resolve(__dirname, 'src/common'),
+        'renderer': path.resolve(__dirname, 'src/renderer'),
+        'build': path.resolve(__dirname, 'build'),
+        'resources': path.resolve(__dirname, 'resources'),
+      }
+    },
+    externals: ['ws', 'fsevents', 'puppeteer', 'vue'],
+    module: {
       noParse: /nativeRequireBypassWebpack\.js/,
       rules: [
         { test: /\.ts$/, loader: 'ts-loader' },

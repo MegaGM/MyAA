@@ -1,7 +1,11 @@
 'use strict'
-
+/**
+ * NOTE: in Nyaa.Episode.parseTitle()
+ * we collect uniqueSubTeams from this file
+ * so be sure HorribleSubs is included at least in one of the entries
+ */
 const MALtoNyaaTitleDiffMap = [
-  // example
+  // an example
   // {
   //   titleMAL: 'Mob Psycho 100 II',
   //   titleNyaa: 'Mob Psycho 100 S2',
@@ -11,6 +15,7 @@ const MALtoNyaaTitleDiffMap = [
   {
     titleMAL: 'Fairy Tail Final Series',
     titleNyaa: 'Fairy Tail Final Season',
+    subTeam: 'HorribleSubs',
   },
   {
     titleMAL: 'Uchuu Senkan Yamato 2202 Ai no Senshi-tachi',

@@ -12,11 +12,17 @@ async function setupAPI({ scServer, store }) {
     })
 
     socket.on('enqueue:finishNyaaEpisode', (NyaaEpisode) => {
+      throw new Error('enqueue:finishNyaaEpisode is not implemented')
       store.commit('enqueue:markAsDone', NyaaEpisode)
 
-      const probablyFinishedNyaaFiles = store.state.files.ongoings
-        .filter(f => f.title.toLowerCase() === NyaaFile.title.toLowerCase())
-        .filter(f => f.episodeNumber < NyaaFile.episodeNumber)
+      const probablyFinishedNyaaFiles = Object
+        .values(store.state.files.ongoings)
+        .filter(NyaaFile =>
+          NyaaFile.title.toLowerCase() === NyaaEpisode.title.toLowerCase()
+        )
+        .filter(NyaaFile =>
+          NyaaFile.episodeNumber < NyaaEpisode.episodeNumber
+        )
 
       if (store.state.REMOVE_FILES_WHEN_DONE)
         probablyFinishedNyaaFiles.map(NyaaFile => {

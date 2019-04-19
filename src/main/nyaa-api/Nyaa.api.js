@@ -5,7 +5,7 @@ const
   fastXmlParser = require('fast-xml-parser'),
   { Episode } = require('./Episode.js'),
   { File } = require('./File.js'),
-  { diffMap } = require('./diffMap.js')
+  { diffMap } = require('../../common/nyaa-api/diffMap.js')
 
 const NyaaMirrors = [
   // 'nyaa.si',

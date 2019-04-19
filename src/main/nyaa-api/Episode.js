@@ -1,5 +1,5 @@
 'use strict'
-const { diffMap } = require('./diffMap.js')
+const { diffMap } = require('../../common/nyaa-api/diffMap.js')
 
 class Episode {
   constructor(o, opts) {

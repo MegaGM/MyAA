@@ -1,4 +1,5 @@
 'use strict'
+const { diffMap } = require('../nyaa-api/diffMap.js')
 
 module.exports = {
   getFileStatusByNyaaEpisode,
@@ -106,7 +107,9 @@ function MalEntry__LRU(state) {
     .sort(({ fetchTime: t1 }, { fetchTime: t2 }) => t1 - t2)
 
   const
-    [{ title }] = fetchTimestamps__ascByFetchTime,
+    [{ title: titleNyaa }] = fetchTimestamps__ascByFetchTime,
+    diff = diffMap.find(d => d.titleNyaa === titleNyaa),
+    title = diff && diff.titleMAL || titleNyaa,
     MalEntry = state.MalEntries[title]
 
   return MalEntry

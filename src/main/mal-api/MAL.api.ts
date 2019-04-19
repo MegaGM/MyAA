@@ -63,11 +63,12 @@ export async function getCW() {
     await onLoadMiddleware(tab)
     // await authenticateIfNeeded(tab)
     const MalEntries = await scrapeOngoings(tab)
-    return MalEntries
-    // return MalEntries.filter(MalEntry => {
-    //   if (MalEntry.title === 'Mob Psycho 100 II')
-    //     return true
+    // MalEntries.forEach(MalEntry => {
+    //   if (MalEntry.title.match(/Amazing/)) {
+    //     console.info('AMAZING: ', MalEntry)
+    //   }
     // })
+    return MalEntries
   } catch (err) {
     console.error('[MAL] catched in getCW(): ', err.message)
     // return mocked MalEntry[], not to break qCycled job
@@ -108,6 +109,13 @@ export async function updateProgress(options: upOptions): Promise<boolean> {
     })
     await onLoadMiddleware(tab)
     // await authenticateIfNeeded(tab)
+
+    if (MalEntry && MalEntry.title === 'Bungou Stray Dogs 3rd Season') {
+      // Bungou Stray Dogs 3rd Season is being released with wrong numeration
+      // let's just -24, to get 3 ep when filename contains 27
+      newEpisodeNumber -= 24
+    }
+
     await tab.evaluate(_updateEpisodeNumber, ({
       MAL_ID,
       newEpisodeNumber

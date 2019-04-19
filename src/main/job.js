@@ -32,6 +32,6 @@ async function job(store) {
   let MalEntry = store.getters.MalEntry__LRU
   if (!MalEntry)
     MalEntry = store.getters.MalEntry__Random
-
-  await store.dispatch('fetchNyaaEpisodesForMalEntry', MalEntry)
+  if (MalEntry)
+    await store.dispatch('fetchNyaaEpisodesForMalEntry', MalEntry)
 }

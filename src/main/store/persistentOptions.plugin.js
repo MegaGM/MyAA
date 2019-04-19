@@ -2,6 +2,7 @@
 
 const fs = require('fs-extra')
 const filepath = './database.json'
+const defaultState = require('../../common/store/defaultState.js')
 
 module.exports = function init(store) {
   try {
@@ -24,6 +25,12 @@ module.exports = function init(store) {
       stateDump.NyaaEpisodes[payload.title] = payload.NyaaEpisodes
     else
       stateDump[type] = payload
+
+    // clean fetchTime and files
+    stateDump.files = defaultState.files
+    stateDump.fetchTime = defaultState.fetchTime
+    stateDump.NyaaEpisodes = defaultState.NyaaEpisodes
+    stateDump.MalEntries = defaultState.MalEntries
 
     fs.outputJSONSync(filepath, stateDump)
   })

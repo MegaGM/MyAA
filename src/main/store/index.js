@@ -4,7 +4,7 @@ Vue.use(Vuex)
 
 let store = null
 const
-  state = require('../../common/store/state.js'),
+  state = require('../../common/store/defaultState.js'),
   getters = require('../../common/store/getters.js'),
   actions = require('./actions'),
   mutations = require('../../common/store/mutations.js'),
@@ -22,7 +22,7 @@ function getOrCreateStore(options) {
 
 function createStore({ scServer }) {
   store = new Vuex.Store({
-    state,
+    state: Object.assign({}, state),
     getters,
     actions,
     mutations,

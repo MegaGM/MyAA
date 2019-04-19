@@ -8,7 +8,7 @@ const state = {
     'NYAA_QUALITY',
     'UPDATE_IN_BACKGROUND',
     'REMOVE_FILES_WHEN_DONE',
-    'NyaaEpisodes',
+    // 'NyaaEpisodes',
   ],
 
   CYCLE_STEP: 2,

@@ -8,8 +8,14 @@ const mutations = {
   // },
 
   MalEntries: (state, payload) => state.MalEntries = payload,
-  NyaaEpisodes: (state, { title, NyaaEpisodes }) => state.NyaaEpisodes[title] = NyaaEpisodes,
-  fetchTime: (state, { title, timestamp }) => state.fetchTime[title] = timestamp,
+  NyaaEpisodes: (state, { title, NyaaEpisodes }) => {
+    if (!state.NyaaEpisodes) { state.NyaaEpisodes = {} }
+    state.NyaaEpisodes[title] = NyaaEpisodes
+  },
+  fetchTime: (state, { title, timestamp }) => {
+    if (!state.fetchTime) { state.fetchTime = {} }
+    state.fetchTime[title] = timestamp
+  },
 
   'CYCLE_STEP': setOption('CYCLE_STEP'),
   'CYCLE_DEBUG': setOption('CYCLE_DEBUG'),
@@ -18,20 +24,33 @@ const mutations = {
   'UPDATE_IN_BACKGROUND': setOption('UPDATE_IN_BACKGROUND'),
   'REMOVE_FILES_WHEN_DONE': setOption('REMOVE_FILES_WHEN_DONE'),
 
-  'files.add': (state, file) => state.files[file.dir][file.filepath] = file,
+  'files.add': (state, file) => {
+    if (!state.files) { state.files = {} }
+    if (!state.files[file.dir]) { state.files[file.dir] = {} }
+    state.files[file.dir][file.filepath] = file
+  },
   'files.unlink': (state, file) => {
     const newFiles = Object.assign({}, state.files[file.dir])
     delete newFiles[file.filepath]
     state.files[file.dir] = newFiles
   },
 
-  'enqueue:files.toRemove': (state, file) => state.files['toRemove'].push(file),
+  'enqueue:files.toRemove': (state, file) => {
+    if (!state.files['toRemove']) { state.files['toRemove'] = [] }
+    state.files['toRemove'].push(file)
+  },
   'unqueue:files.toRemove': (state, file) => unQueueFile({ state, file, dir: 'toRemove' }),
 
-  'enqueue:markAsDone': (state, file) => state.files['toMarkAsDone'].push(file),
+  'enqueue:markAsDone': (state, file) => {
+    if (!state.files['toMarkAsDone']) { state.files['toMarkAsDone'] = [] }
+    state.files['toMarkAsDone'].push(file)
+  },
   'unqueue:markAsDone': (state, file) => unQueueFile({ state, file, dir: 'toMarkAsDone' }),
 
-  'enqueue:downloadNyaaEpisode': (state, file) => state.files['toDownload'].push(file),
+  'enqueue:downloadNyaaEpisode': (state, file) => {
+    if (!state.files['toDownload']) { state.files['toDownload'] = [] }
+    state.files['toDownload'].push(file)
+  },
   'unqueue:downloadNyaaEpisode': (state, file) => unQueueFile({ state, file, dir: 'toDownload' }),
 
 }

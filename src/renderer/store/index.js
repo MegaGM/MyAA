@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 let store = null
-import state from 'common/store/state.js'
+import state from 'common/store/defaultState.js'
 import getters from 'common/store/getters.js'
 import mutations from 'common/store/mutations.js'
 import mapAll from 'common/store/mapAll.plugin.js'
@@ -19,7 +19,7 @@ export function getOrCreateStore(options) {
 
 export function createStore(options) {
   store = new Vuex.Store({
-    state,
+    state: Object.assign({}, state),
     getters,
     mutations,
     plugins: [

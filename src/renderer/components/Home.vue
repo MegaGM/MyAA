@@ -177,7 +177,8 @@ export default {
   flex-grow: 1;
 }
 .magic-cell.title a {
-  vertical-align: middle;
+  /* vertical-align: middle; */
+  vertical-align: sub;
 }
 
 .ant-list-bordered {

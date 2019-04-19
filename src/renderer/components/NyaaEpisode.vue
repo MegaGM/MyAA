@@ -4,9 +4,16 @@
       <div class="cell episode-number" @click="openNyaaEpisode(NyaaEpisode)">
         <b>{{paddedEpisodeNumber}}</b>
       </div>
-      <div class="cell download" @click="downloadNyaaEpisode(NyaaEpisode)">D</div>
-      <div class="cell open" @click="openNyaaFile(NyaaEpisode)">O</div>
-      <div class="cell finish" @click="finishNyaaEpisode(NyaaEpisode)">F</div>
+
+      <div class="cell download" @click="downloadNyaaEpisode(NyaaEpisode)">
+        <a class="letter-button">D</a>
+      </div>
+      <div class="cell open" @click="openNyaaFile(NyaaEpisode)">
+        <a class="letter-button">O</a>
+      </div>
+      <div class="cell finish" @click="finishNyaaEpisode(NyaaEpisode)">
+        <a class="letter-button">F</a>
+      </div>
     </div>
   </a-tag>
 </template>
@@ -92,8 +99,12 @@ export default {
   background-color: #2d2d2d;
 }
 
+.ant-tag .letter-button {
+  color: inherit;
+}
+
 .cell {
-  padding: 0 6px;
+  padding: 0 8px;
   border-right: 1px dashed;
 }
 .cell.finish {

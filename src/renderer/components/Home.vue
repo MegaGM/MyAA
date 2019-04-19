@@ -169,7 +169,7 @@ export default {
   color: #ff4e4e;
 }
 .magic-cell.episodes {
-  flex-basis: 110px;
+  flex-basis: 126px;
   flex-shrink: 0;
   text-align: center;
 }

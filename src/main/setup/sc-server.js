@@ -28,6 +28,12 @@ function server(req, res) {
     const filepath = path.resolve('./build/web-renderer', filename)
     res.end(fs.readFileSync(filepath))
   }
+  else if (req.url.startsWith('/favicon_io/')) {
+    res.writeHead(200)
+    const filename = req.url.replace(/\/favicon_io\//, '')
+    const filepath = path.resolve('./resources/icons/favicon_io', filename)
+    res.end(fs.readFileSync(filepath))
+  }
   else {
     res.writeHead(501)
     res.end('Not implemented')

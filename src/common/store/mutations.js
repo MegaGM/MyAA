@@ -1,6 +1,4 @@
 'use strict'
-const Vue = require('vue')
-const fs = require('fs-extra')
 
 const mutations = {
   // 'state': (state, payload) => {

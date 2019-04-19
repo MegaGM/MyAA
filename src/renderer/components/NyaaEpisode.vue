@@ -13,8 +13,6 @@
 
 
 <script>
-import { ipcRenderer } from 'electron'
-
 import { getOrCreateStore } from 'renderer/store'
 const store = getOrCreateStore()
 
@@ -30,10 +28,10 @@ export default {
   },
   methods: {
     downloadNyaaEpisode(NyaaEpisode) {
-      ipcRenderer.send('enqueue:downloadNyaaEpisode', NyaaEpisode)
+      this.$scSocket.emit('enqueue:downloadNyaaEpisode', NyaaEpisode)
     },
     finishNyaaEpisode(NyaaEpisode) {
-      ipcRenderer.send('enqueue:finishNyaaEpisode', NyaaEpisode)
+      this.$scSocket.emit('enqueue:finishNyaaEpisode', NyaaEpisode)
     },
     openNyaaEpisode(NyaaEpisode) {
       const link = NyaaEpisode.href

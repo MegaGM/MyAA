@@ -8,7 +8,7 @@ const
   getters = require('../../common/store/getters.js'),
   actions = require('./actions'),
   mutations = require('../../common/store/mutations.js'),
-  ipcVuexAdapter = require('./ipcVuexAdapter.js'),
+  scVuexAdapter = require('./scVuexAdapter.js'),
   persistentOptions = require('./persistentOptions.plugin.js')
 
 module.exports = { getOrCreateStore, createStore }
@@ -20,15 +20,15 @@ function getOrCreateStore(options) {
     return createStore(options)
 }
 
-function createStore({ w }) {
+function createStore({ scServer }) {
   store = new Vuex.Store({
     state,
     getters,
     actions,
     mutations,
     plugins: [
-      ipcVuexAdapter({ w }),
-      persistentOptions,
+      scVuexAdapter({ scServer }),
+      persistentOptions
     ],
   })
 

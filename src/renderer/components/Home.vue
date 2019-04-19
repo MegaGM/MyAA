@@ -90,9 +90,6 @@
 
 
 <script>
-import { ipcRenderer } from 'electron'
-
-import Vue from 'vue'
 import Vuex, { mapGetters, mapActions, mapMutations } from 'vuex'
 import { getOrCreateStore } from 'renderer/store'
 const store = getOrCreateStore()
@@ -123,21 +120,21 @@ export default {
       this.$electron.shell.openExternal(link)
     },
     coldLoad() {
-      // ipcRenderer.send('COLD:state')
+      // this.$scSocket.emit('COLD:state')
       // ipcRenderer.on('COLD:state', (event, state) => {
       //   store.replaceState(JSON.parse(state))
       //   console.info('store.state: ', store.state)
       // })
 
-      // ipcRenderer.send('COLD:state')
+      // this.$scSocket.emit('COLD:state')
 
-      ipcRenderer.send('COLD:MalEntries')
-      ipcRenderer.send('COLD:fetchTime')
-      ipcRenderer.send('COLD:files')
-      ipcRenderer.send('COLD:NyaaEpisodes')
+      this.$scSocket.emit('COLD:MalEntries')
+      this.$scSocket.emit('COLD:fetchTime')
+      this.$scSocket.emit('COLD:files')
+      this.$scSocket.emit('COLD:NyaaEpisodes')
     },
     updateMalEntryProgress(newEpisodeNumber, MalEntry) {
-      ipcRenderer.send('MAL.updateProgress', { newEpisodeNumber, MalEntry })
+      this.$scSocket.emit('MAL.updateProgress', { newEpisodeNumber, MalEntry })
     },
   },
   mounted() {

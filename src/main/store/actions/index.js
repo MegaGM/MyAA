@@ -2,8 +2,8 @@
 
 const
   fs = require('fs-extra'),
-  Nyaa = require('main/nyaa-api/Nyaa.api.js'),
-  MAL = require('main/mal-api/MAL.api.ts'),
+  Nyaa = require('../../nyaa-api/Nyaa.api.js'),
+  MAL = require('../../mal-api/build/MAL.api.js'),
   { downloadNyaaEpisode } = require('./torrentManagement.js'),
   episodless = {}
 

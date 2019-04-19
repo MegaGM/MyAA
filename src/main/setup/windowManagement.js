@@ -68,7 +68,7 @@ function createWindow({ w } = { w: null }) {
   w = new BrowserWindow(wOptions)
 
   w.loadURL(url.format({
-    pathname: path.resolve(__dirname, '../../../build/renderer/index.html'),
+    pathname: path.resolve(__dirname, '../../../build/electron-renderer/index.html'),
     protocol: 'file:',
     slashes: true,
   }))

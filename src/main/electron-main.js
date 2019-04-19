@@ -5,6 +5,7 @@ global.icon = path.resolve(__dirname, 'resources/icons/tray/lock-1.png')
 
 const
   { app } = require('electron'),
+  { setupSCServer } = require('./setup/sc-server.js'),
   { createWindow, showHideWindow, ensureSingleInstance } = require('./setup/windowManagement.js'),
   { setupTray } = require('./setup/tray.js'),
   { setupDevelopmentEnv } = require('./setup/developmentEnv.js'),
@@ -19,7 +20,8 @@ const
 let
   w, //: Promise<BrowserWindow>
   tray, //: Tray
-  store //: Vuex.Store
+  store, //: Vuex.Store
+  scServer //: SocketCluster
 
 
 /**
@@ -37,12 +39,13 @@ function main() {
     ensureSingleInstance({ w })
 
     // Order is important!
+    scServer = setupSCServer()
     setupDevelopmentEnv({ w })
-    store = getOrCreateStore({ w })
+    store = getOrCreateStore({ scServer, w })
     tray = setupTray({ w, store })
     setupHotkeys({ w, store })
     Nyaa.injectStore(store)
-    setupAPI({ store })
+    setupAPI({ scServer, store })
     setupFileWatcher({ store })
 
     const cycle = new qCycle({

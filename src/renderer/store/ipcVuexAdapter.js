@@ -16,7 +16,7 @@ export default function init() {
      */
     // store.subscribe((mutation, state) => {
     //   const extended = Object.assign(mutation, { isForServer: true })
-    //   ipcRenderer.send(eventName, extended)
+    //   this.$scSocket.emit(eventName, extended)
     // })
   }
 }

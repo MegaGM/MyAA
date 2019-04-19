@@ -2,14 +2,16 @@
 global.BUILD_TARGET = 'node-main'
 
 const
-  { setupFileWatcher } = require('./setup/fileWatcher.js'),
-  { setupAPI } = require('./setup/API.js'),
+  { setupSCServer } = require('./setup/sc-server.js'),
   { getOrCreateStore } = require('./store'),
+  { setupAPI } = require('./setup/API.js'),
+  { setupFileWatcher } = require('./setup/fileWatcher.js'),
   Nyaa = require('./nyaa-api/Nyaa.api.js'),
   qCycle = require('./qCycle.portable.js'),
   job = require('./job.js')
 
 let store //: Vuex.Store
+let scServer
 
 
 /**
@@ -19,9 +21,10 @@ let store //: Vuex.Store
 main()
 function main() {
   // Order is important!
-  store = getOrCreateStore({ w })
+  scServer = setupSCServer()
+  store = getOrCreateStore({ scServer })
   Nyaa.injectStore(store)
-  setupAPI({ store })
+  setupAPI({ scServer, store })
   setupFileWatcher({ store })
 
   const cycle = new qCycle({

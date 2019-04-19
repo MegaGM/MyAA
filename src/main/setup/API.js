@@ -1,85 +1,81 @@
-const { ipcMain } = require('electron')
-const MAL = require('main/mal-api/MAL.api.ts')
+const MAL = require('../mal-api/build/MAL.api.js')
 
-import http, { IncomingMessage, ServerResponse } from 'http'
-import { attach, SCServerSocket } from 'socketcluster-server'
-let httpServer, scServer
+module.exports = { setupAPI }
 
-module.exports = {
-  setupAPI,
-}
-
-async function setupAPI({ store }) {
-  /**
-   * Hot
-   */
-  ipcMain.on('enqueue:downloadNyaaEpisode', (event, NyaaEpisode) => {
-    store.commit('enqueue:downloadNyaaEpisode', NyaaEpisode)
-  })
-
-  ipcMain.on('enqueue:finishNyaaEpisode', (event, NyaaEpisode) => {
-    store.commit('enqueue:markAsDone', NyaaEpisode)
-
-    const probablyFinishedNyaaFiles = store.state.files.ongoings
-      .filter(f => f.title.toLowerCase() === NyaaFile.title.toLowerCase())
-      .filter(f => f.episodeNumber < NyaaFile.episodeNumber)
-
-    if (store.state.REMOVE_FILES_WHEN_DONE)
-      probablyFinishedNyaaFiles.map(NyaaFile => {
-        commit('enqueue:files.toRemove', NyaaFile)
-      })
-  })
-
-  ipcMain.on('enqueue:markAsDone', (event, NyaaEpisode) => {
-    store.commit('enqueue:markAsDone', NyaaEpisode)
-  })
-
-  ipcMain.on('MAL.updateProgress', (event, options) => {
-    MAL.updateProgress(options)
-  })
-
-  /**
-   * Cold
-   */
-  // ipcMain.on('COLD:state', (event, options) => {
-  //   event.sender.send(store.state.eventName, {
-  //     type: 'state',
-  //     payload: store.state,
-  //   })
-  // })
-
-  ipcMain.on('COLD:MalEntries', (event, options) => {
-    event.sender.send(store.state.eventName, {
-      type: 'MalEntries',
-      payload: store.state.MalEntries,
+async function setupAPI({ scServer, store }) {
+  scServer.on('connection', (socket) => {
+    /**
+     * Hot
+     */
+    socket.on('enqueue:downloadNyaaEpisode', (NyaaEpisode) => {
+      store.commit('enqueue:downloadNyaaEpisode', NyaaEpisode)
     })
-  })
 
-  ipcMain.on('COLD:fetchTime', (event, options) => {
-    for (const [title, timestamp] of Object.entries(store.state.fetchTime)) {
-      // imitate Vuex mutation
-      event.sender.send(store.state.eventName, {
-        type: 'fetchTime',
-        payload: { title, timestamp },
+    socket.on('enqueue:finishNyaaEpisode', (NyaaEpisode) => {
+      store.commit('enqueue:markAsDone', NyaaEpisode)
+
+      const probablyFinishedNyaaFiles = store.state.files.ongoings
+        .filter(f => f.title.toLowerCase() === NyaaFile.title.toLowerCase())
+        .filter(f => f.episodeNumber < NyaaFile.episodeNumber)
+
+      if (store.state.REMOVE_FILES_WHEN_DONE)
+        probablyFinishedNyaaFiles.map(NyaaFile => {
+          commit('enqueue:files.toRemove', NyaaFile)
+        })
+    })
+
+    socket.on('enqueue:markAsDone', (NyaaEpisode) => {
+      store.commit('enqueue:markAsDone', NyaaEpisode)
+    })
+
+    socket.on('MAL.updateProgress', (data, callback) => {
+      MAL.updateProgress(options)
+    })
+
+
+    /**
+     * Cold
+     */
+    // socket.on('COLD:state', (data, callback) => {
+    //   socket.emit(store.state.eventName, {
+    //     type: 'state',
+    //     payload: store.state,
+    //   })
+    // })
+
+    socket.on('COLD:MalEntries', (data, callback) => {
+      socket.emit(store.state.eventName, {
+        type: 'MalEntries',
+        payload: store.state.MalEntries,
       })
-    }
-  })
+    })
 
-  ipcMain.on('COLD:NyaaEpisodes', (event, options) => {
-    for (const [title, NyaaEpisodes] of Object.entries(store.state.NyaaEpisodes)) {
-      // imitate Vuex mutation
-      event.sender.send(store.state.eventName, {
-        type: 'NyaaEpisodes',
-        payload: { title, NyaaEpisodes },
-      })
-    }
-  })
+    socket.on('COLD:fetchTime', (data, callback) => {
+      for (const [title, timestamp] of Object.entries(store.state.fetchTime)) {
+        // imitate Vuex mutation
+        socket.emit(store.state.eventName, {
+          type: 'fetchTime',
+          payload: { title, timestamp },
+        })
+      }
+    })
 
-  ipcMain.on('COLD:files', async (event, options) => {
-    for (const file of Object.values(store.state.files.ongoings))
-      event.sender.send(store.state.eventName, { type: 'files.add', payload: file })
+    socket.on('COLD:NyaaEpisodes', (data, callback) => {
+      for (const [title, NyaaEpisodes] of Object.entries(store.state.NyaaEpisodes)) {
+        // imitate Vuex mutation
+        socket.emit(store.state.eventName, {
+          type: 'NyaaEpisodes',
+          payload: { title, NyaaEpisodes },
+        })
+      }
+    })
 
-    for (const file of Object.values(store.state.files.done))
-      event.sender.send(store.state.eventName, { type: 'files.add', payload: file })
+    socket.on('COLD:files', async (data, callback) => {
+      for (const file of Object.values(store.state.files.ongoings))
+        socket.emit(store.state.eventName, { type: 'files.add', payload: file })
+
+      for (const file of Object.values(store.state.files.done))
+        socket.emit(store.state.eventName, { type: 'files.add', payload: file })
+    })
   })
 }

@@ -1,7 +1,13 @@
 'use strict'
 
-import fs from 'fs-extra'
+// import { readJsonSync, outputJsonSync } from 'fs-extra'
 import { Page, Cookie, SerializableOrJSHandle } from 'puppeteer'
+
+const { readJsonSync, outputJsonSync } =
+  require
+    ('../../common/nativeRequireBypassWebpack.js')
+    ('fs-extra')
+
 const { configureChromeHead, getChromeTab, bakeCookies } =
   require
     ('../../common/nativeRequireBypassWebpack.js')
@@ -9,8 +15,9 @@ const { configureChromeHead, getChromeTab, bakeCookies } =
 
 configureChromeHead({
   LOG_LEVEL: 5,
-  ENABLE_PLUGINS: true,
-  PLUGIN_WHITELIST: ['cookie-button'],
+  ENABLE_PLUGINS: false,
+  // ENABLE_PLUGINS: true,
+  // PLUGIN_WHITELIST: ['cookie-button'],
 })
 
 const malURL = `https://myanimelist.net/animelist/Megga?status=1`
@@ -26,7 +33,7 @@ const CREDENTIALS = {
 export async function ensureCookies(): Promise<void> {
   if (!cookies || !cookies.length) {
     try {
-      cookies = fs.readJsonSync(cookiesPath)
+      cookies = readJsonSync(cookiesPath)
     } catch (err) {
       console.error('Catched in MAL.ensureCookies', err.code, err.path)
     }
@@ -34,7 +41,7 @@ export async function ensureCookies(): Promise<void> {
 
   if (!cookies || !cookies.length) {
     cookies = await bakeCookies(malURL)
-    fs.outputJsonSync(cookiesPath, cookies)
+    outputJsonSync(cookiesPath, cookies)
   }
 }
 
@@ -200,14 +207,14 @@ async function authenticateIfNeeded(tab: Page): Promise<Page> {
   //  * save authentication state
   //  */
   // const cookies = await tab.cookies()
-  // fs.outputJsonSync(cookiesPath, cookies)
+  // outputJsonSync(cookiesPath, cookies)
 
   /**
    * New-style, ask user to login manually, then get cookies
    */
   cookies = await bakeCookies(malURL)
   isAuthenticated = true
-  fs.outputJsonSync(cookiesPath, cookies)
+  outputJsonSync(cookiesPath, cookies)
   throw new Error('BreakException')
   // return tab
 }

@@ -7,7 +7,7 @@ import state from 'common/store/state.js'
 import getters from 'common/store/getters.js'
 import mutations from 'common/store/mutations.js'
 import mapAll from 'common/store/mapAll.plugin.js'
-import ipcVuexAdapter from './ipcVuexAdapter.js'
+// import scVuexAdapter from './scVuexAdapter.js'
 
 
 export function getOrCreateStore(options) {
@@ -23,7 +23,7 @@ export function createStore(options) {
     getters,
     mutations,
     plugins: [
-      ipcVuexAdapter(),
+      // scVuexAdapter({ scSocket }),
       mapAll,
     ],
   })

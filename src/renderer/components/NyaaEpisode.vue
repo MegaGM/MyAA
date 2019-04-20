@@ -37,16 +37,11 @@ export default {
     downloadNyaaEpisode(NyaaEpisode) {
       this.$scSocket.emit('enqueue:downloadNyaaEpisode', NyaaEpisode)
     },
-    finishNyaaEpisode(NyaaEpisode) {
-      this.$scSocket.emit('enqueue:finishNyaaEpisode', NyaaEpisode)
-    },
-    openNyaaEpisode(NyaaEpisode) {
-      const link = NyaaEpisode.href
-        .replace('.torrent', '')
-        .replace('download/', 'view/')
-      this.$root.openLink(link)
-    },
     openNyaaFile(NyaaEpisode) {
+      if (NyaaEpisode.title === 'Bungou Stray Dogs 3rd Season') {
+        NyaaEpisode.episodeNumber += 24
+      }
+
       const
         lookup = files =>
           files
@@ -67,6 +62,15 @@ export default {
 
       filepath = 'file://' + filepath
       this.$root.openLink(filepath)
+    },
+    finishNyaaEpisode(NyaaEpisode) {
+      this.$scSocket.emit('enqueue:finishNyaaEpisode', NyaaEpisode)
+    },
+    openNyaaEpisode(NyaaEpisode) {
+      const link = NyaaEpisode.href
+        .replace('.torrent', '')
+        .replace('download/', 'view/')
+      this.$root.openLink(link)
     },
   },
 }

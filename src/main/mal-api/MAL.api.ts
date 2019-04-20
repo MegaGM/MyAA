@@ -113,7 +113,9 @@ export async function updateProgress(options: upOptions): Promise<boolean> {
     if (MalEntry && MalEntry.title === 'Bungou Stray Dogs 3rd Season') {
       // Bungou Stray Dogs 3rd Season is being released with wrong numeration
       // let's just -24, to get 3 ep when filename contains 27
-      newEpisodeNumber -= 24
+      if (newEpisodeNumber > 24) {
+        newEpisodeNumber -= 24
+      }
     }
 
     await tab.evaluate(_updateEpisodeNumber, ({

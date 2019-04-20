@@ -17,7 +17,6 @@ async function setupAPI({ scServer, store }) {
     })
 
     socket.on('enqueue:finishNyaaEpisode', (NyaaEpisode) => {
-      throw new Error('enqueue:finishNyaaEpisode is not implemented')
       store.commit('enqueue:markAsDone', NyaaEpisode)
 
       const probablyFinishedNyaaFiles = Object

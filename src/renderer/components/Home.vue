@@ -116,9 +116,6 @@ export default {
     },
   },
   methods: {
-    openLink(link) {
-      this.$electron.shell.openExternal(link)
-    },
     coldLoad() {
       // this.$scSocket.emit('COLD:state')
       // ipcRenderer.on('COLD:state', (event, state) => {

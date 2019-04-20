@@ -24,8 +24,7 @@ SCVue
       components: { App },
       methods: {
         openLink(link) {
-          throw new Error('Vue.openLink is not implemented!')
-          // this.$electron.shell.openExternal(link)
+          this.$scSocket.emit('openFile', link)
         },
       },
       render: (h) => h(App),

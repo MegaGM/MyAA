@@ -6,9 +6,6 @@ Vue.config.productionTip = false
 // install plugins
 import AntDesignFramework from './plugins/ant-design-vue.plugin.js'
 import css from './styles/index.css'
-import electron from 'electron'
-Vue.prototype.$electron = electron
-
 
 // bootstrap app
 import App from './components/App.vue'
@@ -30,7 +27,7 @@ SCVue
       methods: {
         // it could be a plugin-mixin
         openLink(link) {
-          this.$electron.shell.openExternal(link)
+          this.$scSocket.emit('openFile', link)
         },
       },
       render: (h) => h(App),

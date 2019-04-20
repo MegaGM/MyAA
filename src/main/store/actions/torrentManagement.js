@@ -7,7 +7,7 @@ const
 module.exports = {
   downloadNyaaEpisode,
   saveTorrent,
-  openTorrent,
+  openFile,
 }
 
 
@@ -16,7 +16,7 @@ async function downloadNyaaEpisode({ state, commit }, NyaaEpisode) {
     throw new RangeError('[downloadNyaaEpisode] Invalid NyaaEpisode.href', NyaaEpisode.href)
 
   const filepath = await saveTorrent(NyaaEpisode)
-  await openTorrent(filepath)
+  await openFile(filepath)
 
   commit('unqueue:downloadNyaaEpisode', NyaaEpisode)
 }
@@ -38,7 +38,7 @@ async function saveTorrent({ href, torrentID }) {
 }
 
 
-async function openTorrent(filepath) {
+async function openFile(filepath) {
   let command // choose platform speciefic command to open .torrent
   switch (process.platform) {
     case 'win32':
@@ -71,3 +71,17 @@ async function execAsync(command) {
     child.addListener('exit', resolve)
   })
 }
+
+// new version of execAsync?
+// async function execAsync(command) {
+//   let child = exec(command)
+//   return new Promise((resolve, reject) => {
+//     let { stdout, stderr } = child
+//     let outBuffer = '', errBuffer = ''
+//     stdout.on('data', data => outBuffer += data)
+//     stderr.on('data', data => errBuffer += data)
+//     child.addListener('exit', () => resolve(outBuffer))
+//     child.addListener('error', () => reject(errBuffer))
+//     // child.on('close', code => console.info('closing code: ' + code))
+//   })
+// }

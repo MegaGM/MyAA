@@ -1,4 +1,5 @@
 const MAL = require('../mal-api/build/MAL.api.js')
+const { openFile } = require('../store/actions/torrentManagement.js')
 
 module.exports = { setupAPI }
 
@@ -7,6 +8,10 @@ async function setupAPI({ scServer, store }) {
     /**
      * Hot
      */
+    socket.on('openFile', async (fileLink) => {
+      await openFile(fileLink)
+    })
+
     socket.on('enqueue:downloadNyaaEpisode', (NyaaEpisode) => {
       store.commit('enqueue:downloadNyaaEpisode', NyaaEpisode)
     })

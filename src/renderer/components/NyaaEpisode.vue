@@ -8,9 +8,9 @@
       <div class="cell download" @click="downloadNyaaEpisode(NyaaEpisode)">
         <a class="letter-button">D</a>
       </div>
-      <div class="cell open" @click="openNyaaFile(NyaaEpisode)">
+      <!-- <div class="cell open" @click="openNyaaFile(NyaaEpisode)">
         <a class="letter-button">O</a>
-      </div>
+      </div> -->
       <div class="cell finish" @click="finishNyaaEpisode(NyaaEpisode)">
         <a class="letter-button">F</a>
       </div>
@@ -60,7 +60,7 @@ export default {
       else
         return
 
-      filepath = 'file://' + filepath
+      // filepath = 'file://' + filepath
       this.$root.openLink(filepath)
     },
     finishNyaaEpisode(NyaaEpisode) {

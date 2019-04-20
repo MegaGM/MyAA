@@ -167,15 +167,15 @@ export default {
   color: #ff4e4e;
 }
 .magic-cell.episodes {
-  flex-basis: 126px;
+  flex-basis: 114px;
   flex-shrink: 0;
   text-align: center;
 }
 .magic-cell.title {
   flex-grow: 1;
 }
-.magic-cell.title a {
-  /* vertical-align: middle; */
+.magic-cell.title a,
+.magic-cell.timeago span {
   vertical-align: sub;
 }
 

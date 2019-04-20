@@ -48,12 +48,6 @@ export async function ensureCookies(): Promise<void> {
 export async function getCW() {
   try {
     // await ensureCookies()
-
-    /**
-     * TS2345: TS is still stupid enough not to recoginze two identical
-     * type defenitions, with the only difference = filepath.
-     * So we have to trick it and reType Page as Page
-     */
     const tab = await getChromeTab({
       url: malURL,
       // cookies,
@@ -71,6 +65,7 @@ export async function getCW() {
     return MalEntries
   } catch (err) {
     console.error('[MAL] catched in getCW(): ', err.message)
+    throw err
     // return mocked MalEntry[], not to break qCycled job
     return []
   }
@@ -96,11 +91,6 @@ export async function updateProgress(options: upOptions): Promise<boolean> {
   }
 
   try {
-    /**
-     * TS2345: TS is still stupid enough not to recoginze two identical
-     * type defenitions, with the only difference = filepath.
-     * So we have to trick it and reType Page as Page
-     */
     const tab = await getChromeTab({
       url: malURL,
       // cookies,

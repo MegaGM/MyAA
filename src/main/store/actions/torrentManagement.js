@@ -54,12 +54,12 @@ async function openFile(filepath) {
 
   // MyAA.service has to get absolute executable path, instead of a universal command
   // well, it seems that actually that's not true ^
-  // if (filepath.match(/\.torrent$/)) {
-  //   command = '/usr/bin/qbittorrent'
-  // }
-  // else if (filepath.match(/\.mkv$/)) {
-  //   command = '/usr/bin/vlc'
-  // }
+  if (filepath.match(/\.torrent$/)) {
+    command = '/usr/bin/qbittorrent'
+  }
+  else if (filepath.match(/\.mkv$/)) {
+    command = '/usr/bin/vlc'
+  }
 
   const output = await execAsync(`${command} "${filepath}"`)
   return output

@@ -8,7 +8,8 @@ const
   { setupFileWatcher } = require('./setup/fileWatcher.js'),
   Nyaa = require('./nyaa-api/Nyaa.api.js'),
   qCycle = require('./qCycle.portable.js'),
-  job = require('./job.js')
+  job = require('./job.js'),
+  version = (require('../../package.json')).version
 
 let store //: Vuex.Store
 let scServer
@@ -20,6 +21,9 @@ let scServer
  */
 main()
 function main() {
+  console.info(`/* ================================================
+  * START MyAnimeAssistant v${version}
+  * ===============================================*/`)
   // Order is important!
   scServer = setupSCServer()
   store = getOrCreateStore({ scServer })

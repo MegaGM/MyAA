@@ -8,7 +8,7 @@ const
   { diffMap } = require('../../common/nyaa-api/diffMap.js')
 
 const NyaaMirrors = [
-  // 'nyaa.si',
+  'nyaa.si',
   // 'nyaa1.unblocked.lol',
   'nyaa1.unblocked.wtf',
   'nyaa1.unblocked.is',

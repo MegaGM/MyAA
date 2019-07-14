@@ -4,6 +4,9 @@
  * we collect uniqueSubTeams from this file
  * so be sure HorribleSubs is included at least in one of the entries
  */
+/**
+ * NOTE: exclamation marks (!) should be ommited in titleMAL
+ */
 const MALtoNyaaTitleDiffMap = [
   // an example
   // {
@@ -18,21 +21,34 @@ const MALtoNyaaTitleDiffMap = [
     subTeam: 'HorribleSubs',
   },
   {
-    titleMAL: 'Uchuu Senkan Yamato 2202 Ai no Senshi-tachi',
-    titleNyaa: 'Uchuu Senkan Yamato 2202',
-    subTeam: 'project-gxs',
+    titleMAL: 'Nande Koko ni Sensei ga?',
+    titleNyaa: 'Nande Koko ni Sensei ga',
+    subTeam: 'PuyaSubs!',
   },
   {
-    titleMAL: 'One Punch Man 2nd Season',
-    titleNyaa: 'One Punch Man S2',
+    titleMAL: 'Carole & Tuesday',
+    titleNyaa: 'Carole & Tuesday',
+    subTeam: 'PAS',
   },
   {
-    titleMAL: 'Bungou Stray Dogs 3rd Season',
-    titleNyaa: 'Bungou Stray Dogs',
+    titleMAL: 'Dumbbell Nan Kilo Moteru?',
+    titleNyaa: 'Dumbbell Nan Kilo Moteru',
   },
   {
-    titleMAL: 'Chou Kadou Girl ⅙ Amazing Stranger',
-    titleNyaa: 'Amazing Stranger',
+    titleMAL: 'Sounan Desu ka?',
+    titleNyaa: 'Sounan desu ka',
+  },
+  {
+    titleMAL: 'Senki Zesshou Symphogear XV',
+    titleNyaa: 'Symphogear XV',
+  },
+  {
+    titleMAL: 'Uchi no Ko no Tame naraba, Ore wa Moshikashitara Maou mo Taoseru kamo Shirenai.',
+    titleNyaa: 'UchiMusume',
+  },
+  {
+    titleMAL: 'Maou-sama, Retry',
+    titleNyaa: 'Maou-sama, Retry!',
   },
 ]
 

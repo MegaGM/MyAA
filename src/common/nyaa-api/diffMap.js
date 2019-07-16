@@ -50,6 +50,18 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Maou-sama, Retry',
     titleNyaa: 'Maou-sama, Retry!',
   },
+  {
+    titleMAL: 'Lord El-Melloi II Sei no Jikenbo Rail Zeppelin Grace Note',
+    titleNyaa: 'Lord El-Melloi II Case Files',
+  },
+  {
+    titleMAL: 'Kawaikereba Hentai demo Suki ni Natte Kuremasu ka?',
+    titleNyaa: 'HenSuki',
+  },
+  {
+    titleMAL: 'Nakanohito Genome [Jikkyouchuu]',
+    titleNyaa: 'Nakanohito Genome [Jikkyouchuu]',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

@@ -62,6 +62,10 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Nakanohito Genome [Jikkyouchuu]',
     titleNyaa: 'Nakanohito Genome [Jikkyouchuu]',
   },
+  {
+    titleMAL: 'Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka II',
+    titleNyaa: 'DanMachi S2',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

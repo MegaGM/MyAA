@@ -2,7 +2,9 @@
   <a-tag class="padding-fix margin-fix" :class="getFileStatusByNyaaEpisode(NyaaEpisode)">
     <div class="display-flex">
       <div class="cell episode-number" @click="openNyaaEpisode(NyaaEpisode)">
-        <b>{{paddedEpisodeNumber}}</b>
+        <b>
+          <a class="letter-button">{{paddedEpisodeNumber}}</a>
+        </b>
       </div>
 
       <div class="cell download" @click="downloadNyaaEpisode(NyaaEpisode)">
@@ -10,7 +12,7 @@
       </div>
       <!-- <div class="cell open" @click="openNyaaFile(NyaaEpisode)">
         <a class="letter-button">O</a>
-      </div> -->
+      </div>-->
       <div class="cell finish" @click="finishNyaaEpisode(NyaaEpisode)">
         <a class="letter-button">F</a>
       </div>

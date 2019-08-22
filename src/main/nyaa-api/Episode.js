@@ -39,12 +39,19 @@ class Episode {
     if (!mainRegexp.test(rawTitle))
       return null // indicate failure
 
-    const [match, subTeam, title, episodeNumber] = rawTitle.match(mainRegexp)
+    let [match, subTeam, title, episodeNumber] = rawTitle.match(mainRegexp)
+
+    episodeNumber = +episodeNumber
+
+    const diff = diffMap.find(diff => diff.titleNyaa === title)
+    if (diff && diff.seasonOffset) {
+      episodeNumber = episodeNumber - diff.seasonOffset
+    }
 
     const parsedTitle = {
       subTeam,
       title,
-      episodeNumber: +episodeNumber,
+      episodeNumber,
     }
 
     if (qualityRegexp.test(rawTitle)) {

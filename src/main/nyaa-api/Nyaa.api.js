@@ -106,21 +106,6 @@ class NyaaAPI {
         .map(item => new Episode(item, { NyaaQuery, validURL }))
         .filter(NyaaEpisode => NyaaEpisode.parsed)
 
-    // TODO: implement season episode offset
-    if (title === 'Bungou Stray Dogs 3rd Season') {
-      return fetchedAnime
-        .map(NyaaEpisode => {
-          const thirdSeasonEpisodeNumber = NyaaEpisode.episodeNumber - 24
-          const belongsToThirdSeason = thirdSeasonEpisodeNumber >= 1
-          if (belongsToThirdSeason) {
-            NyaaEpisode.episodeNumber = thirdSeasonEpisodeNumber
-            return NyaaEpisode
-          }
-          return false
-        })
-        .filter(Boolean)
-    }
-
     return fetchedAnime
   }
 

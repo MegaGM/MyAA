@@ -38,6 +38,7 @@ export default {
       this.$scSocket.emit('enqueue:downloadNyaaEpisode', NyaaEpisode)
     },
     openNyaaFile(NyaaEpisode) {
+      // TODO: respect diffMap.seasonOffset
       if (NyaaEpisode.title === 'Bungou Stray Dogs 3rd Season') {
         NyaaEpisode.episodeNumber += 24
       }

@@ -14,11 +14,13 @@ const MALtoNyaaTitleDiffMap = [
   //   titleNyaa: 'Mob Psycho 100 S2',
   //   subTeam: 'HorribleSubs',
   //   quality: '1080',
+  //   seasonOffset: 12,
   // },
   {
     titleMAL: 'Fairy Tail Final Series',
     titleNyaa: 'Fairy Tail Final Season',
     subTeam: 'HorribleSubs',
+    seasonOffset: 272,
   },
   {
     titleMAL: 'Nande Koko ni Sensei ga?',

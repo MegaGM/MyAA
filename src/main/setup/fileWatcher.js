@@ -6,8 +6,8 @@ const
   watcherDirs = [
     '/new/trrnt/anime/ongoings',
     '/new/trrnt/anime/done',
-    '/wd/trrnt/anime/ongoings',
-    '/wd/trrnt/anime/done',
+    // '/wd/trrnt/anime/ongoings',
+    // '/wd/trrnt/anime/done',
   ],
   watcherOptions = {
     ignored: /[\/\\]\./i,

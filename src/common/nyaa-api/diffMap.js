@@ -20,7 +20,7 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Fairy Tail Final Series',
     titleNyaa: 'Fairy Tail Final Season',
     subTeam: 'HorribleSubs',
-    seasonOffset: 272,
+    seasonOffset: 278,
   },
   {
     titleMAL: 'Nande Koko ni Sensei ga?',

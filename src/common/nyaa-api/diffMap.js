@@ -68,6 +68,11 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka II',
     titleNyaa: 'DanMachi S2',
   },
+  {
+    titleMAL: 'Tsuujou Kougeki ga Zentai Kougeki de Ni-kai Kougeki no Okaasan wa Suki Desu ka?',
+    titleNyaa: 'Tsuujou Kougeki ga Zentai Kougeki de Nikai Kougeki no Okaasan wa Suki Desuka',
+    subTeam: 'Erai-raws',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

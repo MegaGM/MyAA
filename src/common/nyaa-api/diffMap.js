@@ -23,55 +23,14 @@ const MALtoNyaaTitleDiffMap = [
     seasonOffset: 278,
   },
   {
-    titleMAL: 'Nande Koko ni Sensei ga?',
-    titleNyaa: 'Nande Koko ni Sensei ga',
-    subTeam: 'PuyaSubs!',
+    titleMAL: 'Fairy Gone 2nd Season',
+    titleNyaa: 'Fairy Gone',
+    subTeam: 'HorribleSubs',
+    seasonOffset: 12,
   },
   {
-    titleMAL: 'Carole & Tuesday',
-    titleNyaa: 'Carole & Tuesday',
-    subTeam: 'PAS',
-  },
-  {
-    titleMAL: 'Dumbbell Nan Kilo Moteru?',
-    titleNyaa: 'Dumbbell Nan Kilo Moteru',
-  },
-  {
-    titleMAL: 'Sounan Desu ka?',
-    titleNyaa: 'Sounan desu ka',
-  },
-  {
-    titleMAL: 'Senki Zesshou Symphogear XV',
-    titleNyaa: 'Symphogear XV',
-  },
-  {
-    titleMAL: 'Uchi no Ko no Tame naraba, Ore wa Moshikashitara Maou mo Taoseru kamo Shirenai.',
-    titleNyaa: 'UchiMusume',
-  },
-  {
-    titleMAL: 'Maou-sama, Retry',
-    titleNyaa: 'Maou-sama, Retry!',
-  },
-  {
-    titleMAL: 'Lord El-Melloi II Sei no Jikenbo Rail Zeppelin Grace Note',
-    titleNyaa: 'Lord El-Melloi II Case Files',
-  },
-  {
-    titleMAL: 'Kawaikereba Hentai demo Suki ni Natte Kuremasu ka?',
-    titleNyaa: 'HenSuki',
-  },
-  {
-    titleMAL: 'Nakanohito Genome [Jikkyouchuu]',
-    titleNyaa: 'Nakanohito Genome [Jikkyouchuu]',
-  },
-  {
-    titleMAL: 'Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka II',
-    titleNyaa: 'DanMachi S2',
-  },
-  {
-    titleMAL: 'Tsuujou Kougeki ga Zentai Kougeki de Ni-kai Kougeki no Okaasan wa Suki Desu ka?',
-    titleNyaa: 'Tsuujou Kougeki ga Zentai Kougeki de Nikai Kougeki no Okaasan wa Suki Desuka',
-    subTeam: 'Erai-raws',
+    titleMAL: 'Mairimashita Iruma-kun',
+    titleNyaa: 'Mairimashita! Iruma-kun',
   },
 ]
 

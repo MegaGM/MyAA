@@ -10,6 +10,7 @@ const
 const NyaaMirrors = [
   'nyaa.si',
   // 'nyaa1.unblocked.lol',
+  'nyaa1.unblocked.to',
   'nyaa1.unblocked.wtf',
   'nyaa1.unblocked.is',
   'nyaa.unblockall.org',

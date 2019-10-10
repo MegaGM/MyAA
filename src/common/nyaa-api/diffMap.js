@@ -32,6 +32,10 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Mairimashita Iruma-kun',
     titleNyaa: 'Mairimashita! Iruma-kun',
   },
+  {
+    titleMAL: 'Mugen no Juunin Immortal',
+    titleNyaa: 'Mugen no Juunin - Immortal',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

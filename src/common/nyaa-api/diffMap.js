@@ -36,6 +36,14 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Mugen no Juunin Immortal',
     titleNyaa: 'Mugen no Juunin - Immortal',
   },
+  {
+    titleMAL: 'Sword Art Online Alicization - War of Underworld',
+    titleNyaa: 'Sword Art Online - Alicization - War of Underworld',
+  },
+  {
+    titleMAL: 'Shinchou Yuusha Kono Yuusha ga Ore Tueee Kuse ni Shinchou Sugiru',
+    titleNyaa: 'Shinchou Yuusha',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

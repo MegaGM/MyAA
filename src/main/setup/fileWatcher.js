@@ -4,10 +4,12 @@ const
   Nyaa = require('../nyaa-api/Nyaa.api.js'),
   chokidar = require('chokidar'),
   watcherDirs = [
-    '/new/trrnt/anime/ongoings',
-    '/new/trrnt/anime/done',
-    // '/wd/trrnt/anime/ongoings',
-    // '/wd/trrnt/anime/done',
+    '/1/trrnt/anime/ongoings',
+    '/1/trrnt/anime/done',
+    // '/2/trrnt/anime/ongoings',
+    // '/2/trrnt/anime/done',
+    // '/new/trrnt/anime/ongoings',
+    // '/new/trrnt/anime/done',
   ],
   watcherOptions = {
     ignored: /[\/\\]\./i,

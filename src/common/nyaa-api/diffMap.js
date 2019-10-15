@@ -44,6 +44,15 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Shinchou Yuusha Kono Yuusha ga Ore Tueee Kuse ni Shinchou Sugiru',
     titleNyaa: 'Shinchou Yuusha',
   },
+  {
+    titleMAL: 'Watashi, Nouryoku wa Heikinchi de tte Itta yo ne',
+    titleNyaa: 'Watashi, Nouryoku wa Heikinchi de tte Itta yo ne!',
+  },
+  {
+    titleMAL: 'Boku no Hero Academia 4th Season',
+    titleNyaa: 'Boku no Hero Academia',
+    seasonOffset: 63,
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

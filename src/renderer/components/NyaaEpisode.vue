@@ -92,6 +92,7 @@ export default {
   color: #f5222d;
   border-color: #632f32;
   background-color: #2d2d2d;
+  background-color: #08080d;
 }
 
 .ant-tag.downloaded {

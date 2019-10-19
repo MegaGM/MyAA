@@ -53,6 +53,11 @@ const MALtoNyaaTitleDiffMap = [
     titleNyaa: 'Boku no Hero Academia',
     seasonOffset: 63,
   },
+  {
+    titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 1',
+    titleNyaa: 'Legend of the Galactic Heroes - Die Neue These',
+    seasonOffset: 12,
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

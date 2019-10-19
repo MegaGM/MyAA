@@ -54,9 +54,13 @@ const MALtoNyaaTitleDiffMap = [
     seasonOffset: 63,
   },
   {
-    titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 1',
+    // titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 1',
+    // seasonOffset: 12,
+    titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 2',
+    seasonOffset: 16,
+    // titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 3',
+    // seasonOffset: 20,
     titleNyaa: 'Legend of the Galactic Heroes - Die Neue These',
-    seasonOffset: 12,
   },
 ]
 

@@ -188,6 +188,14 @@ export default {
   padding: 3px 0 !important;
 }
 
+.ant-list-item:nth-child(odd) {
+  background-color: #000000;
+}
+
+.ant-list-item:nth-child(even) {
+  background-color: #0a0a0d;
+}
+
 .ant-btn {
   border-color: #144d54;
 }

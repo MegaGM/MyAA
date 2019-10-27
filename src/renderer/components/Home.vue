@@ -206,10 +206,14 @@ export default {
   background-color: inherit;
 }
 
+.ant-progress {
+  margin-left: -420px;
+}
+
 .ant-progress-line {
   position: absolute;
   top: 0;
-  padding: 0 240px 0 200px;
+  padding: 100px 240px 0 200px;
 }
 .ant-progress-inner {
   background-color: rgb(0, 113, 127);

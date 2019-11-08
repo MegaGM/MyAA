@@ -1,4 +1,4 @@
-const MAL = require('../mal-api/build/MAL.api.js')
+const MAL = require('../mal-api/MAL.api.js')
 const { openFile } = require('../store/actions/torrentManagement.js')
 
 module.exports = { setupAPI }

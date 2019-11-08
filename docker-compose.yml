@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  app:
+    container_name: myaa
+    build: .
+    # ports:
+    #   - "7700:7700"
+    volumes:
+      - .:/myaa
+      - /home/mega/github/chrome-head:/myaa/chrome-head
+    environment:
+      # - NODE_ENV=production
+      - NODE_ENV=development
+    working_dir: /myaa
+    network_mode: host
+    restart: always

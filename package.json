@@ -9,7 +9,7 @@
   "scripts": {
     "app": "./node_modules/electron/dist/electron .",
     "dev": "NODE_ENV=development ./node_modules/electron/dist/electron .",
-    "node-main": "node ./src/main/node-main.js",
+    "start:docker": "node ./src/main/node-main.js",
     "build": "./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
     "package:linux:extra:obsolete": "electron-packager ./ HorribleNyaaMAL --platform=linux --arch=x64 --overwrite --extra-resource='build' --extra-resource='resources' --out='packaged'",

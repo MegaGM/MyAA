@@ -14,7 +14,7 @@ const NyaaMirrors = [
   'nyaa1.unblocked.wtf',
   'nyaa1.unblocked.is',
   'nyaa.unblockall.org',
-  'piyushroshan.appspot.com/nyaa.si'
+  // 'piyushroshan.appspot.com/nyaa.si'
 ]
 
 

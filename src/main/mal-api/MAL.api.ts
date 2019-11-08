@@ -11,7 +11,8 @@ const { readJsonSync, outputJsonSync } =
 const { configureChromeHead, getChromeTab, bakeCookies } =
   require
     ('../../common/nativeRequireBypassWebpack.js')
-    ('/home/mega/github/chrome-head/build/index.js')
+    ('/myaa/chrome-head/build/index.js') // Docker mount point
+    // ('/home/mega/github/chrome-head/build/index.js')
 
 configureChromeHead({
   LOG_LEVEL: 5,

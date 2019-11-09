@@ -8,6 +8,7 @@ services:
     volumes:
       - .:/myaa
       - /home/mega/github/chrome-head:/myaa/chrome-head
+      - /1/trrnt/anime:/anime
     environment:
       # - NODE_ENV=production
       - NODE_ENV=development

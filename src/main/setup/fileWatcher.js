@@ -4,6 +4,8 @@ const
   Nyaa = require('../nyaa-api/Nyaa.api.js'),
   chokidar = require('chokidar'),
   watcherDirs = [
+    '/anime/ongoings',
+    '/anime/done',
     '/1/trrnt/anime/ongoings',
     '/1/trrnt/anime/done',
     // '/2/trrnt/anime/ongoings',

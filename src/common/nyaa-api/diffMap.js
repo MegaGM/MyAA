@@ -58,6 +58,10 @@ const MALtoNyaaTitleDiffMap = [
     titleNyaa: 'Bokutachi wa Benkyou ga Dekinai S2',
   },
   {
+    titleMAL: 'JoJo no Kimyou na Bouken Part 5 Ougon no Kaze',
+    titleNyaa: 'JoJo\'s Bizarre Adventure - Golden Wind',
+  },
+  {
     // titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 1',
     // seasonOffset: 12,
     titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 2',

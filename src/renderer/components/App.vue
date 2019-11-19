@@ -24,7 +24,7 @@ export default {
 
 .content {
   /* padding: 30px 15px 0 15px; */
-  padding: 220px 22.5% 0 22.5%;
+  padding: 60px 22.5% 0 22.5%;
 }
 
 .footer {

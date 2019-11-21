@@ -88,17 +88,18 @@ export default {
   margin-bottom: 2px;
 }
 
-.ant-tag.fresh {
+.ant-tag.downloaded {
   color: #f5222d;
   border-color: #632f32;
-  background-color: #2d2d2d;
+  /* background-color: #2d2d2d; */
   background-color: #08080d;
 }
 
-.ant-tag.downloaded {
+.ant-tag.fresh {
   color: #59cc20;
   border-color: #285d00;
-  background-color: #2d2d2d;
+  /* background-color: #2d2d2d; */
+  background-color: #08080d;
 }
 
 .ant-tag.done {

@@ -23,12 +23,6 @@ const MALtoNyaaTitleDiffMap = [
     seasonOffset: 278,
   },
   {
-    titleMAL: 'Fairy Gone 2nd Season',
-    titleNyaa: 'Fairy Gone',
-    subTeam: 'HorribleSubs',
-    seasonOffset: 12,
-  },
-  {
     titleMAL: 'Mairimashita Iruma-kun',
     titleNyaa: 'Mairimashita! Iruma-kun',
   },
@@ -41,34 +35,17 @@ const MALtoNyaaTitleDiffMap = [
     titleNyaa: 'Sword Art Online - Alicization - War of Underworld',
   },
   {
-    titleMAL: 'Shinchou Yuusha Kono Yuusha ga Ore Tueee Kuse ni Shinchou Sugiru',
-    titleNyaa: 'Shinchou Yuusha',
-  },
-  {
-    titleMAL: 'Watashi, Nouryoku wa Heikinchi de tte Itta yo ne',
-    titleNyaa: 'Watashi, Nouryoku wa Heikinchi de tte Itta yo ne!',
-  },
-  {
     titleMAL: 'Boku no Hero Academia 4th Season',
     titleNyaa: 'Boku no Hero Academia',
     seasonOffset: 63,
   },
   {
-    titleMAL: 'Bokutachi wa Benkyou ga Dekinai',
-    titleNyaa: 'Bokutachi wa Benkyou ga Dekinai S2',
+    titleMAL: 'Itai no wa Iya nano de Bougyoryoku ni Kyokufuri Shitai to Omoimasu.',
+    titleNyaa: 'Itai no wa Iya nano de Bougyoryoku ni Kyokufuri Shitai to Omoimasu',
   },
   {
-    titleMAL: 'JoJo no Kimyou na Bouken Part 5 Ougon no Kaze',
-    titleNyaa: 'JoJo\'s Bizarre Adventure - Golden Wind',
-  },
-  {
-    // titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 1',
-    // seasonOffset: 12,
-    titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 2',
-    seasonOffset: 16,
-    // titleMAL: 'Ginga Eiyuu Densetsu Die Neue These - Seiran 3',
-    // seasonOffset: 20,
-    titleNyaa: 'Legend of the Galactic Heroes - Die Neue These',
+    titleMAL: 'Isekai Quartet 2nd Season',
+    titleNyaa: 'Isekai Quartet S2',
   },
 ]
 

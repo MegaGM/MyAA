@@ -9,6 +9,11 @@ services:
       - .:/myaa
       - /home/mega/github/chrome-head:/myaa/chrome-head
       - /1/trrnt/anime:/anime
+      # - type: bind
+      #   source: /usr/bin/qbittorrent
+      #   target: /usr/bin/qbittorrent
+      # use ssh instead of binding qbittorrent
+      # ssh -l ${USERNAME} ${HOSTNAME} "${SCRIPT}"
     environment:
       # - NODE_ENV=production
       - NODE_ENV=development

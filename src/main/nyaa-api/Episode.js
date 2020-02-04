@@ -32,11 +32,12 @@ class Episode {
   static parseTitle(rawTitle) {
     const
       subTeams = diffMap.map(d => d.subTeam).filter(Boolean),
+      isBatch = rawTitle.match(/batch/i),
       uniqueSubTeams = [...new Set(subTeams)],
       mainRegexp = new RegExp(`\\[(${uniqueSubTeams.join('|')})] (.+) - (\\d+)`, 'i'),
       qualityRegexp = /\[(?:[^\]]+)?(1080p|720p|480p)(?:[^\]]+)?]/i
 
-    if (!mainRegexp.test(rawTitle))
+    if (!mainRegexp.test(rawTitle) || isBatch)
       return null // indicate failure
 
     let [match, subTeam, title, episodeNumber] = rawTitle.match(mainRegexp)

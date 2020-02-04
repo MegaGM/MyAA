@@ -20,7 +20,7 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Fairy Tail Final Series',
     titleNyaa: 'Fairy Tail Final Season',
     subTeam: 'HorribleSubs',
-    seasonOffset: 278,
+    seasonOffset: 277,
   },
   {
     titleMAL: 'Mairimashita Iruma-kun',
@@ -44,8 +44,16 @@ const MALtoNyaaTitleDiffMap = [
     titleNyaa: 'Itai no wa Iya nano de Bougyoryoku ni Kyokufuri Shitai to Omoimasu',
   },
   {
-    titleMAL: 'Isekai Quartet 2nd Season',
+    titleMAL: 'Isekai Quartet 2',
     titleNyaa: 'Isekai Quartet S2',
+  },
+  {
+    titleMAL: 'Magia Record Mahou Shoujo Madoka☆Magica Gaiden',
+    titleNyaa: 'Magia Record',
+  },
+  {
+    titleMAL: 'Rikei ga Koi ni Ochita no de Shoumei shitemita.',
+    titleNyaa: 'Rikei ga Koi ni Ochita no de Shoumei shitemita',
   },
 ]
 

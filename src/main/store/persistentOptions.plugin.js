@@ -10,7 +10,7 @@ module.exports = function init(store) {
     if (stateFS)
       store.replaceState(stateFS)
   } catch (err) {
-    console.warn(`[persistentOptions.vuex.plugin] No ${filepath}`, err.message)
+    console.warn(`[persistentOptions.vuex.plugin] [${err.code}] No ${filepath}`)
   }
 
   store.subscribe(({ type, payload }, state) => {

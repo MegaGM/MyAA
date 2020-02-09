@@ -1,5 +1,6 @@
 'use strict'
 global.BUILD_TARGET = 'node-main'
+process.env.IN_DOCKER_CONTAINER = require('../common/detectDocker')()
 
 const
   { setupSCServer } = require('./setup/sc-server.js'),

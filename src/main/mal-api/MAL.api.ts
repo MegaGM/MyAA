@@ -1,18 +1,26 @@
 'use strict'
 
+declare global {
+  namespace NodeJS {
+    interface Global {
+      BUILD_TARGET: string
+    }
+  }
+}
+
 // import { readJsonSync, outputJsonSync } from 'fs-extra'
 import { Page, Cookie, SerializableOrJSHandle } from 'puppeteer'
 
 const { readJsonSync, outputJsonSync } =
-  require
-    ('../../common/nativeRequireBypassWebpack.js')
-    ('fs-extra')
+  require('../../common/nativeRequireBypassWebpack.js')('fs-extra')
+
+
+const chromeHeadPath = process.env.IN_DOCKER_CONTAINER ?
+  '/myaa/chrome-head/build/index.js' : // Docker mount point
+  '/home/mega/github/chrome-head/build/index.js'
 
 const { configureChromeHead, getChromeTab, bakeCookies } =
-  require
-    ('../../common/nativeRequireBypassWebpack.js')
-    ('/myaa/chrome-head/build/index.js') // Docker mount point
-    // ('/home/mega/github/chrome-head/build/index.js')
+  require('../../common/nativeRequireBypassWebpack.js')(chromeHeadPath)
 
 configureChromeHead({
   LOG_LEVEL: 5,

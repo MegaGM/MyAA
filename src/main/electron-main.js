@@ -1,5 +1,6 @@
 'use strict'
 global.BUILD_TARGET = 'electron-main'
+process.env.IN_DOCKER_CONTAINER = require('../common/detectDocker')()
 const path = require('path')
 global.icon = path.resolve(__dirname, 'resources/icons/tray/lock-1.png')
 

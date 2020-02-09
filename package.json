@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "description": "My Anime Assistant for MAL and Nyaa.si",
   "author": "Mega <Aza.Noriega@gmail.com>",
-  "homepage": "https://bitbucket.org/Megga/horrible-nyaa-mal#readme",
+  "homepage": "https://github.com/MegaGM/MyAA#readme",
   "main": "./src/main/electron-main.js",
   "scripts": {
     "app": "./node_modules/electron/dist/electron .",
@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/Megga/horrible-nyaa-mal.git"
+    "url": "git+https://github.com/MegaGM/MyAA.git"
   },
   "keywords": [
     "nyaa",
@@ -52,7 +52,7 @@
     "horriblesubs"
   ],
   "bugs": {
-    "url": "https://bitbucket.org/Megga/horrible-nyaa-mal/issues"
+    "url": "https://github.com/MegaGM/MyAA/issues"
   },
   "dependencies": {
     "ant-design-vue": "^1.3.3",

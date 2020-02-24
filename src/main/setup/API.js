@@ -30,7 +30,7 @@ async function setupAPI({ scServer, store }) {
 
       if (store.state.REMOVE_FILES_WHEN_DONE)
         probablyFinishedNyaaFiles.map(NyaaFile => {
-          commit('enqueue:files.toRemove', NyaaFile)
+          store.commit('enqueue:files.toRemove', NyaaFile)
         })
     })
 

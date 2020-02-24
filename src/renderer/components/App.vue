@@ -5,7 +5,7 @@
     </a-layout-content>
     <a-layout-footer class="footer">
       Megga
-      <span class="copyleft">&copy;</span> 2019
+      <span class="copyleft">&copy;</span> 2019-2020
     </a-layout-footer>
   </a-layout>
 </template>

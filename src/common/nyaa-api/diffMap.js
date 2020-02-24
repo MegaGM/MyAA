@@ -55,6 +55,22 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Rikei ga Koi ni Ochita no de Shoumei shitemita.',
     titleNyaa: 'Rikei ga Koi ni Ochita no de Shoumei shitemita',
   },
+  {
+    titleMAL: 'Eizouken ni wa Te wo Dasu na',
+    titleNyaa: 'Eizouken ni wa Te wo Dasu na!',
+  },
+  {
+    titleMAL: 'Nanatsu no Taizai Kamigami no Gekirin',
+    titleNyaa: 'Nanatsu no Taizai - Kamigami no Gekirin',
+    subTeam: 'Erai-raws',
+    // quality: '1080p HEVC',
+  },
+  {
+    titleMAL: 'Ishuzoku Reviewers',
+    titleNyaa: 'Ishuzoku Reviewers (Interspecies Reviewers)',
+    subTeam: 'Judas',
+    quality: 'UNCENSORED 1080p',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

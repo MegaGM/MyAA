@@ -73,10 +73,9 @@ export async function getCW() {
     // })
     return MalEntries
   } catch (err) {
-    console.error('[MAL] catched in getCW(): ', err.message)
-    throw err
-    // return mocked MalEntry[], not to break qCycled job
-    return []
+    console.error('[ERROR] [MAL.api] catched in getCW(): \n', err.message)
+    // throw err
+    return [] // return mocked MalEntry[], not to break qCycled job
   }
 }
 

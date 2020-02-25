@@ -89,15 +89,17 @@ export default {
 }
 
 .ant-tag.downloaded {
-  color: #f5222d;
-  border-color: #632f32;
+  color: #2bdc4d;
+  border-color: #00693c;
   /* background-color: #2d2d2d; */
   background-color: #08080d;
 }
 
 .ant-tag.fresh {
-  color: #59cc20;
-  border-color: #285d00;
+  /* color: #59cc20; */
+  /* border-color: #285d00; */
+  color: #f5222d;
+  border-color: #632f32;
   /* background-color: #2d2d2d; */
   background-color: #08080d;
 }

@@ -24,8 +24,8 @@ const
   math = require('mathjs'),
   cron = require('cron')
 
-// let debug = false
-let debug = true
+let debug = false // by default
+// let debug = true
 
 class Cycle {
   constructor(options = {}) {

@@ -40,7 +40,7 @@ class NyaaAPI {
       uri = `https://${url}/?f=0&c=1_2&page=rss&q=${encodeURI(q)}`
 
     try {
-      const res = await axios.get(uri)
+      const res = await axios.get(uri, { method: 'GET', timeout: 10000 })
       const json = fastXmlParser.parse(res.data)
       let items = json.rss.channel.item
       items = Array.isArray(items) ? items : [items]

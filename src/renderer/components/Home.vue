@@ -176,7 +176,7 @@ export default {
 }
 .magic-cell.title a,
 .magic-cell.timeago span {
-  vertical-align: sub;
+  vertical-align: middle;
 }
 
 .ant-list-bordered {

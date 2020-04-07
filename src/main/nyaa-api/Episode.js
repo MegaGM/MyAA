@@ -30,12 +30,14 @@ class Episode {
    * [Nauti] Kakegurui XX - 01 [5BD79EEA].mkv [720p]
    */
   static parseTitle(rawTitle) {
-    const
-      subTeams = diffMap.map(d => d.subTeam).filter(Boolean),
-      isBatch = rawTitle.match(/batch/i),
-      uniqueSubTeams = [...new Set(subTeams)],
-      mainRegexp = new RegExp(`\\[(${uniqueSubTeams.join('|')})] (.+) - (\\d+)`, 'i'),
-      qualityRegexp = /\[(?:[^\]]+)?(1080p|720p|480p)(?:[^\]]+)?]/i
+    const subTeams = diffMap.map(d => d.subTeam).filter(Boolean)
+    if (!subTeams.includes('HorribleSubs'))
+      subTeams.push('HorribleSubs')
+    const uniqueSubTeams = [...new Set(subTeams)]
+
+    const isBatch = rawTitle.match(/batch/i)
+    const mainRegexp = new RegExp(`\\[(${uniqueSubTeams.join('|')})] (.+) - (\\d+)`, 'i')
+    const qualityRegexp = /\[(?:[^\]]+)?(1080p|720p|480p)(?:[^\]]+)?]/i
 
     if (!mainRegexp.test(rawTitle) || isBatch)
       return null // indicate failure

@@ -11,7 +11,7 @@ const state = {
     // 'NyaaEpisodes',
   ],
 
-  CYCLE_STEP: 3,
+  CYCLE_STEP: 5,
   CYCLE_DEBUG: false,
 
   NYAA_QUALITY: '1080',

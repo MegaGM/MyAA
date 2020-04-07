@@ -43,6 +43,10 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Kingdom 3rd Season',
     titleNyaa: 'Kingdom S3',
   },
+  {
+    titleMAL: 'Kami no Tou',
+    titleNyaa: 'Tower of God',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

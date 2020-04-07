@@ -17,59 +17,31 @@ const MALtoNyaaTitleDiffMap = [
   //   seasonOffset: 12,
   // },
   {
-    titleMAL: 'Fairy Tail Final Series',
-    titleNyaa: 'Fairy Tail Final Season',
-    subTeam: 'HorribleSubs',
-    seasonOffset: 277,
-  },
-  {
-    titleMAL: 'Mairimashita Iruma-kun',
-    titleNyaa: 'Mairimashita! Iruma-kun',
-  },
-  {
-    titleMAL: 'Mugen no Juunin Immortal',
-    titleNyaa: 'Mugen no Juunin - Immortal',
-  },
-  {
-    titleMAL: 'Sword Art Online Alicization - War of Underworld',
-    titleNyaa: 'Sword Art Online - Alicization - War of Underworld',
-  },
-  {
     titleMAL: 'Boku no Hero Academia 4th Season',
     titleNyaa: 'Boku no Hero Academia',
     seasonOffset: 63,
-  },
-  {
-    titleMAL: 'Itai no wa Iya nano de Bougyoryoku ni Kyokufuri Shitai to Omoimasu.',
-    titleNyaa: 'Itai no wa Iya nano de Bougyoryoku ni Kyokufuri Shitai to Omoimasu',
-  },
-  {
-    titleMAL: 'Isekai Quartet 2',
-    titleNyaa: 'Isekai Quartet S2',
-  },
-  {
-    titleMAL: 'Magia Record Mahou Shoujo Madoka☆Magica Gaiden',
-    titleNyaa: 'Magia Record',
-  },
-  {
-    titleMAL: 'Rikei ga Koi ni Ochita no de Shoumei shitemita.',
-    titleNyaa: 'Rikei ga Koi ni Ochita no de Shoumei shitemita',
-  },
-  {
-    titleMAL: 'Eizouken ni wa Te wo Dasu na',
-    titleNyaa: 'Eizouken ni wa Te wo Dasu na!',
-  },
-  {
-    titleMAL: 'Nanatsu no Taizai Kamigami no Gekirin',
-    titleNyaa: 'Nanatsu no Taizai - Kamigami no Gekirin',
-    subTeam: 'Erai-raws',
-    // quality: '1080p HEVC',
   },
   {
     titleMAL: 'Ishuzoku Reviewers',
     titleNyaa: 'Ishuzoku Reviewers (Interspecies Reviewers)',
     subTeam: 'Judas',
     quality: 'UNCENSORED 1080p',
+  },
+  {
+    titleMAL: 'Shachou, Battle no Jikan Desu',
+    titleNyaa: 'Shachou, Battle no Jikan desu!',
+  },
+  {
+    titleMAL: 'Shironeko Project Zero Chronicle',
+    titleNyaa: 'Shironeko Project - Zero Chronicle',
+  },
+  {
+    titleMAL: 'Fruits Basket 2nd Season',
+    titleNyaa: 'Fruits Basket S2 (2019)',
+  },
+  {
+    titleMAL: 'Kingdom 3rd Season',
+    titleNyaa: 'Kingdom S3',
   },
 ]
 

@@ -47,6 +47,10 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Kami no Tou',
     titleNyaa: 'Tower of God',
   },
+  {
+    titleMAL: 'Hachi-nan tte, Sore wa Nai deshou',
+    titleNyaa: 'Hachi-nan tte, Sore wa Nai deshou!',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

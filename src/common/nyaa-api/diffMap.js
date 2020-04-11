@@ -51,6 +51,10 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Hachi-nan tte, Sore wa Nai deshou',
     titleNyaa: 'Hachi-nan tte, Sore wa Nai deshou!',
   },
+  {
+    titleMAL: 'Kaguya-sama wa Kokurasetai? Tensai-tachi no Renai Zunousen',
+    titleNyaa: 'Kaguya-sama wa Kokurasetai S2',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

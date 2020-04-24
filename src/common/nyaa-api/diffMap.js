@@ -55,6 +55,14 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Kaguya-sama wa Kokurasetai? Tensai-tachi no Renai Zunousen',
     titleNyaa: 'Kaguya-sama wa Kokurasetai S2',
   },
+  {
+    titleMAL: 'Fugou Keiji BalanceUnlimited',
+    titleNyaa: 'Fugou Keiji Balance - UNLIMITED',
+  },
+  {
+    titleMAL: 'Princess Connect ReDive',
+    titleNyaa: 'Princess Connect! Re Dive',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

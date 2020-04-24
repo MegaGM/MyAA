@@ -12,10 +12,9 @@ const NyaaMirrors = [
   'nyaa.unblocker.cc',
   'nyaa1.unblocked.lol',
   'nyaa1.unblocked.to',
-  // 'nyaa1.unblocked.wtf', domain has expired
   'nyaa1.unblocked.is',
   'nyaa.unblockall.org',
-  // 'piyushroshan.appspot.com/nyaa.si'
+  'piyushroshan.appspot.com/nyaa.si'
 ]
 
 

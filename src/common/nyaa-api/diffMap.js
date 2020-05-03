@@ -63,6 +63,11 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Princess Connect ReDive',
     titleNyaa: 'Princess Connect! Re Dive',
   },
+  {
+    titleMAL: 'Otome Game no Hametsu Flag shika Nai Akuyaku Reijou ni Tensei shiteshimatta...',
+    titleNyaa: 'Hamefura',
+    subTeam: 'Erai-raws',
+  },
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

@@ -17,17 +17,6 @@ const MALtoNyaaTitleDiffMap = [
   //   seasonOffset: 12,
   // },
   {
-    titleMAL: 'Boku no Hero Academia 4th Season',
-    titleNyaa: 'Boku no Hero Academia',
-    seasonOffset: 63,
-  },
-  {
-    titleMAL: 'Ishuzoku Reviewers',
-    titleNyaa: 'Ishuzoku Reviewers (Interspecies Reviewers)',
-    subTeam: 'Judas',
-    quality: 'UNCENSORED 1080p',
-  },
-  {
     titleMAL: 'Shachou, Battle no Jikan Desu',
     titleNyaa: 'Shachou, Battle no Jikan desu!',
   },
@@ -38,10 +27,6 @@ const MALtoNyaaTitleDiffMap = [
   {
     titleMAL: 'Fruits Basket 2nd Season',
     titleNyaa: 'Fruits Basket S2 (2019)',
-  },
-  {
-    titleMAL: 'Kingdom 3rd Season',
-    titleNyaa: 'Kingdom S3',
   },
   {
     titleMAL: 'Kami no Tou',
@@ -56,10 +41,6 @@ const MALtoNyaaTitleDiffMap = [
     titleNyaa: 'Kaguya-sama wa Kokurasetai S2',
   },
   {
-    titleMAL: 'Fugou Keiji BalanceUnlimited',
-    titleNyaa: 'Fugou Keiji Balance - UNLIMITED',
-  },
-  {
     titleMAL: 'Princess Connect ReDive',
     titleNyaa: 'Princess Connect! Re Dive',
   },
@@ -67,6 +48,10 @@ const MALtoNyaaTitleDiffMap = [
     titleMAL: 'Otome Game no Hametsu Flag shika Nai Akuyaku Reijou ni Tensei shiteshimatta...',
     titleNyaa: 'Hamefura',
     subTeam: 'Erai-raws',
+  },
+  {
+    titleMAL: 'Tsugu Tsugumomo',
+    titleNyaa: 'Tsugumomo S2',
   },
 ]
 

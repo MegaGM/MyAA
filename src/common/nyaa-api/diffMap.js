@@ -17,42 +17,49 @@ const MALtoNyaaTitleDiffMap = [
   //   seasonOffset: 12,
   // },
   {
-    titleMAL: 'Shachou, Battle no Jikan Desu',
-    titleNyaa: 'Shachou, Battle no Jikan desu!',
-  },
-  {
-    titleMAL: 'Shironeko Project Zero Chronicle',
-    titleNyaa: 'Shironeko Project - Zero Chronicle',
-  },
-  {
     titleMAL: 'Fruits Basket 2nd Season',
     titleNyaa: 'Fruits Basket S2 (2019)',
   },
   {
-    titleMAL: 'Kami no Tou',
-    titleNyaa: 'Tower of God',
+    titleMAL: 'Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan',
+    titleNyaa: 'Yahari Ore no Seishun Love Come wa Machigatteiru Kan',
   },
   {
-    titleMAL: 'Hachi-nan tte, Sore wa Nai deshou',
-    titleNyaa: 'Hachi-nan tte, Sore wa Nai deshou!',
+    titleMAL: 'Uzaki-chan wa Asobitai',
+    titleNyaa: 'Uzaki-chan wa Asobitai!',
   },
   {
-    titleMAL: 'Kaguya-sama wa Kokurasetai? Tensai-tachi no Renai Zunousen',
-    titleNyaa: 'Kaguya-sama wa Kokurasetai S2',
+    titleMAL: 'Koi to Producer EVOL×LOVE',
+    titleNyaa: 'Koi to Producer - Evol x Love',
   },
   {
-    titleMAL: 'Princess Connect ReDive',
-    titleNyaa: 'Princess Connect! Re Dive',
+    titleMAL: 'Maou Gakuin no Futekigousha Shijou Saikyou no Maou no Shiso, Tensei shite Shison-tachi no Gakkou e',
+    titleNyaa: 'Maou Gakuin no Futekigousha',
   },
   {
-    titleMAL: 'Otome Game no Hametsu Flag shika Nai Akuyaku Reijou ni Tensei shiteshimatta...',
-    titleNyaa: 'Hamefura',
-    subTeam: 'Erai-raws',
+    titleMAL: 'No Guns Life 2nd Season',
+    titleNyaa: 'No Guns Life',
+    seasonOffset: 12,
   },
   {
-    titleMAL: 'Tsugu Tsugumomo',
-    titleNyaa: 'Tsugumomo S2',
+    titleMAL: 'ReZero kara Hajimeru Isekai Seikatsu 2nd Season',
+    titleNyaa: 'Re Zero kara Hajimeru Isekai Seikatsu',
+    seasonOffset: 25,
   },
+  {
+    titleMAL: 'Sword Art Online Alicization - War of Underworld 2nd Season',
+    titleNyaa: 'Sword Art Online - Alicization - War of Underworld',
+    seasonOffset: 12,
+  },
+  {
+    titleMAL: 'Ninja Collection',
+    titleNyaa: 'Ninja Collection',
+  },
+  {
+    titleMAL: 'Fugou Keiji BalanceUnlimited',
+    titleNyaa: 'Fugou Keiji Balance - UNLIMITED',
+  },
+  
 ]
 
 module.exports = { diffMap: MALtoNyaaTitleDiffMap }

@@ -10,12 +10,12 @@ const
 const NyaaMirrors = [
   'nyaa.si',
   'nyaa.iss.one',
-  'nyaa.unblocker.cc',
-  'nyaa1.unblocked.lol',
-  'nyaa1.unblocked.to',
-  'nyaa1.unblocked.is',
-  'nyaa.unblockall.org',
-  'piyushroshan.appspot.com/nyaa.si'
+  // 'nyaa.unblocker.cc',
+  // 'nyaa1.unblocked.lol',
+  // 'nyaa1.unblocked.to',
+  // 'nyaa1.unblocked.is',
+  // 'nyaa.unblockall.org',
+  // 'piyushroshan.appspot.com/nyaa.si'
 ]
 
 

@@ -72,7 +72,7 @@
     "@types/fs-extra": "^5.0.4",
     "@types/puppeteer": "^1.12.3",
     "css-loader": "*",
-    "electron": "^4.x.x",
+    "electron": "^9.x.x",
     "electron-devtools-installer": "^2.2.4",
     "electron-packager": "^13.0.1",
     "file-loader": "*",

@@ -59,7 +59,7 @@
     "axios": "^0.18.0",
     "chokidar": "^2.1.1",
     "cron": "^1.6.0",
-    "fast-xml-parser": "^3.12.12",
+    "fast-xml-parser": "^4.2.4",
     "fs-extra": "^7.0.1",
     "mathjs": "^5.4.2",
     "puppeteer": "^1.14.0",
